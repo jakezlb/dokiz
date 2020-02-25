@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Dokiz{% endblock %}</title>
     {#<link rel="stylesheet" href="{{ asset('vendor/twbs/bootstrap/dist/css/bootstrap.css') }}">#}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style type="text/css">
 
         #mainNav {
@@ -49,38 +50,48 @@
                 background-color: transparent;
                 transition: background-color 0.3s ease-in-out;
             }
+
             #mainNav .navbar-brand {
                 padding: .5rem 0;
                 color: #FFF;
             }
+
             #mainNav .nav-link {
                 transition: none;
                 padding: 2rem 1.5rem;
                 color: #FFF;
             }
+
             #mainNav .nav-link:hover {
                 color: rgba(255, 255, 255, 0.75);
             }
+
             #mainNav .nav-link:active {
                 color: white;
             }
+
             #mainNav.navbar-shrink {
                 background-color: #fff;
             }
+
             #mainNav.navbar-shrink .navbar-brand {
                 color: #161616;
             }
+
             #mainNav.navbar-shrink .nav-link {
                 color: #161616;
                 padding: 1.5rem 1.5rem 1.25rem;
                 border-bottom: 0.25rem solid transparent;
             }
+
             #mainNav.navbar-shrink .nav-link:hover {
                 color: #64a19d;
             }
+
             #mainNav.navbar-shrink .nav-link:active {
                 color: #467370;
             }
+
             #mainNav.navbar-shrink .nav-link.active {
                 color: #64a19d;
                 outline: none;
@@ -128,11 +139,13 @@
                 height: 100vh;
                 padding: 0;
             }
+
             .masthead h1 {
                 font-size: 6.5rem;
                 line-height: 6.5rem;
                 letter-spacing: 0.8rem;
             }
+
             .masthead h2 {
                 max-width: 30rem;
                 font-size: 1.25rem;
@@ -199,6 +212,7 @@
             .projects-section .project-text {
                 padding: 5rem;
             }
+
             .projects-section .project-text hr {
                 border-color: #64a19d;
                 border-width: .25rem;
@@ -299,6 +313,11 @@
         footer {
             padding: 5rem 0;
         }
+
+
+        .section2 {
+            background-color: #343838;
+        }
     </style>
     {% block stylesheets %}{% endblock %}
 </head>
@@ -306,7 +325,9 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">DOKIZ</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars"></i>
         </button>
@@ -335,13 +356,16 @@
 <header class="masthead">
     <div class="container d-flex h-100 align-items-center">
         <div class="mx-auto text-center">
-            <img src="https://i.imgur.com/6ndxq1l.png" title="source: imgur.com" class="img-fluid" alt="" style="width:50%;">
+            <img src="https://i.imgur.com/6ndxq1l.png" title="source: imgur.com" class="img-fluid" alt=""
+                 style="width:50%;">
         </div>
     </div>
 </header>
 
-<div class="container">
-    {% block body %}{% endblock %}
+<div class="section2">
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
 </div>
 {% block javascripts %}{% endblock %}
 </body>
