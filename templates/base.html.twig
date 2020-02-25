@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Dokiz{% endblock %}</title>
     {#<link rel="stylesheet" href="{{ asset('vendor/twbs/bootstrap/dist/css/bootstrap.css') }}">#}
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style type="text/css">
@@ -285,7 +286,7 @@
         }
 
         body {
-            font-family: 'Nunito', serif;
+            font-family: 'Roboto', serif;
             letter-spacing: 0.0625em;
         }
 
@@ -317,6 +318,28 @@
 
         .section2 {
             background-color: #343838;
+        }
+
+        .section3 {
+            background-color: #F8F9FA;
+        }
+
+        .white {
+            color: #FFF;
+        }
+
+        .borderBlue {
+            border: 3px solid #00B4CC !important;
+        }
+
+        p {
+            font-size: 22px;
+        }
+
+        .hrVertical {
+            border-left: 3px solid #00B4CC;
+            margin: 0;
+            padding: 0;
         }
     </style>
     {% block stylesheets %}{% endblock %}
@@ -362,11 +385,9 @@
     </div>
 </header>
 
-<div class="section2">
-    <div class="container">
-        {% block body %}{% endblock %}
-    </div>
-</div>
+
+{% block body %}{% endblock %}
+
 {% block javascripts %}{% endblock %}
 </body>
 </html>
