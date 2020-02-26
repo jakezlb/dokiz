@@ -313,11 +313,6 @@ footer {
     background-color: #F8F9FA;
 }
 
-.section4 {
-    background-image: url("https://i.imgur.com/UunAw3n.png");
-    /*background-color: #000;*/
-}
-
 .white {
     color: #FFF;
 }
@@ -370,6 +365,10 @@ html  {
 
 
 #mainNav.scrolled {
-    background-color: #00B4CC !important;
+    background-color: #00B4CC;
     transition: background-color 200ms ease-out;
+}
+
+#section2.btnNavActive,#section3.btnNavActive,#section4.btnNavActive{
+    background-color:#666 !important;
 }
