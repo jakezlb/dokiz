@@ -56,6 +56,11 @@ class CarRide
      */
     private $km_number;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Reservation", inversedBy="carRides")
+     */
+    private $reservation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,4 +161,17 @@ class CarRide
 
         return $this;
     }
+
+    public function getReservation() : ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    private function setReservation(?Reservation $reservation): self
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
 }

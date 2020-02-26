@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,6 +23,16 @@ class Job
      */
     private $wording;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="job")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,5 +48,10 @@ class Job
         $this->wording = $wording;
 
         return $this;
+    }
+
+    public function getUsers(): Collection
+    {
+        return $this->users;
     }
 }
