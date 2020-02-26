@@ -48,9 +48,15 @@ class Reservation
      */
     private $carRides;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="app\Entity\User", inversedBy="reservations")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->carRides = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,5 +127,27 @@ class Reservation
     public function getCarRides(): Collection
     {
         return $this->carRides;
+    }
+
+    public function getUsers(): Collection
+    {
+        return  $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addReservation($this);
+        }
+        return $this;
+    }
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeReservation($this);
+        }
+        return $this;
     }
 }

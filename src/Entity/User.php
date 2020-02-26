@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -43,6 +45,15 @@ class User implements UserInterface
      */
     private $society;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Reservation", mappedBy="users")
+     */
+    private $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -143,6 +154,28 @@ class User implements UserInterface
     {
         $this->society = $society;
 
+        return $this;
+    }
+
+    public function getReservation(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->addUser($this);
+        }
+        return $this;
+    }
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->contains($reservation)) {
+            $this->reservations->removeElement($reservation);
+            $reservation->removeUser($this);
+        }
         return $this;
     }
 }
