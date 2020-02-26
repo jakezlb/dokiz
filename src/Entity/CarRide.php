@@ -173,4 +173,5 @@ class CarRide
 
         return $this;
     }
+
 }
