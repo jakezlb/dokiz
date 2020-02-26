@@ -6,15 +6,23 @@
     <title>{% block title %}Dokiz{% endblock %}</title>
     {#<link rel="stylesheet" href="{{ asset('vendor/twbs/bootstrap/dist/css/bootstrap.css') }}">#}
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ asset('js/site.js') }}"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/base.css') }}" media="screen" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/base.css') }}" media="screen"/>
+    <script src="https://kit.fontawesome.com/864d9d5719.js" crossorigin="anonymous"></script>
     {% block stylesheets %}{% endblock %}
 </head>
-<body>
+<body  data-spy="scroll" data-target="#navbar-example2" data-offset="0">
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">DOKIZ</a>
+        <a class="navbar-brand js-scroll-trigger" href="#dokiz">DOKIZ</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -22,20 +30,20 @@
             <i class="fas fa-bars"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">Qui sommes-nous ?</a>
+                    <a class="nav-link js-scroll-trigger btnNav active" href="#about">Qui sommes-nous ?</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#projects">Projet</a>
+                    <a class="nav-link js-scroll-trigger btnNav" href="#project">Projet</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#signup">Contact</a>
+                    <a class="nav-link js-scroll-trigger btnNav" href="#contact">Contact</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#about">Se connecter</a>
+                    <a class="nav-link js-scroll-trigger" href="#signup">Se connecter</a>
                 </li>
             </ul>
         </div>
@@ -43,7 +51,7 @@
 </nav>
 
 <!-- Header -->
-<header class="masthead">
+<header class="masthead" id="dokiz">
     <div class="container d-flex h-100 align-items-center">
         <div class="mx-auto text-center">
             <img src="https://i.imgur.com/6ndxq1l.png" title="source: imgur.com" class="img-fluid" alt=""
