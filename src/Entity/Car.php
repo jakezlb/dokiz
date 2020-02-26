@@ -46,6 +46,11 @@ class Car
         return $this->id;
     }
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="cars")
+     */
+    private $society;
+
     public function getImmatriculation(): ?string
     {
         return $this->immatriculation;
@@ -102,6 +107,18 @@ class Car
     public function setLevelFuel(int $level_fuel): self
     {
         $this->level_fuel = $level_fuel;
+
+        return $this;
+    }
+
+    public function getSociety() : ?Society
+    {
+        return $this->society;
+    }
+
+    private function setSociety(?Society $society): self
+    {
+        $this->society = $society;
 
         return $this;
     }

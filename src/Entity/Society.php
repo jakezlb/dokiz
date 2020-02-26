@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +46,22 @@ class Society
      * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $tel_interlocutor;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="society")
+     */
+    private $cars;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="society")
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->cars = new ArrayCollection();
+        $this->users = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,5 +138,15 @@ class Society
         $this->tel_interlocutor = $tel_interlocutor;
 
         return $this;
+    }
+
+    public function getCars(): ArrayCollection
+    {
+        return $this->cars;
+    }
+
+    public function getUsers(): ArrayCollection
+    {
+        return $this->users;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class Reservation
      * @ORM\Column(type="boolean")
      */
     private $is_confirmed;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CarRide", mappedBy="reservation")
+     */
+    private $carRides;
+
+    public function __construct()
+    {
+        $this->carRides = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,5 +116,10 @@ class Reservation
         $this->is_confirmed = $is_confirmed;
 
         return $this;
+    }
+
+    public function getCarRides(): Collection
+    {
+        return $this->carRides;
     }
 }

@@ -33,6 +33,17 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Job", inversedBy="users")
+     */
+    private $job;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="users")
+     */
+    private $society;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,5 +120,29 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getJob(): ?Job
+    {
+        return $this->job;
+    }
+
+    public function setJob(?Job $job): self
+    {
+        $this->job = $job;
+
+        return $this;
+    }
+
+    public function getSociety(): ?Society
+    {
+        return  $this->society;
+    }
+
+    public function setSociety(?Society $society): self
+    {
+        $this->society = $society;
+
+        return $this;
     }
 }
