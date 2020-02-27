@@ -36,6 +36,18 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string the last name
+     * @ORM\Column(type="string")
+     */
+    private $lastName;
+
+    /**
+     * @var string the first name
+     * @ORM\Column(type="string")
+     */
+    private $firstName;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Job", inversedBy="users")
      */
     private $job;
@@ -58,6 +70,34 @@ class User implements UserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+        return $this;
     }
 
     public function getEmail(): ?string
