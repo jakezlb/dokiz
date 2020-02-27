@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
@@ -19,6 +20,12 @@ class RegisterController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $form = $this->createFormBuilder()
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom'
+            ])
+            ->add('firstName', TextType::class,[
+                'label' => 'Prenom'
+            ])
             ->add('email')
             ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
@@ -42,6 +49,8 @@ class RegisterController extends AbstractController
 //            die();
 
             $user = new User();
+            $user->setLastName($data['lastName']);
+            $user->setFirstName($data['firstName']);
             $user->setEmail($data['email']);
             $user->setPassword(
                 $passwordEncoder->encodePassword($user, $data['password'])
