@@ -103,13 +103,10 @@
 }
 
 .masthead h1 {
-    font-family: 'Varela Round', serif;
-    font-size: 2.5rem;
-    line-height: 2.5rem;
-    letter-spacing: 0.8rem;
-    background: -webkit-linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.5));
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+    font-family: 'Roboto', serif;
+    font-size: 54px;
+    color: #fff;
+    margin-top: 4%;
 }
 
 .masthead h2 {
@@ -119,7 +116,7 @@
 
 @media (min-width: 768px) {
     .masthead h1 {
-        font-size: 4rem;
+        font-size: 36px;
         line-height: 4rem;
     }
 }
@@ -131,9 +128,8 @@
     }
 
     .masthead h1 {
-        font-size: 6.5rem;
+        font-size: 54px;
         line-height: 6.5rem;
-        letter-spacing: 0.8rem;
     }
 
     .masthead h2 {
@@ -145,28 +141,11 @@
 .btn {
     box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
     padding: 1.25rem 2rem;
-    font-family: 'Varela Round', serif;
+    font-family: 'Roboto', serif;
     font-size: 80%;
     text-transform: uppercase;
     letter-spacing: .15rem;
     border: 0;
-}
-
-.btn-primary {
-    background-color: #64a19d;
-}
-
-.btn-primary:hover {
-    background-color: #4f837f;
-}
-
-.btn-primary:focus {
-    background-color: #4f837f;
-    color: white;
-}
-
-.btn-primary:active {
-    background-color: #467370 !important;
 }
 
 .about-section {
@@ -223,7 +202,7 @@
     box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
     padding: 1.25rem 2rem;
     height: auto;
-    font-family: 'Varela Round', serif;
+    font-family: 'Roboto', serif;
     font-size: 80%;
     text-transform: uppercase;
     letter-spacing: 0.15rem;
@@ -241,7 +220,7 @@
 
 .contact-section .card h4 {
     font-size: 0.8rem;
-    font-family: 'Varela Round', serif;
+    font-family: 'Roboto', serif;
     text-transform: uppercase;
     letter-spacing: 0.15rem;
 }
@@ -275,17 +254,17 @@
 }
 
 body {
-    font-family: 'Roboto', serif;
+    font-family: 'Roboto', serif !important;
     letter-spacing: 0.0625em;
 }
 
 a {
-    color: #64a19d;
+    color: #fff;
 }
 
 a:focus, a:hover {
     text-decoration: none;
-    color: #3c6360;
+    color: #0055ff;
 }
 
 .bg-black {
@@ -314,7 +293,7 @@ footer {
 }
 
 .white {
-    color: #FFF;
+    color: #FFF !important;
 }
 
 .fontBlue {
