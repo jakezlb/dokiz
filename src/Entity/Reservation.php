@@ -49,7 +49,7 @@ class Reservation
     private $carRides;
 
     /**
-     * @ORM\ManyToMany(targetEntity="app\Entity\User", inversedBy="reservations")
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="reservations")
      */
     private $users;
 
