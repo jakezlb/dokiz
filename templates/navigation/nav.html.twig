@@ -21,9 +21,18 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="{{ path('app_login') }}">Se connecter</a>
-                </li>
+                {% if app.user %}
+                    <div class="nav-item">
+                        Vous êtes connecté en tant que {{ app.user.email }} <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </div>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path('app_login') }}">Se connecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{{ path('register') }}">Créer un compte</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
