@@ -44,9 +44,12 @@
             <ul class="navbar-nav ml-auto">
                 {% if app.user %}
                     {% set fullName = app.user.lastName ~ ' ' ~ app.user.firstName %}
-                    <div class="nav-item">
-                        Vous êtes connecté en tant que {{ fullName}} <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                    </div>
+                        <li class="nav-item white">
+                            Vous êtes connecté en tant que {{ fullName}}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{{ path('app_login') }}">Se connecter</a>
