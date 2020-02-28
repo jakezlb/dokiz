@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CarRide;
-use App\Form\CarRideType;
+use App\Form\Type\CarRideType;
 use App\Repository\CarRideRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

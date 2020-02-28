@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Type;
 
-use App\Entity\Car;
+use App\Entity\Society;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CarType extends AbstractType
+class SocietyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('immatriculation')
-            ->add('place_number')
-            ->add('fuel')
-            ->add('date_commissioning')
-            ->add('level_fuel')
-            ->add('society')
+            ->add('siret')
+            ->add('social_reason')
+            ->add('head_office')
+            ->add('postal_code')
+            ->add('email_interlocutor')
+            ->add('tel_interlocutor')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Car::class,
+            'data_class' => Society::class,
         ]);
     }
 }
