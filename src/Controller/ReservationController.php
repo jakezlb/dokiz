@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Reservation;
-use App\Form\ReservationType;
+use App\Form\Type\ReservationType;
 use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

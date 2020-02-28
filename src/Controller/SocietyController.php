@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Society;
-use App\Form\SocietyType;
+use App\Form\Type\SocietyType;
 use App\Repository\SocietyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

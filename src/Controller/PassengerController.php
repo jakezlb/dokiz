@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Passenger;
-use App\Form\PassengerType;
+use App\Form\Type\PassengerType;
 use App\Repository\PassengerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

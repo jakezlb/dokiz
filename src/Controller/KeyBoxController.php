@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\KeyBox;
-use App\Form\KeyBoxType;
+use App\Form\Type\KeyBoxType;
 use App\Repository\KeyBoxRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
