@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}KeyBox index{% endblock %}
+
+{% block body %}
+    <h1>KeyBox index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Adress_key_box</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for key_box in key_boxes %}
+            <tr>
+                <td>{{ key_box.id }}</td>
+                <td>{{ key_box.adressKeyBox }}</td>
+                <td>
+                    <a href="{{ path('key_box_show', {'id': key_box.id}) }}">show</a>
+                    <a href="{{ path('key_box_edit', {'id': key_box.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('key_box_new') }}">Create new</a>
+{% endblock %}

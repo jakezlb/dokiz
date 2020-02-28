@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New KeyBox{% endblock %}
+
+{% block body %}
+    <h1>Create new KeyBox</h1>
+
+    {{ include('key_box/_form.html.twig') }}
+
+    <a href="{{ path('key_box_index') }}">back to list</a>
+{% endblock %}
