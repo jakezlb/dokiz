@@ -2,12 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\Type\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
@@ -19,34 +16,12 @@ class RegisterController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $form = $this->createFormBuilder()
-            ->add('lastName', TextType::class, [
-                'label' => 'Nom'
-            ])
-            ->add('firstName', TextType::class,[
-                'label' => 'Prenom'
-            ])
-            ->add('email')
-            ->add('password', RepeatedType::class,[
-                'type' => PasswordType::class,
-                'required' => true,
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmer le mot de passe']
-            ])
-            ->add('Confirmer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-success float-right'
-                ]
-            ])
-            ->getForm();
+        $form = $this->createForm(UserType::class);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()) {
             $data = $form->getData();
-
-//            var_dump($data);
-//            die();
 
             $user = new User();
             $user->setLastName($data['lastName']);
