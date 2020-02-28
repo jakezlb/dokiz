@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +62,16 @@ class CarRide
      * @ORM\ManyToOne(targetEntity="App\Entity\Reservation", inversedBy="carRides")
      */
     private $reservation;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="CarRide", orphanRemoval=true)
+     */
+    private $passengers;
+
+    public function __construct()
+    {
+        $this->passengers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -170,6 +182,37 @@ class CarRide
     private function setReservation(?Reservation $reservation): self
     {
         $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Passenger[]
+     */
+    public function getPassengers(): Collection
+    {
+        return $this->passengers;
+    }
+
+    public function addPassenger(Passenger $passenger): self
+    {
+        if (!$this->passengers->contains($passenger)) {
+            $this->passengers[] = $passenger;
+            $passenger->setCarRide($this);
+        }
+
+        return $this;
+    }
+
+    public function removePassenger(Passenger $passenger): self
+    {
+        if ($this->passengers->contains($passenger)) {
+            $this->passengers->removeElement($passenger);
+            // set the owning side to null (unless already changed)
+            if ($passenger->getCarRide() === $this) {
+                $passenger->setCarRide(null);
+            }
+        }
 
         return $this;
     }

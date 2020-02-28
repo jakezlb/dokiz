@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Passenger index{% endblock %}
+
+{% block body %}
+    <h1>Passenger index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Is_driver</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for passenger in passengers %}
+            <tr>
+                <td>{{ passenger.id }}</td>
+                <td>{{ passenger.isDriver ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('passenger_show', {'id': passenger.id}) }}">show</a>
+                    <a href="{{ path('passenger_edit', {'id': passenger.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('passenger_new') }}">Create new</a>
+{% endblock %}
