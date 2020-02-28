@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Type;
 
-use App\Entity\Society;
+use App\Entity\Reservation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SocietyType extends AbstractType
+class ReservationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('siret')
-            ->add('social_reason')
-            ->add('head_office')
-            ->add('postal_code')
-            ->add('email_interlocutor')
-            ->add('tel_interlocutor')
+            ->add('date_reservation')
+            ->add('status_key')
+            ->add('state_premise_depature')
+            ->add('state_premise_arrival')
+            ->add('is_confirmed')
+            ->add('users')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Society::class,
+            'data_class' => Reservation::class,
         ]);
     }
 }

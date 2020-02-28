@@ -1,30 +1,25 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Type;
 
-use App\Entity\Reservation;
+use App\Entity\KeyBox;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ReservationType extends AbstractType
+class KeyBoxType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date_reservation')
-            ->add('status_key')
-            ->add('state_premise_depature')
-            ->add('state_premise_arrival')
-            ->add('is_confirmed')
-            ->add('users')
+            ->add('adress_key_box')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Reservation::class,
+            'data_class' => KeyBox::class,
         ]);
     }
 }
