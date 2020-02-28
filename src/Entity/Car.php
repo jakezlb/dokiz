@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,6 +51,11 @@ class Car
      * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="cars")
      */
     private $society;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\KeyCar", mappedBy="car")
+     */
+    private $keys;
 
     public function getImmatriculation(): ?string
     {
@@ -121,5 +127,10 @@ class Car
         $this->society = $society;
 
         return $this;
+    }
+
+    public function getKeys(): ArrayCollection
+    {
+        return $this->keys;
     }
 }
