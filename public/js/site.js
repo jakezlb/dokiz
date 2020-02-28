@@ -11,5 +11,10 @@ $(function () {
         section3.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 230) / 100 && $(this).scrollTop() < (navTriggerHeight2*280) / 100);
         section4.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 280) / 100);
     });
+
+    $('#username').hover(function() {
+        $('.item1').toggle();
+    });
+
 });
 
