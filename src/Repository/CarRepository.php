@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\CAR;
+use App\Entity\Car;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
