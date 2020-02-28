@@ -22,9 +22,13 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if app.user %}
-                    <div class="nav-item">
-                        Vous êtes connecté en tant que {{ app.user.email }} <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                    </div>
+                    <li class="nav-item">
+                        {% set fullname = app.user.lastname ~ ' ' ~ app.user.firstname %}
+                        <a class="nav-link" href="">{{ fullname }} </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="{{ path('app_login') }}">Se connecter</a>
