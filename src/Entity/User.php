@@ -50,9 +50,15 @@ class User implements UserInterface
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="User", orphanRemoval=true)
+     */
+    private $passengers;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->passengers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,6 +182,37 @@ class User implements UserInterface
             $this->reservations->removeElement($reservation);
             $reservation->removeUser($this);
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Passenger[]
+     */
+    public function getPassengers(): Collection
+    {
+        return $this->passengers;
+    }
+
+    public function addPassenger(Passenger $passenger): self
+    {
+        if (!$this->passengers->contains($passenger)) {
+            $this->passengers[] = $passenger;
+            $passenger->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePassenger(Passenger $passenger): self
+    {
+        if ($this->passengers->contains($passenger)) {
+            $this->passengers->removeElement($passenger);
+            // set the owning side to null (unless already changed)
+            if ($passenger->getUser() === $this) {
+                $passenger->setUser(null);
+            }
+        }
+
         return $this;
     }
 }

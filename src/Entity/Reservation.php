@@ -47,7 +47,7 @@ class Reservation
      * @ORM\OneToMany(targetEntity="App\Entity\CarRide", mappedBy="reservation")
      */
     private $carRides;
-
+    
     /**
      * @ORM\ManyToMany(targetEntity="app\Entity\User", inversedBy="reservations")
      */
