@@ -39,11 +39,6 @@ class CarRide
     private $date_end;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $id_status;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $adress_point_departure;
@@ -67,6 +62,12 @@ class CarRide
      * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="CarRide", orphanRemoval=true)
      */
     private $passengers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Status", inversedBy="CarRide")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $status;
 
     public function __construct()
     {
@@ -126,17 +127,6 @@ class CarRide
         return $this;
     }
 
-    public function getIdStatus(): ?string
-    {
-        return $this->id_status;
-    }
-
-    public function setIdStatus(?string $id_status): self
-    {
-        $this->id_status = $id_status;
-
-        return $this;
-    }
 
     public function getAdressPointDeparture(): ?string
     {
@@ -213,6 +203,18 @@ class CarRide
                 $passenger->setCarRide(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
