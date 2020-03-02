@@ -73,6 +73,10 @@ class User implements UserInterface
         $this->passengers = new ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->lastName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,7 +85,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getLastName(): string
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
@@ -95,7 +99,7 @@ class User implements UserInterface
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }

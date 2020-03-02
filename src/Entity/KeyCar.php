@@ -20,6 +20,11 @@ class KeyCar
      */
     private $car;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -33,6 +38,18 @@ class KeyCar
     public function setCar(?Car $car) : self
     {
         $this->car = $car;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
