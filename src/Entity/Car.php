@@ -116,7 +116,7 @@ class Car
         return $this->society;
     }
 
-    private function setSociety(?Society $society): self
+    public function setSociety(?Society $society): self
     {
         $this->society = $society;
 
