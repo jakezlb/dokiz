@@ -63,6 +63,10 @@ class Society
         $this->users = new ArrayCollection();
     }
 
+    public function __toString() {
+        return $this->social_reason;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

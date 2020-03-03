@@ -14,9 +14,11 @@ class CarType extends AbstractType
         $builder
             ->add('immatriculation')
             ->add('place_number')
+            ->add('name')
             ->add('fuel')
             ->add('date_commissioning')
             ->add('level_fuel')
+            ->add('mark')
             ->add('society')
         ;
     }

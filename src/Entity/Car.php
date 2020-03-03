@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,6 +30,11 @@ class Car
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
     private $fuel;
 
     /**
@@ -41,6 +47,10 @@ class Car
      */
     private $level_fuel;
 
+    public function __toString() {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -50,6 +60,16 @@ class Car
      * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="cars")
      */
     private $society;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\KeyCar", mappedBy="car")
+     */
+    private $keys;
+
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
+    private $mark;
 
     public function getImmatriculation(): ?string
     {
@@ -71,6 +91,18 @@ class Car
     public function setPlaceNumber(int $place_number): self
     {
         $this->place_number = $place_number;
+
+        return $this;
+    }
+    
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -116,9 +148,26 @@ class Car
         return $this->society;
     }
 
-    private function setSociety(?Society $society): self
+    public function setSociety(?Society $society): self
     {
         $this->society = $society;
+
+        return $this;
+    }
+
+    public function getKeys(): ArrayCollection
+    {
+        return $this->keys;
+    }
+
+    public function getMark(): ?string
+    {
+        return $this->mark;
+    }
+
+    public function setMark(string $mark): self
+    {
+        $this->mark = $mark;
 
         return $this;
     }

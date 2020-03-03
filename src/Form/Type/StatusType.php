@@ -2,24 +2,24 @@
 
 namespace App\Form\Type;
 
-use App\Entity\KeyBox;
+use App\Entity\Status;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class KeyBoxType extends AbstractType
+class StatusType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adress_key_box')
+            ->add('wording')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => KeyBox::class,
+            'data_class' => Status::class,
         ]);
     }
 }

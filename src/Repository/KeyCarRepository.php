@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\KeyBox;
+use App\Entity\KeyCar;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method KeyBox|null find($id, $lockMode = null, $lockVersion = null)
- * @method KeyBox|null findOneBy(array $criteria, array $orderBy = null)
- * @method KeyBox[]    findAll()
- * @method KeyBox[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method KeyCar|null find($id, $lockMode = null, $lockVersion = null)
+ * @method KeyCar|null findOneBy(array $criteria, array $orderBy = null)
+ * @method KeyCar[]    findAll()
+ * @method KeyCar[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class KeyBoxRepository extends ServiceEntityRepository
+class KeyCarRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, KeyBox::class);
+        parent::__construct($registry, KeyCar::class);
     }
 
     // /**
-    //  * @return KeyBox[] Returns an array of KeyBox objects
+    //  * @return KeyCar[] Returns an array of KeyCar objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class KeyBoxRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?KeyBox
+    public function findOneBySomeField($value): ?KeyCar
     {
         return $this->createQueryBuilder('k')
             ->andWhere('k.exampleField = :val')
