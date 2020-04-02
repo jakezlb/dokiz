@@ -24,22 +24,16 @@
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                         </div>
 
-                        <input type="email" id="inputEmail" name="email" value="{{ last_username }}" class="form-control"
-                               placeholder="Email" required="" autofocus="">
+                        <input type="email" id="inputEmail" name="email" value="{{ last_username }}" class="form-control" placeholder="Email" required="" autofocus="">
                     </div>
                     <br>
                     <div class="input-group input-group-lg">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
                         </div>
-                        <input type="password" id="inputPassword" name="password" class="form-control"
-                               placeholder="Mot de passe" required="">
-
+                        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mot de passe" required="">
                     </div>
-
-                    <input type="hidden" name="_csrf_token"
-                           value="{{ csrf_token('authenticate') }}"
-                    >
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <hr>
                     <div class="checkbox mb-3 white" style="font-size: 18px">
                         <label>
@@ -55,5 +49,4 @@
             </div>
         </div>
     </header>
-
 {% endblock %}

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -68,13 +69,11 @@ class User implements UserInterface
     private $passengers;
 
     /**
-     * @var string "Y-m-d H:i:s" formatted value
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @var string "Y-m-d H:i:s" formatted value
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -273,33 +272,33 @@ class User implements UserInterface
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
     /**
-     * @param string $createdAt
+     * @param mixed $createdAt
      */
-    public function setCreatedAt(string $createdAt): void
+    public function setCreatedAt($createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getUpdatedAt(): string
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param string $updatedAt
+     * @param mixed $updatedAt
      */
-    public function setUpdatedAt(string $updatedAt): void
+    public function setUpdatedAt($updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }

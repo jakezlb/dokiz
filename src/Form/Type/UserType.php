@@ -17,22 +17,43 @@ class UserType extends AbstractType
     {
         $builder
             ->add('lastName', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 'label' => 'Nom'
             ])
             ->add('firstName', TextType::class,[
-                'label' => 'Prenom'
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Prénom'
             ])
-            ->add('email')
+            ->add('email', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+            ])
             ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmer le mot de passe']
-            ])
-            ->add('Confirmer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-success float-right'
+                'first_options' => [
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                    'label' => 'Mot de passe'
+                ],
+                'second_options' => [
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                    'label' => 'Confirmer le mot de passe'
                 ]
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-lg btn-primary btn-block'
+                ],
+                'label' => 'Valider'
             ])
         ;
     }
