@@ -25,18 +25,17 @@ class ForgotPasswordController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
-            $email = $data->getEmail();
-            dump($email);
-            $message = (new Email())
-            ->from('support@dokiz.com')
-            ->to($email)
-                ->subject('Changement du mot de passe')
-                ->text('Pour réinitialiser votre mot de passe merci de cliquer sur le lien ci-dessous.')
-                ;
+            $email = (new Email())
+                ->from('dokiz')
+                ->to($user->getEmail())
+                ->subject('Bienvenue chez Dokiz !')
+                ->text("Bienvenue chez Dokiz {$user->getFirstName()}");
 
-            $mailer->send($message);
+            $mailer->send($email);
         }
 
         return $this->render('forgotPassword/forgotPassword.html.twig', [
