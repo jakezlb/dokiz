@@ -36,6 +36,8 @@ class ForgotPasswordController extends AbstractController
                 ->text("Bienvenue chez Dokiz {$user->getFirstName()}");
 
             $mailer->send($email);
+            
+            return $this->redirect($this->generateUrl('app_login'));
         }
 
         return $this->render('forgotPassword/forgotPassword.html.twig', [
