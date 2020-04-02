@@ -41,14 +41,9 @@
                            value="{{ csrf_token('authenticate') }}"
                     >
                     <hr>
-                    <div class="checkbox mb-3 white" style="font-size: 18px">
-                        <label>
-                            <input type="checkbox" value="remember-me" > Se souvenir de moi
-                        </label>
-                    </div>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
                     <br>
-                    <a href="">Mot de passe oublié ?</a>
+                    <a href="{{ path('forgotPassword') }}">Mot de passe oublié ?</a>
                     <br>
                     <a href="{{ path('register') }}">S'inscrire</a>
                 </form>
