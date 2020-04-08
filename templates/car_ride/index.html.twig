@@ -3,6 +3,10 @@
 {% block title %}CarRide index{% endblock %}
 
 {% block body %}
+<!-- Header -->
+<header class="masthead" id="dokiz">
+    <div class="container d-flex h-100 align-items-center">
+        {{ include("navigation/navCarRide.html.twig") }}
     <h1>CarRide index</h1>
 
     <table class="table">
@@ -44,6 +48,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    </div>
+</header>
     <a href="{{ path('car_ride_new') }}">Create new</a>
 {% endblock %}

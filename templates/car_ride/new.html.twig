@@ -3,9 +3,15 @@
 {% block title %}New CarRide{% endblock %}
 
 {% block body %}
+<!-- Header -->
+<header class="masthead" id="dokiz">
+    <div class="container d-flex h-100 align-items-center">
+        {{ include("navigation/navCarRide.html.twig") }}
     <h1>Create new CarRide</h1>
 
     {{ include('car_ride/_form.html.twig') }}
 
-    <a href="{{ path('car_ride_index') }}">back to list</a>
+        <a href="{{ path('car_ride_index') }}">back to list</a>
+    </div>
+</header>
 {% endblock %}
