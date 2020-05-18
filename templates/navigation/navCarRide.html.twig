@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#top" id="topSection">DOKIZ</a>
+        <a class="navbar-brand js-scroll-trigger" href="/" >DOKIZ</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -10,14 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger btnNav active" href="#about" id="section2">Qui sommes-nous
-                        ?</a>
+                    <a class="nav-link js-scroll-trigger btnNav active" href="" > Rechercher</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger btnNav" href="#project" id="section3">Projet</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger btnNav" href="#contact" id="section4">Contact</a>
+                    <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('reservation_index') }}" > Reservations</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -29,8 +25,8 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin-top: -30px">
                             <li><a class="dropdown-item" href="{{ path('user', {id: app.user.id}) }}">Profil</a></li>
-                            <li><a class="dropdown-item" href="{{ path('reservation_index') }}">Mes réservations</a></li>
                             <li><a class="dropdown-item" href="{{ path('car_ride_index') }}">Mes trajets</a></li>
+                            <li><a class="dropdown-item" href="{{ path('car_ride_new') }}">Nouveau trajet</a></li>
                             <hr>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                         </ul>
@@ -48,12 +44,3 @@
     </div>
 </nav>
 
-<!-- Header -->
-<header class="masthead" id="dokiz">
-    <div class="container d-flex h-100 align-items-center">
-        <div class="mx-auto text-center">
-            <img src="{{ asset('image/Blanc.png') }}" title="source: imgur.com" class="img-fluid" alt=""
-                 style="width:60%;">
-        </div>
-    </div>
-</header>

@@ -3,6 +3,10 @@
 {% block title %}CarRide{% endblock %}
 
 {% block body %}
+<!-- Header -->
+<header class="masthead" id="dokiz">
+    <div class="container d-flex h-100 align-items-center">
+        {{ include("navigation/navCarRide.html.twig") }}
     <h1>CarRide</h1>
 
     <table class="table">
@@ -45,7 +49,8 @@
             </tr>
         </tbody>
     </table>
-
+    </div>
+</header>
     <a href="{{ path('car_ride_index') }}">back to list</a>
 
     <a href="{{ path('car_ride_edit', {'id': car_ride.id}) }}">edit</a>

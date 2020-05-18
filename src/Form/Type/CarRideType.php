@@ -19,7 +19,6 @@ class CarRideType extends AbstractType
             ->add('adress_point_departure')
             ->add('adress_point_arrival')
             ->add('km_number')
-            ->add('reservation')
             ->add('status')
         ;
     }
