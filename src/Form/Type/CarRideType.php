@@ -2,7 +2,7 @@
 
 namespace App\Form\Type;
 
-use App\Entity\CarRide;
+use App\Entity\CarRide; 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
