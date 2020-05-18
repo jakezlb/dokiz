@@ -25,15 +25,11 @@ class ForgotPasswordController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
             $email = (new Email())
                 ->from('dokiz')
-                ->to($user->getEmail())
+                ->to('steven.scouarnec@hotmail.com')
                 ->subject('Bienvenue chez Dokiz !')
-                ->text("Bienvenue chez Dokiz {$user->getFirstName()}");
+                ->text("Bienvenue chez Dokiz");
 
             $mailer->send($email);
             
