@@ -19,16 +19,6 @@ class CarRide
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $departure;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $arrival;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $date_start;
@@ -41,7 +31,27 @@ class CarRide
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $postal_code_point_departure;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city_point_departure;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $adress_point_departure;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $postal_code_point_arrival;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city_point_arrival;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -77,30 +87,6 @@ class CarRide
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDeparture(): ?string
-    {
-        return $this->departure;
-    }
-
-    public function setDeparture(string $departure): self
-    {
-        $this->departure = $departure;
-
-        return $this;
-    }
-
-    public function getArrival(): ?string
-    {
-        return $this->arrival;
-    }
-
-    public function setArrival(string $arrival): self
-    {
-        $this->arrival = $arrival;
-
-        return $this;
     }
 
     public function getDateStart(): ?\DateTimeInterface
@@ -219,4 +205,67 @@ class CarRide
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPostalCodePointDeparture()
+    {
+        return $this->postal_code_point_departure;
+    }
+
+    /**
+     * @param mixed $postal_code_point_departure
+     */
+    public function setPostalCodePointDeparture($postal_code_point_departure): void
+    {
+        $this->postal_code_point_departure = $postal_code_point_departure;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCityPointDeparture()
+    {
+        return $this->city_point_departure;
+    }
+
+    /**
+     * @param mixed $city_point_departure
+     */
+    public function setCityPointDeparture($city_point_departure): void
+    {
+        $this->city_point_departure = $city_point_departure;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPostalCodePointArrival()
+    {
+        return $this->postal_code_point_arrival;
+    }
+
+    /**
+     * @param mixed $postal_code_point_arrival
+     */
+    public function setPostalCodePointArrival($postal_code_point_arrival): void
+    {
+        $this->postal_code_point_arrival = $postal_code_point_arrival;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCityPointArrival()
+    {
+        return $this->city_point_arrival;
+    }
+
+    /**
+     * @param mixed $city_point_arrival
+     */
+    public function setCityPointArrival($city_point_arrival): void
+    {
+        $this->city_point_arrival = $city_point_arrival;
+    }
 }
