@@ -1,15 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Reservation{% endblock %}
+{% block title %}Nouvelle réservation{% endblock %}
 
 {% block body %}
 <header class="masthead" id="dokiz">
     <div class="container d-flex h-100 align-items-center">
     {{ include("navigation/navReservation.html.twig") }}
+        <h1>Créer un nouvelle réservation</h1>
 
     {{ include('reservation/_form.html.twig') }}
 
-    <a href="{{ path('reservation_index') }}">back to list</a>
+    <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
     </div>
 </header>
 {% endblock %}

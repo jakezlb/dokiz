@@ -1,45 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reservation index{% endblock %}
+{% block title %}Mes réservations{% endblock %}
 
 {% block body %}
     <!-- Header -->
     <header class="masthead" id="dokiz">
         <div class="container d-flex h-100 align-items-center">
             {{ include("navigation/navReservation.html.twig") }}
-            <h1>Reservation index</h1>
+            <h1>Réservations</h1>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Date_reservation</th>
-                    <th>Status_key</th>
-                    <th>State_premise_depature</th>
-                    <th>State_premise_arrival</th>
-                    <th>Is_confirmed</th>
-                    <th>actions</th>
+                    <th>Identifiant</th>
+                    <th>Date de réservation</th>
+                    <th>Statut</th>
+                    <th>Date de départ</th>
+                    <th>Date d'arrivée</th>
+                    <th>Confirmé</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for reservation in reservations %}
-                    <tr>
-                        <td>{{ reservation.id }}</td>
-                        <td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ reservation.statusKey }}</td>
-                        <td>{{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('Y-m-d H:i:s') : '' }}</td>
-                        <td>{{ reservation.isConfirmed ? 'Yes' : 'No' }}</td>
-                        <td>
-                            <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>
-                            <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
-                        </td>
-                    </tr>
+                {% if reservations %}
+                    {% for reservation in reservations %}
+                        <tr>
+                            <td>{{ reservation.id }}</td>
+                            <td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ reservation.statusKey }}</td>
+                            <td>{{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ reservation.isConfirmed ? 'Yes' : 'No' }}</td>
+                            <td>
+                                <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>
+                                <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="7">no records found</td>
+                        <td colspan="10">Il n'y a pas de réservations.</td>
                     </tr>
-                {% endfor %}
+                {% endif %}
                 </tbody>
             </table>
         </div>
