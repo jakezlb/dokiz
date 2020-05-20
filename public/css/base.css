@@ -392,3 +392,36 @@ html  {
     padding-left: 2rem;
     padding-right: 2rem;
 }
+
+#adminHeader {
+    background-image: linear-gradient(to top, #2adff3, #00c7ff, #00aaff, #0087ff, #4457ff);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    color: white;
+    padding: 15px;
+}
+#adminNav { 
+    background-color: #36393f;     
+}
+#adminNav .logo {
+    width:100px;
+}
+#adminNav > a {
+    color: white!important;
+} 
+
+.navbar-nav .dropdown-menu {
+  background-color:rgba(141, 140, 140, 0.67);
+  
+}
+#adminNav .dropdown-item:focus, .dropdown-item:hover {
+    background-color: initial;   
+    opacity: 0.60;
+    color: white;
+}
+#adminHeader .sousNav {
+    margin-left: 15px;
+}
+
