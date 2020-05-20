@@ -34,8 +34,8 @@
                 <td>{{ car_ride.dateStart ? car_ride.dateStart|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ car_ride.idStatus }}</td>
-                <td>{{ car_ride.adressPointDeparture }}</td>
-                <td>{{ car_ride.adressPointArrival }}</td>
+                <td>{{ car_ride.adressPointDeparture }} {{ car_ride.postalCodePointDeparture }} {{ car_ride.cityPointDeparture }}</td>
+                <td>{{ car_ride.adressPointArrival }} {{ car_ride.postalCodePointArrival }} {{ car_ride.cityPointArrival }}</td>
                 <td>{{ car_ride.kmNumber }}</td>
                 <td>
                     <a href="{{ path('car_ride_show', {'id': car_ride.id}) }}">show</a>
