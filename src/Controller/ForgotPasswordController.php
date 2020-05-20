@@ -26,11 +26,10 @@ class ForgotPasswordController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $mail = $data->getEmail();
             $mailer = $this->get('mailer');
             $message = $mailer -> createMessage()
                 ->setFrom('dokiz@gmail.com')
-                ->setTo($mail)
+                ->setTo($data->getEmail())
                 ->setSubject('Bienvenue chez Dokiz !');
 
             $mailer->send($message);
