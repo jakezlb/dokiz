@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\Type\UserType;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -14,9 +15,9 @@ use App\Entity\User;
 class ForgotPasswordController extends AbstractController
 {
     /**
-     * @Route("/forgotPassword", name="forgotPassword")
+     * @Route("/forgotPassword", name="forgotPassword", methods={"GET","POST"})
      */
-    public function forgotPassword(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailerInterface $mailer)
+    public function forgotPassword(Request $request) :Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -24,14 +25,15 @@ class ForgotPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $mail = $data->getEmail();
+            $mailer = $this->get('mailer');
+            $message = $mailer -> createMessage()
+                ->setFrom('dokiz@gmail.com')
+                ->setTo($mail)
+                ->setSubject('Bienvenue chez Dokiz !');
 
-            $email = (new Email())
-                ->from('dokiz')
-                ->to('steven.scouarnec@hotmail.com')
-                ->subject('Bienvenue chez Dokiz !')
-                ->text("Bienvenue chez Dokiz");
-
-            $mailer->send($email);
+            $mailer->send($message);
             
             return $this->redirect($this->generateUrl('app_login'));
         }
