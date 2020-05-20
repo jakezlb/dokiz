@@ -1,30 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CarRide index{% endblock %}
+{% block title %}Mes trajets{% endblock %}
 
 {% block body %}
 <!-- Header -->
 <header class="masthead" id="dokiz">
     <div class="container d-flex h-100 align-items-center">
         {{ include("navigation/navCarRide.html.twig") }}
-    <h1>CarRide index</h1>
+    <h1>Trajets</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Date_start</th>
-                <th>Date_end</th>
-                <th>Id_status</th>
-                <th>Adress_point_departure</th>
-                <th>Adress_point_arrival</th>
-                <th>Km_number</th>
-                <th>actions</th>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Date de début</th>
+                <th>Date d'arrivée</th>
+                <th>Statut</th>
+                <th>Adresse du point de départ</th>
+                <th>Adresse du point d'arrivée</th>
+                <th>Nombre de KM</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
+        {% if car_rides %}
         {% for car_ride in car_rides %}
             <tr>
                 <td>{{ car_ride.id }}</td>
@@ -41,11 +42,12 @@
                     <a href="{{ path('car_ride_edit', {'id': car_ride.id}) }}">edit</a>
                 </td>
             </tr>
+        {% endfor %}
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="10">Il n'y a pas de trajets.</td>
             </tr>
-        {% endfor %}
+        {% endif %}
         </tbody>
     </table>
     </div>
