@@ -11,6 +11,7 @@
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Email</th>
+                <th>Rôles</th>
                 <th>Poste de travail</th>
                 <th>Société</th>
             </tr>
@@ -22,10 +23,21 @@
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.email }}</td>
+                <td>                    
+                    {% for role in user.roles %}
+                        {% if role == "ROLE_USER" %}
+                            Utilisateur
+                        {% elseif role == "ROLE_EDITOR" %}
+                            Editeur
+                        {% elseif role == "ROLE_ADMIN" %}
+                            Administrateur
+                        {% endif %}
+                    {% endfor %}
+                </td>
                 <td>{{ user.user.wording }}</td>
                 <td>{{ user.society.social_reason }}</td>
                 <td>
-                    <a href="{{ path('user_index', {'id': user.id}) }}">Voir</a>
+                    <td><a href="{{ path('admin_user_edit', {'id': user.id}) }}">Modifier</a></td>
                     <a href="{{ path('user_delete', {'id': user.id}) }}">Supprimer</a>
                 </td>
             </tr>
