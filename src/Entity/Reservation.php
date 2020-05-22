@@ -53,6 +53,11 @@ class Reservation
      */
     private $users;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="reservation")
+     */
+    private $cars;
+
     public function __construct()
     {
         $this->carRides = new ArrayCollection();
@@ -133,6 +138,22 @@ class Reservation
     {
         return  $this->users;
     }
+    /**
+     * @return mixed
+     */
+    public function getCars()
+    {
+        return $this->cars;
+    }
+
+    /**
+     * @param mixed $cars
+     */
+    public function setCars($cars): void
+    {
+        $this->cars = $cars;
+    }
+
 
     public function addUser(User $user): self
     {

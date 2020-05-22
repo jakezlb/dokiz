@@ -23,6 +23,10 @@ class Car
     private $immatriculation;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $carUrl;
+    /**
      * @ORM\Column(type="integer")
      */
     private $place_number;
@@ -65,6 +69,11 @@ class Car
      * @ORM\OneToMany(targetEntity="App\Entity\KeyCar", mappedBy="car")
      */
     private $keys;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="cars")
+     */
+    private $reservation;
 
     /**
      * @ORM\Column(type="string", length=200)
@@ -171,4 +180,21 @@ class Car
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getReservation()
+    {
+        return $this->reservation;
+    }
+
+    /**
+     * @param mixed $reservation
+     */
+    public function setReservation($reservation): void
+    {
+        $this->reservation = $reservation;
+    }
+
 }
