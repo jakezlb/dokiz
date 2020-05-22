@@ -3,11 +3,14 @@
 namespace App\Form\Type;
 
 use App\Entity\CarRide; 
+use App\Entity\Status;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CarRideType extends AbstractType
 {
@@ -68,6 +71,14 @@ class CarRideType extends AbstractType
                 ],
                 'label' => "Nombre de km"
             ])
+            ->add('status', EntityType::class, [
+                'class' => Status::class,
+                'attr' => [
+                    'class' => 'form-control'                   
+                ],                               
+                'label' => 'Statut du trajet'
+            ])
+                        
         ;
     }
 

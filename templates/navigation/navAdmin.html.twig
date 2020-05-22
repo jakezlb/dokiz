@@ -19,8 +19,10 @@
           Float de véhicules
         </a>
         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2" style="margin-top: -5px">
-          <li><a class="dropdown-item" href="{{path('car_index') }}">Liste des véhicules</a></li>
-          <li><a class="dropdown-item" href="{{path('car_new') }}">Ajouter un véhicule</a>   </li>
+          <li><a class="dropdown-item" href="{{path('admin_car_index') }}">Liste des véhicules</a></li>
+          <li><a class="dropdown-item" href="{{path('admin_car_new') }}">Ajouter un véhicule</a></li>
+           <li><a class="dropdown-item" href="{{path('admin_key_car_index') }}">Liste des clés</a></li>
+          <li><a class="dropdown-item" href="{{path('admin_key_car_new') }}">Ajouter une clé</a></li>
         </ul>
       </li>
       <li class="nav-item dropdown">
@@ -38,11 +40,11 @@
           Eléments
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink4" style="margin-top: -5px">
-          <li><a class="dropdown-item" href="{{path('job_index') }}">Liste des postes</a> </li>
-          <li> <a class="dropdown-item" href="{{path('job_new') }}">Ajouter un poste</a> </li>
+          <li><a class="dropdown-item" href="{{path('admin_job_index') }}">Liste des postes</a> </li>
+          <li> <a class="dropdown-item" href="{{path('admin_job_new') }}">Ajouter un poste</a> </li>
           <li><div class="dropdown-divider"></div> </li>
-          <li><a class="dropdown-item" href="{{path('society_index') }}">Liste des entreprises</a> </li>
-          <li> <a class="dropdown-item" href="{{path('society_new') }}">Ajouter une entreprises</a>  </li>
+          <li><a class="dropdown-item" href="{{path('admin_society_index') }}">Liste des entreprises</a> </li>
+          <li> <a class="dropdown-item" href="{{path('admin_society_new') }}">Ajouter une entreprises</a>  </li>
         </ul>
       </li>
       <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>

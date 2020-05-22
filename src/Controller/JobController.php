@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/job")
+ * @Route("/admin/job", name="admin_")
  */
 class JobController extends AbstractController
 {
@@ -20,7 +20,7 @@ class JobController extends AbstractController
      */
     public function index(JobRepository $jobRepository): Response
     {
-        return $this->render('job/index.html.twig', [
+        return $this->render('admin/job/index.html.twig', [
             'jobs' => $jobRepository->findAll(),
         ]);
     }
@@ -39,10 +39,10 @@ class JobController extends AbstractController
             $entityManager->persist($job);
             $entityManager->flush();
 
-            return $this->redirectToRoute('job_index');
+            return $this->redirectToRoute('admin_job_index');
         }
 
-        return $this->render('job/new.html.twig', [
+        return $this->render('admin/job/new.html.twig', [
             'job' => $job,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class JobController extends AbstractController
      */
     public function show(Job $job): Response
     {
-        return $this->render('job/show.html.twig', [
+        return $this->render('admin/job/show.html.twig', [
             'job' => $job,
         ]);
     }
@@ -72,7 +72,7 @@ class JobController extends AbstractController
             return $this->redirectToRoute('job_index');
         }
 
-        return $this->render('job/edit.html.twig', [
+        return $this->render('admin/job/edit.html.twig', [
             'job' => $job,
             'form' => $form->createView(),
         ]);
@@ -89,6 +89,6 @@ class JobController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('job_index');
+        return $this->redirectToRoute('admin_job_index');
     }
 }

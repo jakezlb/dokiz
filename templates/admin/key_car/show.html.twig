@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}KeyCar{% endblock %}
+
+{% block body %}
+    <h1>KeyCar</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ key_car.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ key_car.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_key_car_index') }}">back to list</a>
+
+    <a href="{{ path('admin_key_car_edit', {'id': key_car.id}) }}">edit</a>
+
+    {{ include('admin/key_car/_delete_form.html.twig') }}
+{% endblock %}

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/status")
+ * @Route("/admin/status", name="admin_")
  */
 class StatusController extends AbstractController
 {
@@ -20,7 +20,7 @@ class StatusController extends AbstractController
      */
     public function index(StatusRepository $statusRepository): Response
     {
-        return $this->render('status/index.html.twig', [
+        return $this->render('admin/status/index.html.twig', [
             'statuses' => $statusRepository->findAll(),
         ]);
     }
@@ -39,10 +39,10 @@ class StatusController extends AbstractController
             $entityManager->persist($status);
             $entityManager->flush();
 
-            return $this->redirectToRoute('status_index');
+            return $this->redirectToRoute('admin_status_index');
         }
 
-        return $this->render('status/new.html.twig', [
+        return $this->render('admin/status/new.html.twig', [
             'status' => $status,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class StatusController extends AbstractController
      */
     public function show(Status $status): Response
     {
-        return $this->render('status/show.html.twig', [
+        return $this->render('admin/status/show.html.twig', [
             'status' => $status,
         ]);
     }
@@ -69,10 +69,10 @@ class StatusController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('status_index');
+            return $this->redirectToRoute('admin_status_index');
         }
 
-        return $this->render('status/edit.html.twig', [
+        return $this->render('admin/status/edit.html.twig', [
             'status' => $status,
             'form' => $form->createView(),
         ]);
@@ -89,6 +89,6 @@ class StatusController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('status_index');
+        return $this->redirectToRoute('admin_status_index');
     }
 }

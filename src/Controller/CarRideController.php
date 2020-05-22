@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\CarRide;
+use App\Entity\Passenger;
+
 use App\Form\Type\CarRideType;
 use App\Repository\CarRideRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,12 +33,25 @@ class CarRideController extends AbstractController
     public function new(Request $request): Response
     {
         $carRide = new CarRide();
+        $user = $this->getUser();        
         $form = $this->createForm(CarRideType::class, $carRide);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($carRide);
+            $entityManager->persist($carRide);            
+            
+            $idLastRideSave = $carRide->getId();
+
+            $passenger = new Passenger(1,$user,$idLastRideSave);
+            $passenger->setCarRide($idLastRideSave);
+            $passenger->setUser($user);
+            $passenger->setIsDriver(1);
+
+            var_dump($passenger);
+          
+            $entityManager->persist($passenger);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('car_ride_index');

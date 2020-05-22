@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Status{% endblock %}
+
+{% block body %}
+    <h1>Create new Status</h1>
+
+    {{ include('admin/status/_form.html.twig') }}
+
+    <a href="{{ path('admin_status_index') }}">back to list</a>
+{% endblock %}

@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/car")
+ * @Route("/admin/car", name="admin_")
  */
 class CarController extends AbstractController
 {
@@ -20,7 +20,7 @@ class CarController extends AbstractController
      */
     public function index(CarRepository $carRepository): Response
     {
-        return $this->render('car/index.html.twig', [
+        return $this->render('admin/car/index.html.twig', [
             'cars' => $carRepository->findAll(),
         ]);
     }
@@ -39,10 +39,10 @@ class CarController extends AbstractController
             $entityManager->persist($car);
             $entityManager->flush();
 
-            return $this->redirectToRoute('car_index');
+            return $this->redirectToRoute('admin_car_index');
         }
 
-        return $this->render('car/new.html.twig', [
+        return $this->render('admin/car/new.html.twig', [
             'car' => $car,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class CarController extends AbstractController
      */
     public function show(Car $car): Response
     {
-        return $this->render('car/show.html.twig', [
+        return $this->render('admin/car/show.html.twig', [
             'car' => $car,
         ]);
     }
@@ -69,10 +69,10 @@ class CarController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('car_index');
+            return $this->redirectToRoute('admin_car_index');
         }
 
-        return $this->render('car/edit.html.twig', [
+        return $this->render('admin/car/edit.html.twig', [
             'car' => $car,
             'form' => $form->createView(),
         ]);
@@ -89,6 +89,6 @@ class CarController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('car_index');
+        return $this->redirectToRoute('admin_car_index');
     }
 }

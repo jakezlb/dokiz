@@ -15,6 +15,7 @@ class CarType extends AbstractType
             ->add('immatriculation')
             ->add('place_number')
             ->add('name')
+            ->add('keys')
             ->add('fuel')
             ->add('date_commissioning')
             ->add('level_fuel')
