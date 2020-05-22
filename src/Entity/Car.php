@@ -18,20 +18,25 @@ class Car
     private $id;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=7)
      */
     private $immatriculation;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $carUrl;
+
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="integer")
      */
     private $place_number;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $name;
@@ -47,6 +52,7 @@ class Car
     private $date_commissioning;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="integer")
      */
     private $level_fuel;
@@ -197,4 +203,19 @@ class Car
         $this->reservation = $reservation;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCarUrl()
+    {
+        return $this->carUrl;
+    }
+
+    /**
+     * @param mixed $carUrl
+     */
+    public function setCarUrl($carUrl): void
+    {
+        $this->carUrl = $carUrl;
+    }
 }
