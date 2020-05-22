@@ -35,7 +35,7 @@ class RoleType extends AbstractType
             'multiple' => true,
             'label' => 'Rôles' 
         ])
-        >add('save', SubmitType::class, [
+        ->add('save', SubmitType::class, [
             'attr' => [
                 'class' => 'btn btn-lg btn-primary btn-block'
             ],
@@ -46,7 +46,7 @@ class RoleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Users::class,
+            'data_class' => User::class,
         ]);
     }
 }

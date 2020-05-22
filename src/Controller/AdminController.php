@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/", name="accueil")
+     * @Route("/", name="dashbord")
      */
     public function index()
     {
@@ -27,17 +27,17 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs", name="utilisateurs", methods={"GET"})
+     * @Route("/utilisateurs", name="user_show", methods={"GET"})
      */
     public function usersList(UserRepository $users): Response
     {
-        return $this->render('admin/show.html.twig', [
+        return $this->render('admin/user/show.html.twig', [
             'users' => $users->findAll(),
         ]);
     }
 
     /**
-     * @Route("/utilisateurs/modifier/{id}", name="modifier_utilisateur")
+     * @Route("/utilisateurs/modifier/{id}", name="user_edit")
      */
     public function editUser(User $user, Request $request)
     {
@@ -50,7 +50,7 @@ class AdminController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('message', 'Utilisateur modifié avec succès');
-            return $this->redirectToRoute('admin_utilisateurs');
+            return $this->redirectToRoute('admin_user_show');
         }
         
         return $this->render('admin/user/edit.html.twig', [
