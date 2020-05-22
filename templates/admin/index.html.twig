@@ -1,16 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ include("navigation/navAdmin.html.twig") }}
-<!-- Header -->
-<header id="adminHeader">
-    <div class="mx-auto text-left">
-        <span class="sousNav">Bienvenue {{ app.user.firstname }}</span>   
-    </div>   
-</header>
-<main id="adminMain">
-    <div class="container">        
-       
-    </div>
-</main>
+    {% if app.user %}
+        {{ include("admin/dashbord.html.twig") }}
+    {% else %}
+       <p>ixixi</p>
+    {% endif %}
 {% endblock %}
