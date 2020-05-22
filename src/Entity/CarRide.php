@@ -19,41 +19,49 @@ class CarRide
     private $id;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="datetime")
      */
     private $date_start;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="datetime")
      */
     private $date_end;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $postal_code_point_departure;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $city_point_departure;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $adress_point_departure;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $postal_code_point_arrival;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $city_point_arrival;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
     private $adress_point_arrival;

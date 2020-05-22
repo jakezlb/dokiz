@@ -4,6 +4,11 @@
 
 {% block javascripts %}
     <script>
+        let lon1 = 0;
+        let lat1 = 0;
+        let lon2 = 0;
+        let lat2 = 0;
+
         function initMap() {
             var mymap = L.map('mapid').setView([47.2305, -1.33], 10);
 
@@ -15,7 +20,18 @@
                 zoomOffset: -1,
                 accessToken: 'pk.eyJ1IjoiZ2VvZmZyYXkiLCJhIjoiY2thZTBrMDVtMDl0ZzJ5bnZxZjk3eXNoYiJ9.2cdRl4dFI2m39Yv8mdhfNA'
             }).addTo(mymap);
-            var marker = L.marker([47.1, 1.33]).addTo(mymap);
+
+            return mymap;
+        }
+
+        function addPoint(lon1, lat1, lon2, lat2) {
+            mymap = initMap();
+            if (lon1 !== 0 && lat1 !== 0) {
+                var marker1 = L.marker([lat1, lon1]).addTo(mymap);
+                if (lon2 !== 0 && lat2 !== 0) {
+                    var marker2 = L.marker([lat2, lon2]).addTo(mymap);
+                }
+            }
         }
 
         $("#car_ride_postal_code_point_departure").autocomplete({
@@ -52,7 +68,11 @@
                     dataType: "json",
                     success: function (data) {
                         response($.map(data.features, function (item) {
-                            return { label: item.properties.name, value: item.properties.name};
+                            addPoint(item.geometry.coordinates[0], item.geometry.coordinates[1], 0, 0);
+                            return {
+                                label: item.properties.name,
+                                value: item.properties.name,
+                            };
                         }));
                     }
                 });
@@ -126,8 +146,6 @@
                 $('#mapid').css('display', 'none');
             }
         });
-
-        initMap();
     </script>
 {% endblock %}
 
@@ -137,13 +155,13 @@
     <div class="container d-flex h-100 align-items-center">
         {{ include("navigation/navCarRide.html.twig") }}
         <div class="container">
-            <div class="row">
+            <div class="row" style="margin-top: 10em;">
                 <div class="col-12">
                     <h1>Créer un nouveau trajet</h1>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12" style="height: 100px;width: 100px; display: none;" id="mapid"></div>
+                <div class="col-12" style="height: 15em; display: none;" id="mapid"></div>
             </div>
             <div class="row">
                 <div class="col-12">
