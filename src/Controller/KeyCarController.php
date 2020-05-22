@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/key_car")
+ * @Route("/admin/key_car" , name="admin_")
  */
 class KeyCarController extends AbstractController
 {
@@ -20,7 +20,7 @@ class KeyCarController extends AbstractController
      */
     public function index(KeyCarRepository $keyCarRepository): Response
     {
-        return $this->render('key_car/index.html.twig', [
+        return $this->render('admin/key_car/index.html.twig', [
             'key_cars' => $keyCarRepository->findAll(),
         ]);
     }
@@ -39,10 +39,10 @@ class KeyCarController extends AbstractController
             $entityManager->persist($keyCar);
             $entityManager->flush();
 
-            return $this->redirectToRoute('key_car_index');
+            return $this->redirectToRoute('admin_key_car_index');
         }
 
-        return $this->render('key_car/new.html.twig', [
+        return $this->render('admin/key_car/new.html.twig', [
             'key_car' => $keyCar,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class KeyCarController extends AbstractController
      */
     public function show(KeyCar $keyCar): Response
     {
-        return $this->render('key_car/show.html.twig', [
+        return $this->render('admin/key_car/show.html.twig', [
             'key_car' => $keyCar,
         ]);
     }
@@ -69,10 +69,10 @@ class KeyCarController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('key_car_index');
+            return $this->redirectToRoute('admin_key_car_index');
         }
 
-        return $this->render('key_car/edit.html.twig', [
+        return $this->render('admin/key_car/edit.html.twig', [
             'key_car' => $keyCar,
             'form' => $form->createView(),
         ]);
@@ -89,6 +89,6 @@ class KeyCarController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('key_car_index');
+        return $this->redirectToRoute('admin_key_car_index');
     }
 }

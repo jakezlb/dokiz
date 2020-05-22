@@ -16,35 +16,35 @@
                 <td>{{ car_ride.id }}</td>
             </tr>
             <tr>
-                <th>Départ</th>
-                <td>{{ car_ride.cityPointDeparture }}</td>
+                <th>Departure</th>
+                <td>{{ car_ride.departure }}</td>
             </tr>
             <tr>
-                <th>Arrivée</th>
-                <td>{{ car_ride.cityPointArrival }}</td>
+                <th>Arrival</th>
+                <td>{{ car_ride.arrival }}</td>
             </tr>
             <tr>
-                <th>Date de départ</th>
+                <th>Date_start</th>
                 <td>{{ car_ride.dateStart ? car_ride.dateStart|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Date d'arrivée</th>
+                <th>Date_end</th>
                 <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Status du trajet</th>
-                <td>{{ car_ride.status }}</td>
+                <th>Id_status</th>
+                <td>{{ car_ride.idStatus }}</td>
             </tr>
             <tr>
-                <th>Point de départ</th>
+                <th>Adress_point_departure</th>
                 <td>{{ car_ride.adressPointDeparture }}</td>
             </tr>
             <tr>
-                <th>Point d'arrivée</th>
+                <th>Adress_point_arrival</th>
                 <td>{{ car_ride.adressPointArrival }}</td>
             </tr>
             <tr>
-                <th>Nombre de kilométre</th>
+                <th>Km_number</th>
                 <td>{{ car_ride.kmNumber }}</td>
             </tr>
         </tbody>
