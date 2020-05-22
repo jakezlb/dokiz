@@ -445,3 +445,10 @@ html  {
 .boxShadow {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.5) !important;
 }
+
+.titleReservation {
+    color: black !important;
+    margin-bottom: 0 !important;
+    line-height:3rem !important;
+    font-size: 32px !important;
+}

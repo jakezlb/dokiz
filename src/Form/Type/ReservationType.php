@@ -21,12 +21,6 @@ class ReservationType extends AbstractType
                 ],
                 'label' => 'Date de réservation'
             ])
-            ->add('status_key', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Statut de la clé'
-            ])
             ->add('state_premise_depature', DateTimeType::class, [
                 'attr' => [
                     'class' => 'form-control'

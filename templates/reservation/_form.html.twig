@@ -1,4 +1,31 @@
 {{ form_start(form) }}
+
+<div class="form-group">
+    <div class='input-group date' id='datetimepicker1'>
+        <input type='text' class="form-control" />
+        <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+    </div>
+</div>
+<hr>
+
+<div class="form-control">
+    <i class="fa fa-calendar"></i> {{ form_label(form.date_reservation) }}
+    <div class="row">
+    {{ form_widget(form.date_reservation, {'attr': {'class':'date'}}) }}
+    </div>
+</div>
+<hr>
+<div>
+
     {{ form_widget(form) }}
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+
 <button class="btn">{{ button_label|default('Créer') }}</button>
 {{ form_end(form) }}
