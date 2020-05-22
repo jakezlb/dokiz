@@ -261,6 +261,7 @@
 body {
     font-family: 'Roboto', serif !important;
     letter-spacing: 0.0625em;
+    background-color: #ddd;
 }
 
 a {
@@ -386,11 +387,7 @@ html  {
 }
 
 .cardSection {
-    background-image: linear-gradient(to left, #FFF, #00c7ff, #00aaff, #0087ff, #4457ff);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: cover;
+    background-color: #ebfbff;
     border: 3px solid #00B4CC;
     border-radius: 10px;
     color: #222222;
