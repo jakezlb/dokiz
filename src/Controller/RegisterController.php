@@ -37,13 +37,13 @@ class RegisterController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            $email = (new Email())
-                ->from('dokiz')
+          /*  $email = (new Email())
+                ->from('dokiz@gmail.com')
                 ->to($user->getEmail())
                 ->subject('Bienvenue chez Dokiz !')
                 ->text("Bienvenue chez Dokiz {$user->getFirstName()}");
 
-            $mailer->send($email);
+            $mailer->send($email);*/
 
             return $this->redirect($this->generateUrl('app_login'));
         }
