@@ -13,13 +13,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/car_ride")
- */
+
 class CarRideController extends AbstractController
 {
     /**
-     * @Route("/", name="car_ride_index", methods={"GET"})
+     * @Route("admin/car_ride", name="admin_car_ride_index", methods={"GET"})
+     */
+    public function indexAdmin(CarRideRepository $carRideRepository): Response
+    {
+        return $this->render('admin/car_ride/index.html.twig', [
+            'car_rides' => $carRideRepository->findAll(),
+        ]);
+    }
+      /**
+     * @Route("/car_ride", name="car_ride_index", methods={"GET"})
      */
     public function index(CarRideRepository $carRideRepository): Response
     {
@@ -29,7 +36,17 @@ class CarRideController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="car_ride_new", methods={"GET","POST"})
+     * @Route("/car_ride/my_rides", name="car_my_rides", methods={"GET"})
+     */
+    public function rideByUser(CarRideRepository $carRideRepository): Response
+    {
+        return $this->render('car_ride/my_rides.html.twig', [
+            'car_rides_user' => $carRideRepository->find('user_id'),
+        ]);
+    }
+
+    /**
+     * @Route("car_ride/new", name="car_ride_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -65,7 +82,7 @@ class CarRideController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="car_ride_show", methods={"GET"})
+     * @Route("car_ride/{id}", name="car_ride_show", methods={"GET"})
      */
     public function show(CarRide $carRide): Response
     {
@@ -73,9 +90,18 @@ class CarRideController extends AbstractController
             'car_ride' => $carRide,
         ]);
     }
+     /**
+     * @Route("admin/car_ride/{id}", name="admin_car_ride_show", methods={"GET"})
+     */
+    public function showAdmin(CarRide $carRide): Response
+    {
+        return $this->render('admin/car_ride/show.html.twig', [
+            'car_ride' => $carRide,
+        ]);
+    }
 
     /**
-     * @Route("/{id}/edit", name="car_ride_edit", methods={"GET","POST"})
+     * @Route("car_ride/{id}/edit", name="car_ride_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, CarRide $carRide): Response
     {
@@ -95,7 +121,7 @@ class CarRideController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="car_ride_delete", methods={"DELETE"})
+     * @Route("car_ride/{id}", name="car_ride_delete", methods={"DELETE"})
      */
     public function delete(Request $request, CarRide $carRide): Response
     {

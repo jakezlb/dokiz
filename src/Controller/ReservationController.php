@@ -10,13 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/reservation")
- */
+
 class ReservationController extends AbstractController
 {
     /**
-     * @Route("/", name="reservation_index", methods={"GET"})
+     * @Route("/reservation", name="reservation_index", methods={"GET"})
      */
     public function index(ReservationRepository $reservationRepository): Response
     {
@@ -25,8 +23,18 @@ class ReservationController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("admin/reservation", name="admin_reservation_index", methods={"GET"})
+     */
+    public function indexAdmin(ReservationRepository $reservationRepository): Response
+    {
+        return $this->render('admin/reservation/index.html.twig', [
+            'reservations' => $reservationRepository->findAll(),
+        ]);
+    }
+
     /**
-     * @Route("/new", name="reservation_new", methods={"GET","POST"})
+     * @Route("/reservation/new", name="reservation_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -50,7 +58,7 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="reservation_show", methods={"GET"})
+     * @Route("/reservation/{id}", name="reservation_show", methods={"GET"})
      */
     public function show(Reservation $reservation): Response
     {
@@ -60,7 +68,7 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="reservation_edit", methods={"GET","POST"})
+     * @Route("/reservation/{id}/edit", name="reservation_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Reservation $reservation): Response
     {
@@ -80,7 +88,7 @@ class ReservationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="reservation_delete", methods={"DELETE"})
+     * @Route("/reservation/{id}", name="reservation_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Reservation $reservation): Response
     {

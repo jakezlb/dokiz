@@ -37,7 +37,6 @@ class RegisterController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-<<<<<<< HEAD
           /*  $email = (new Email())
                 ->from('dokiz@gmail.com')
                 ->to($user->getEmail())
@@ -45,15 +44,6 @@ class RegisterController extends AbstractController
                 ->text("Bienvenue chez Dokiz {$user->getFirstName()}");
 
             $mailer->send($email);*/
-=======
-//            $email = (new Email())
-//                ->from('dokiz@hotmail.fr')
-//                ->to($user->getEmail())
-//                ->subject('Bienvenue chez Dokiz !')
-//                ->text("Bienvenue chez Dokiz {$user->getFirstName()}");
-
-//            $mailer->send($email);
->>>>>>> 2d564cb3403b1f1d174ba3ee3c69aa16c041ff0d
 
             return $this->redirect($this->generateUrl('app_login'));
         }

@@ -1,25 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes trajets{% endblock %}
+{% block title %}Trajets{% endblock %}
+
 
 {% block body %}
+{{ include("navigation/navAdmin.html.twig") }}
 <!-- Header -->
-<header class="masthead" id="dokiz">
-    <div class="container d-flex h-100 align-items-center">
-        {{ include("navigation/navCarRide.html.twig") }}
-    <h1>Trajets</h1>
-
-    <table class="table">
+<header id="adminHeader">
+    <div class="mx-auto text-left">
+        <span class="sousNav">Bienvenue {{ app.user.firstname }}</span>   
+    </div>   
+</header>
+<main id="adminMain">
+    <div class="container">        
+        <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Départ</th>
                 <th>Arrivée</th>
                 <th>Date de début</th>
                 <th>Date d'arrivée</th>
                 <th>Statut</th>
-                <th>Adresse du point de départ</th>
-                <th>Adresse du point d'arrivée</th>
                 <th>Nombre de KM</th>
                 <th></th>
             </tr>
@@ -28,17 +29,15 @@
         {% if car_rides %}
         {% for car_ride in car_rides %}
             <tr>
-                <td>{{ car_ride.id }}</td>
-                <td>{{ car_ride.departure }}</td>
-                <td>{{ car_ride.arrival }}</td>
-                <td>{{ car_ride.dateStart ? car_ride.dateStart|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ car_ride.idStatus }}</td>
                 <td>{{ car_ride.adressPointDeparture }} {{ car_ride.postalCodePointDeparture }} {{ car_ride.cityPointDeparture }}</td>
                 <td>{{ car_ride.adressPointArrival }} {{ car_ride.postalCodePointArrival }} {{ car_ride.cityPointArrival }}</td>
+                <td>{{ car_ride.dateStart ? car_ride.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car_ride.status }}</td>
                 <td>{{ car_ride.kmNumber }}</td>
                 <td>
-                    <a href="{{ path('car_ride_show', {'id': car_ride.id}) }}">show</a>                    
+                    <a href="{{ path('admin_car_ride_show', {'id': car_ride.id}) }}">show</a>
+                   
                 </td>
             </tr>
         {% endfor %}
@@ -50,6 +49,6 @@
         </tbody>
     </table>
     </div>
-</header>
-    <a href="{{ path('car_ride_new') }}">Create new</a>
+</main>
 {% endblock %}
+
