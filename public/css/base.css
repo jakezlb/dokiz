@@ -261,6 +261,7 @@
 body {
     font-family: 'Roboto', serif !important;
     letter-spacing: 0.0625em;
+    background-color: #ddd;
 }
 
 a {
@@ -386,11 +387,7 @@ html  {
 }
 
 .cardSection {
-    background-image: linear-gradient(to left, #FFF, #00c7ff, #00aaff, #0087ff, #4457ff);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: cover;
+    background-color: #ebfbff;
     border: 3px solid #00B4CC;
     border-radius: 10px;
     color: #222222;
@@ -447,4 +444,11 @@ html  {
 
 .boxShadow {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.5) !important;
+}
+
+.titleReservation {
+    color: black !important;
+    margin-bottom: 0 !important;
+    line-height:3rem !important;
+    font-size: 32px !important;
 }
