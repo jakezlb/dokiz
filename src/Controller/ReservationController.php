@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\CarRide;
 use App\Entity\Reservation;
+use App\Form\Type\CarRideType;
 use App\Form\Type\ReservationType;
 use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 
 class ReservationController extends AbstractController
@@ -39,21 +42,26 @@ class ReservationController extends AbstractController
     public function new(Request $request): Response
     {
         $reservation = new Reservation();
+        $carRide = new CarRide();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
+        $form1 = $this->createForm(CarRideType::class, $carRide);
+        $form1->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reservation->setIsConfirmed(false);
+            $reservation->setDateReservation(new \DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($reservation);
             $entityManager->flush();
 
             return $this->redirectToRoute('reservation_index');
         }
-
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
+            'carRide' => $carRide,
             'form' => $form->createView(),
+            'form1' => $form1->createView()
         ]);
     }
 
