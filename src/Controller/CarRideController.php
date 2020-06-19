@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CarRide;
 use App\Entity\Passenger;
+use App\Entity\Status;
 
 use App\Form\Type\CarRideType;
 use App\Repository\CarRideRepository;
@@ -39,19 +40,19 @@ class CarRideController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($carRide);            
-            
-            $idLastRideSave = $carRide->getId();
 
-            $passenger = new Passenger(1,$user,$idLastRideSave);
-            $passenger->setCarRide($idLastRideSave);
+            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
+            $carRide->setStatus($statusDefault);
+
+            $entityManager->persist($carRide);
+            $entityManager->flush();
+
+            $passenger = new Passenger();
+            $passenger->setCarRide($carRide);
             $passenger->setUser($user);
             $passenger->setIsDriver(1);
-
-            var_dump($passenger);
           
             $entityManager->persist($passenger);
-            
             $entityManager->flush();
 
             return $this->redirectToRoute('car_ride_index');

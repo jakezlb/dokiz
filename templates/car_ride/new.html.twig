@@ -24,15 +24,15 @@
             return mymap;
         }
 
-        function addPoint(lon1, lat1, lon2, lat2) {
-            mymap = initMap();
-            if (lon1 !== 0 && lat1 !== 0) {
-                var marker1 = L.marker([lat1, lon1]).addTo(mymap);
-                if (lon2 !== 0 && lat2 !== 0) {
-                    var marker2 = L.marker([lat2, lon2]).addTo(mymap);
-                }
-            }
-        }
+        // function addPoint(lon1, lat1, lon2, lat2) {
+        //     mymap = initMap();
+        //     if (lon1 !== 0 && lat1 !== 0) {
+        //         var marker1 = L.marker([lat1, lon1]).addTo(mymap);
+        //         if (lon2 !== 0 && lat2 !== 0) {
+        //             var marker2 = L.marker([lat2, lon2]).addTo(mymap);
+        //         }
+        //     }
+        // }
 
         $("#car_ride_postal_code_point_departure").autocomplete({
             source: function (request, response) {
@@ -68,7 +68,7 @@
                     dataType: "json",
                     success: function (data) {
                         response($.map(data.features, function (item) {
-                            addPoint(item.geometry.coordinates[0], item.geometry.coordinates[1], 0, 0);
+                            // addPoint(item.geometry.coordinates[0], item.geometry.coordinates[1], 0, 0);
                             return {
                                 label: item.properties.name,
                                 value: item.properties.name,
@@ -139,13 +139,13 @@
             return deg * (Math.PI/180)
         }
 
-        $("#car_ride_adress_point_departure").blur(function() {
-            if($(this).val() != '') {
-                $('#mapid').css('display', 'block');
-            } else {
-                $('#mapid').css('display', 'none');
-            }
-        });
+        // $("#car_ride_adress_point_departure").blur(function() {
+        //     if($(this).val() != '') {
+        //         $('#mapid').css('display', 'block');
+        //     } else {
+        //         $('#mapid').css('display', 'none');
+        //     }
+        // });
     </script>
 {% endblock %}
 
