@@ -19,7 +19,7 @@ class ReservationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Date de réservation'
+                'label' => 'Date de Réservation'
             ])
             ->add('state_premise_depature', DateTimeType::class, [
                 'attr' => [
