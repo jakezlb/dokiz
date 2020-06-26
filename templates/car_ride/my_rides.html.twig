@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes trajets{% endblock %}
+
+
+{% block body %}
+<!-- Header -->
+<header class="masthead" id="dokiz">
+    <div class="container d-flex h-100 align-items-center">
+        {{ include("navigation/navCarRide.html.twig") }}
+    <h1>Trajets</h1>
+     
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Départ</th>
+                <th>Arrivée</th>
+                <th>Date de début</th>
+                <th>Date d'arrivée</th>
+                <th>Statut</th>
+                <th>Nombre de KM</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if car_rides_user %}
+        {% for car_ride_user in car_rides_user %}
+            <tr>
+                <td>{{ car_ride_user.adressPointDeparture }} {{ car_ride_user.postalCodePointDeparture }} {{ car_ride_user.cityPointDeparture }}</td>
+                <td>{{ car_ride_user.adressPointArrival }} {{ car_ride_user.postalCodePointArrival }} {{ car_ride_user.cityPointArrival }}</td>
+                <td>{{ car_ride_user.dateStart ? car_ride_user.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car_ride_user.dateEnd ? car_ride_user.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car_ride_user.status }}</td>
+                <td>{{ car_ride_user.kmNumber }}</td>
+                <td>
+                    <a href="{{ path('car_ride_show', {'id': car_ride_user.id}) }}">show</a>
+                    
+                </td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="10">Il n'y a pas de trajets.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    </div>
+</header>
+{% endblock %}
+

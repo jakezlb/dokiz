@@ -71,11 +71,11 @@ class CarRide
      * @ORM\Column(type="integer")
      */
     private $km_number;
-
+   
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Reservation", inversedBy="carRides")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="CarRide")
      */
-    private $reservation;
+    private $reservations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="CarRide", orphanRemoval=true)

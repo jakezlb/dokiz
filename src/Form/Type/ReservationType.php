@@ -4,7 +4,10 @@ namespace App\Form\Type;
 
 use App\Entity\Reservation;
 
+use Doctrine\DBAL\Types\ObjectType;
+use phpDocumentor\Reflection\Types\Object_;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -18,13 +21,6 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date_reservation', DateTimeType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                
-                'label' => 'Date de réservation'
-            ])
            
             ->add('status_key', ChoiceType::class, [
                 'choices'  => [
@@ -35,19 +31,21 @@ class ReservationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'                   
                 ],                               
-                'label' => 'Statut de la clé'
+                'label' => 'Statut de la clé de la voiture'
             ])
             ->add('state_premise_depature', DateTimeType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Date de départ'
+                'widget' => 'single_text',
+                'label' => 'Date'
             ])
             ->add('state_premise_arrival', DateTimeType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => "Date d'arrivée"
+                'widget' => 'single_text',
+                'label' => "Date"
             ])
         ;
     }

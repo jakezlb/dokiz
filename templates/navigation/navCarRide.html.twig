@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
-                    <a class="nav-link btnNav active" href="" > Rechercher</a>
+                    <a class="nav-link btnNav active" href="{{ path('car_ride_index') }}" > Rechercher un trajet</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btnNav" href="{{ path('reservation_index') }}" > Reservations</a>
@@ -25,7 +25,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin-top: -30px">
                             <li><a class="dropdown-item" href="{{ path('user', {id: app.user.id}) }}">Profil</a></li>
-                            <li><a class="dropdown-item" href="{{ path('car_ride_index') }}">Mes trajets</a></li>
+                            <li><a class="dropdown-item" href="{{ path('car_my_rides') }}">Mes trajets</a></li>
                             <li><a class="dropdown-item" href="{{ path('car_ride_new') }}">Nouveau trajet</a></li>
                             <hr>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
