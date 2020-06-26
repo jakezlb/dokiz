@@ -20,7 +20,7 @@ class SocietyController extends AbstractController
      */
     public function index(SocietyRepository $societyRepository): Response
     {
-        return $this->render('society/index.html.twig', [
+        return $this->render('admin/society/index.html.twig', [
             'societies' => $societyRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class SocietyController extends AbstractController
             return $this->redirectToRoute('society_index');
         }
 
-        return $this->render('society/new.html.twig', [
+        return $this->render('admin/society/new.html.twig', [
             'society' => $society,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class SocietyController extends AbstractController
      */
     public function show(Society $society): Response
     {
-        return $this->render('society/show.html.twig', [
+        return $this->render('admin/society/show.html.twig', [
             'society' => $society,
         ]);
     }
@@ -72,7 +72,7 @@ class SocietyController extends AbstractController
             return $this->redirectToRoute('society_index');
         }
 
-        return $this->render('society/edit.html.twig', [
+        return $this->render('admin/society/edit.html.twig', [
             'society' => $society,
             'form' => $form->createView(),
         ]);
