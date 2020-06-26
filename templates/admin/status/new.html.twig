@@ -3,9 +3,12 @@
 {% block title %}New Status{% endblock %}
 
 {% block body %}
-    <h1>Create new Status</h1>
+    {{ include("navigation/navAdmin.html.twig") }}
+    {{ include("admin/header.html.twig") }}   
+        <h1>Create new Status</h1>
 
-    {{ include('admin/status/_form.html.twig') }}
+        {{ include('admin/status/_form.html.twig') }}
 
-    <a href="{{ path('admin_status_index') }}">back to list</a>
+        <a href="{{ path('admin_status_index') }}">back to list</a>
+    {{ include("admin/footer.html.twig") }}
 {% endblock %}

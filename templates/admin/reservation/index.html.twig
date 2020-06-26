@@ -3,94 +3,51 @@
 {% block title %}Réservations{% endblock %}
 
 {% block body %}
-{{ include("navigation/navAdmin.html.twig") }}
-<!-- Header -->
-<header id="adminHeader">
-    <div class="mx-auto text-left">
-        <span class="sousNav">Bienvenue {{ app.user.firstname }}</span>   
-    </div>   
-</header>
-<main id="adminMain">
-    <div class="container">   
-            {% if reservations %}
-            {% for reservation in reservations %}
-                <div class="row">
-                        <div class="cardSection">
-                            <div class="row">
-                                <div class="col-md-2 text-center mx-auto">
-                                    <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
-                                </div>
-                                <div class="col-md-3 hrVerticalFine my-auto">
-                                    <div class="row mx-auto">
-                                       {{ reservation.carRide.adressPointDeparture  }}   <!-- A remplacer par la ville (adresse) de départ de la réservation -->
-                                    </div>
-                                    <hr>
-                                    <div class="row mx-auto" >
-                                        Chartres de Bretagne         <!-- A remplacer par la ville (adresse) d'arrivée de la réservation -->
-                                    </div>
-                                </div>
-                                <div class="col-md-3 hrVerticalFine my-auto">
-                                    <div class="row mx-auto">
-                                        {{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i') : '' }}
-                                    </div>
-                                    <hr>
-                                    <div class="row mx-auto">
-                                        {{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('d/m/Y H:i') : '' }}
-                                    </div>
-                                </div>
-                                <div class="col-md-4 hrVerticalFine my-auto">
-                                    <div class="row mx-auto">
-                                        Réservé par :
-                                    </div>
-                                    <hr>
-                                    <div class="row mx-auto">
-                                        Places Restantes :
-                                    </div>
-                                </div>
+    {{ include("navigation/navAdmin.html.twig") }}
+    {{ include("admin/hearder.html.twig") }}
+
+        {% if reservations %}
+        {% for reservation in reservations %}
+            <div class="row">
+                <div class="cardSection">
+                    <div class="row">
+                        <div class="col-md-2 text-center mx-auto">
+                            <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
+                        </div>
+                        <div class="col-md-3 hrVerticalFine my-auto">
+                            <div class="row mx-auto">
+                                {{ reservation.carRide.adressPointDeparture  }}   <!-- A remplacer par la ville (adresse) de départ de la réservation -->
+                            </div>
+                            <hr>
+                            <div class="row mx-auto" >
+                                Chartres de Bretagne         <!-- A remplacer par la ville (adresse) d'arrivée de la réservation -->
                             </div>
                         </div>
-    {#                <table class="table">#}
-    {#                    <thead>#}
-    {#                    <tr>#}
-    {#                        <th>Identifiant</th>#}
-    {#                        <th>Date de réservation</th>#}
-    {#                        <th>Statut</th>#}
-    {#                        <th>Date de départ</th>#}
-    {#                        <th>Date d'arrivée</th>#}
-    {#                        <th>Confirmé</th>#}
-    {#                        <th></th>#}
-    {#                    </tr>#}
-    {#                    </thead>#}
-    {#                    <tbody>#}
-    {#                    {% if reservations %}#}
-    {#                        {% for reservation in reservations %}#}
-    {#                            <tr>#}
-    {#                                <td>{{ reservation.id }}</td>#}
-    {#                                <td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d H:i:s') : '' }}</td>#}
-    {#                                <td>{{ reservation.statusKey }}</td>#}
-    {#                                <td>{{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('Y-m-d H:i:s') : '' }}</td>#}
-    {#                                <td>{{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('Y-m-d H:i:s') : '' }}</td>#}
-    {#                                <td>{{ reservation.isConfirmed ? 'Yes' : 'No' }}</td>#}
-    {#                                <td>#}
-    {#                                    <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>#}
-    {#                                    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>#}
-    {#                                </td>#}
-    {#                            </tr>#}
-    {#                        {% endfor %}#}
-    {#                    {% else %}#}
-    {#                        <tr>#}
-    {#                            <td colspan="10">Il n'y a pas de réservations.</td>#}
-    {#                        </tr>#}
-    {#                    {% endif %}#}
-    {#                    </tbody>#}
-    {#                </table>#}
-
+                        <div class="col-md-3 hrVerticalFine my-auto">
+                            <div class="row mx-auto">
+                                {{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i') : '' }}
+                            </div>
+                            <hr>
+                            <div class="row mx-auto">
+                                {{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('d/m/Y H:i') : '' }}
+                            </div>
+                        </div>
+                        <div class="col-md-4 hrVerticalFine my-auto">
+                            <div class="row mx-auto">
+                                Réservé par :
+                            </div>
+                            <hr>
+                            <div class="row mx-auto">
+                                Places Restantes :
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <hr>
-            {% endfor %}
-            {% else %}
-                <h3>Il n'y a pas de réservations en cours.</h3>
-            {% endif %}
-    </div>
-</main>
+            </div>
+            <hr>
+        {% endfor %}
+        {% else %}
+            <h3>Il n'y a pas de réservations en cours.</h3>
+        {% endif %}
+    {{ include("admin/footer.html.twig") }}
 {% endblock %}
