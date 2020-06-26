@@ -20,13 +20,13 @@ class CarRide
     private $id;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $date_start;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $date_end;
