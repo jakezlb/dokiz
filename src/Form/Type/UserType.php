@@ -33,23 +33,7 @@ class UserType extends AbstractType
                     'class' => 'form-control'
                 ],
             ])
-            
-            ->add('password', RepeatedType::class,[
-                'type' => PasswordType::class,
-                'required' => true,
-                'first_options' => [
-                    'attr' => [
-                        'class' => 'form-control'
-                    ],
-                    'label' => 'Mot de passe'
-                ],
-                'second_options' => [
-                    'attr' => [
-                        'class' => 'form-control'
-                    ],
-                    'label' => 'Confirmer le mot de passe'
-                ]
-            ])
+
             ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-lg btn-primary btn-block'

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier un utilisateur{% endblock %}
+{% block title %}Modifier le profil{% endblock %}
 
 {% block body %}
-    <h1>Modifier un utilisateur</h1>
+    <h1>Modifier le profil</h1>
     {{ form(userForm) }}
+    <a href="{{ path('user', {id: app.user.id}) }}">back to list</a>
 {% endblock %}
