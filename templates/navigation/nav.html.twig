@@ -29,6 +29,11 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin-top: -30px">
                             <li><a class="dropdown-item" href="{{ path('user', {id: app.user.id}) }}">Profil</a></li>
+                            {% for r in app.user.getRoles() %}
+                                {% if r in "ROLE_SUPERADMIN" %}
+                                    <li><a class="dropdown-item" href="{{ path('admin_dashbord') }}">Dashboard admin</a></li>
+                                {% endif %}
+                            {% endfor %}
                             <li><a class="dropdown-item" href="{{ path('reservation_index') }}">Mes réservations</a></li>
                             <li><a class="dropdown-item" href="{{ path('car_ride_index') }}">Mes trajets</a></li>
                             <hr>
