@@ -49,6 +49,7 @@ class Reservation
      */
     private $is_confirmed;
 
+    
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CarRide", mappedBy="reservation")
      */

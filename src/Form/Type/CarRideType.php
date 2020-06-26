@@ -21,13 +21,13 @@ class CarRideType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'CP départ'
+                'label' => 'Code Postal'
             ])
             ->add('city_point_departure', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Ville départ'
+                'label' => 'Ville'
             ])
             ->add('adress_point_departure', TextType::class, [
                 'attr' => [
@@ -53,23 +53,11 @@ class CarRideType extends AbstractType
                 ],
                 'label' => "Adresse arrivée"
             ])
-            ->add('date_start', DateTimeType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => 'Date de départ'
-            ])
-            ->add('date_end', DateTimeType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => "Date d'arrivée"
-            ])
             ->add('km_number', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => "Nombre de km"
+                'label' => "Nombre de kilomètres"
             ])
             ->add('status', EntityType::class, [
                 'class' => Status::class,

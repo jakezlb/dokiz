@@ -76,6 +76,7 @@ class CarRide
      * @ORM\ManyToOne(targetEntity="App\Entity\Reservation", inversedBy="carRides")
      */
     private $reservation;
+   
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="CarRide", orphanRemoval=true)
