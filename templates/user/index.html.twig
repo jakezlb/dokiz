@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
                         <p class="card-text">{{ user.email }}</p>
-                        <p class="card-text">Créé le {{ user.createdAt|date("m/d/Y") }}</p>
+                        <p class="card-text">Créé le {{ user.createdAt|date("d/m/Y") }}</p>
                         <a href="#" class="btn btn-primary">Modifier le profil</a>
                         <a href="{{ path('index') }}" class="btn btn-success">Retour</a>
                     </div>
