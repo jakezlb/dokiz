@@ -69,7 +69,7 @@ class JobController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('job_index');
+            return $this->redirectToRoute('admin_job_index');
         }
 
         return $this->render('admin/job/edit.html.twig', [

@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\HttpFoundation\File\File;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CarRepository")
  */
@@ -25,9 +25,10 @@ class Car
     private $immatriculation;
 
     /**
-     * @Assert\NotBlank
+     * 
      * @ORM\Column(type="string", length=255)
      */
+    
     private $carUrl;
 
     /**
@@ -56,16 +57,7 @@ class Car
      * @Assert\NotBlank
      * @ORM\Column(type="integer")
      */
-    private $level_fuel;
-
-    public function __toString() {
-        return $this->name;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    private $level_fuel;   
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="cars")
@@ -73,7 +65,7 @@ class Car
     private $society;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\KeyCar", mappedBy="car")
+     * @ORM\OneToMany(targetEntity="App\Entity\KeyCar", mappedBy="car",cascade={"persist"})
      */
     private $keys;
 
@@ -86,6 +78,20 @@ class Car
      * @ORM\Column(type="string", length=200)
      */
     private $mark;
+
+    public function __construct()
+    {
+        $this->keys = new ArrayCollection();        
+    }
+
+    public function __toString() {
+        return $this->name;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getImmatriculation(): ?string
     {
@@ -171,7 +177,7 @@ class Car
         return $this;
     }
 
-    public function getKeys(): ArrayCollection
+    public function getKeys()
     {
         return $this->keys;
     }
@@ -215,8 +221,19 @@ class Car
     /**
      * @param mixed $carUrl
      */
-    public function setCarUrl($carUrl): void
+    public function setCarUrl($carUrl)
     {
         $this->carUrl = $carUrl;
+
+        return $this;
+    }
+
+    public function addKey(KeyCar $keyCar)
+    {
+        $this->keys->add($keyCar);
+    }
+    public function removeKey(KeyCar $keyCar)
+    {
+        $this->keys->remove($keyCar);
     }
 }

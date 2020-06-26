@@ -39,7 +39,7 @@ class SocietyController extends AbstractController
             $entityManager->persist($society);
             $entityManager->flush();
 
-            return $this->redirectToRoute('society_index');
+            return $this->redirectToRoute('admin_society_index');
         }
 
         return $this->render('admin/society/new.html.twig', [
@@ -69,7 +69,7 @@ class SocietyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('society_index');
+            return $this->redirectToRoute('admin_society_index');
         }
 
         return $this->render('admin/society/edit.html.twig', [
@@ -89,6 +89,6 @@ class SocietyController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('society_index');
+        return $this->redirectToRoute('admin_society_index');
     }
 }
