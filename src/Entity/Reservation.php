@@ -20,7 +20,7 @@ class Reservation
     private $id;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $date_reservation;
@@ -44,7 +44,7 @@ class Reservation
     private $state_premise_arrival;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="boolean")
      */
     private $is_confirmed;
