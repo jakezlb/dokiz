@@ -1,3 +1,13 @@
+function addKeyFormDeleteLink($keyFormLi) {
+    var $removeFormButton = $('<button type="button">Delete this key</button>');
+    $keyFormLi.append($removeFormButton);
+
+    $removeFormButton.on('click', function(e) {
+        // remove the li for the tag form
+        $keyFormLi.remove();
+    });
+}
+
 function addKeyForm($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
     var prototype = $collectionHolder.data('prototype');
@@ -18,9 +28,10 @@ function addKeyForm($collectionHolder, $newLinkLi) {
     // increase the index with one for the next item
     $collectionHolder.data('index', index + 1);
 
-    // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<div></div>').append(newForm);
+    // Display the form in the page in an li, before the "Add a key" link li
+    var $newFormLi = $('<div class="item_key"></div>').append(newForm);
     $newLinkLi.before($newFormLi);
+    
 }
 
 
@@ -56,6 +67,10 @@ $(function () {
 
     // add the "add a tag" anchor and li to the keys ul
     $collectionHolder.append($newLinkLi);
+
+    $collectionHolder.find('li').each(function() {
+        addKeyFormDeleteLink($(this));
+    });
 
     // count the current form inputs we have (e.g. 2), use that as the new
     // index when inserting a new item (e.g. 2)

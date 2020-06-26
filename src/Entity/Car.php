@@ -234,6 +234,6 @@ class Car
     }
     public function removeKey(KeyCar $keyCar)
     {
-        $this->keys->remove($keyCar);
+        $this->keys->removeElement($keyCar);
     }
 }
