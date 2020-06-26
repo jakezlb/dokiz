@@ -25,6 +25,10 @@ class KeyCar
      */
     private $name;
 
+    public function __toString() {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,5 +56,5 @@ class KeyCar
         $this->name = $name;
 
         return $this;
-    }
+    }    
 }
