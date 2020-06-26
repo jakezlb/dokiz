@@ -165,7 +165,7 @@ class CarRide
         return $this->reservation;
     }
 
-    private function setReservation(?Reservation $reservation): self
+    public function setReservation(?Reservation $reservation): self
     {
         $this->reservation = $reservation;
 
