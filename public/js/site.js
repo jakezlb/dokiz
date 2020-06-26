@@ -7,9 +7,9 @@ $(function () {
         var navTrigger2 = $(".section2");
         var navTriggerHeight2 = navTrigger2.height();
         $nav.toggleClass('scrolled', $(this).scrollTop() > (navTriggerHeight2 * 120) / 100);
-        section2.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 120) / 100 && $(this).scrollTop() < (navTriggerHeight2*230) / 100);
-        section3.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 230) / 100 && $(this).scrollTop() < (navTriggerHeight2*280) / 100);
-        section4.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 280) / 100);
+        section2.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 120) / 100 && $(this).scrollTop() < (navTriggerHeight2*260) / 100);
+        section3.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 260) / 100 && $(this).scrollTop() < (navTriggerHeight2*290) / 100);
+        section4.toggleClass('btnNavActive', $(this).scrollTop() > (navTriggerHeight2 * 290) / 100);
 
         $('#topSection').scrollTop(0);
     });
