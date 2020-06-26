@@ -49,10 +49,11 @@ class Reservation
      */
     private $is_confirmed;
 
-     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CarRide", inversedBy="reservations")
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CarRide", mappedBy="reservation")
      */
-    private $carRide;
+    private $carRides;
     
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="reservations")
