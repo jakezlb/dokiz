@@ -9,7 +9,10 @@ use App\Entity\Status;
 use App\Form\Type\CarRideType;
 use App\Form\Type\ReservationType;
 use App\Repository\ReservationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,48 +43,47 @@ class ReservationController extends AbstractController
     {
 
         $reservation = new Reservation();
-        $carRide = new CarRide();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-        $form1 = $this->createForm(CarRideType::class, $carRide);
-        $form1->handleRequest($request);
+//        $form1 = $this->createForm(CollectionType::class, $carRides);
+////        $form1->handleRequest($request);
 
-        $reservation->setIsConfirmed("Non");
-        $reservation->setDateReservation(new \DateTime());
+        if ($form->isSubmitted() && $form->isValid() && $form1->isSubmitted() && $form1->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager = $this->getDoctrine()->getManager();
-//                $passenger = new Passenger();
-//                $user = $this->getUser();
-//                $passenger->setCarRide($carRide);
-//                $passenger->setUser($user);
-//                $passenger->setIsDriver(1);
+            $reservation->setIsConfirmed(false);
+            $reservation->setDateReservation(new \DateTime());
+
+//            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
+//            $carRide->setStatus($statusDefault);
+//            $carRide->setReservation($reservation);
+//            $carRide->setDateStart($reservation->getStatePremiseDepature());
+//            $carRide->setDateEnd($reservation->getStatePremiseArrival());
+
+//            $passenger = new Passenger();
+//            $user = $this->getUser();
+//            $passenger->setCarRide($carRide);
+//            $passenger->setUser($user);
+//            $passenger->setIsDriver(1);
+
+
+            $entityManager->persist($reservation);
+            $entityManager->flush();
+
+//            $entityManager->persist($carRide);
+//            $entityManager->flush();
 //
-////                $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
-////                $carRide->setStatus($statusDefault);
-//                $carRide->addPassenger($passenger);
-//                $carRide->setReservation($reservation);
-//                $carRide->setDateStart($reservation->getStatePremiseDepature());
-//                $carRide->setDateEnd($reservation->getStatePremiseArrival());
+//            $entityManager->persist($passenger);
+//            $entityManager->flush();
 
-
-
-//                $entityManager->persist($passenger);
-//                $entityManager->flush();
-//
-//                $entityManager->persist($carRide);
-//                $entityManager->flush();
-
-                $entityManager->persist($reservation);
-                $entityManager->flush();
             return $this->redirectToRoute('reservation_index');
         }
 
         return $this->render('reservation/new.html.twig', [
             'reservation' => $reservation,
-            'carRide' => $carRide,
+//            'carRides' => $carRides,
             'form' => $form->createView(),
-            'form1' => $form1->createView()
+//            'form1' => $form1->createView()
         ]);
     }
 

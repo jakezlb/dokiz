@@ -47,6 +47,14 @@ class ReservationType extends AbstractType
                 'widget' => 'single_text',
                 'label' => "Date"
             ])
+            ->add('carRides', CollectionType::class, [
+                'entry_type' => CarRideType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control']
+                ],
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
         ;
     }
 
