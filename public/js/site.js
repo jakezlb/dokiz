@@ -54,7 +54,7 @@ $(function () {
     $('#username').hover(function() {
         $('.item1').toggle();
     });
-
+   
     //Add keys dynamics
     var $collectionHolder;
 
@@ -68,7 +68,7 @@ $(function () {
     // add the "add a tag" anchor and li to the keys ul
     $collectionHolder.append($newLinkLi);
 
-    $collectionHolder.find('li').each(function() {
+    $collectionHolder.find('div[id^=car_keys]').each(function() {
         addKeyFormDeleteLink($(this));
     });
 
