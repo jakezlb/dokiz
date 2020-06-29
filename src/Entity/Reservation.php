@@ -32,13 +32,13 @@ class Reservation
     private $status_key;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $state_premise_depature;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $state_premise_arrival;
