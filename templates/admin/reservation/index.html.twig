@@ -2,52 +2,78 @@
 
 {% block title %}Réservations{% endblock %}
 
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('#tabReservations').DataTable({
+                "language": {
+                    "sEmptyTable":     "Aucune donnée disponible dans le tableau",
+                    "sInfo":           "Affichage des éléments _START_ à _END_ sur _TOTAL_ éléments",
+                    "sInfoEmpty":      "",
+                    "sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
+                    "sInfoPostFix":    "",
+                    "sInfoThousands":  ",",
+                    "sLengthMenu":     "Afficher _MENU_ éléments",
+                    "sLoadingRecords": "Chargement...",
+                    "sProcessing":     "Traitement...",
+                    "sSearch":         "Rechercher :",
+                    "sZeroRecords":    "Aucun élément correspondant trouvé",
+                    "oPaginate": {
+                        "sFirst":    "Premier",
+                        "sLast":     "Dernier",
+                        "sNext":     "Suivant",
+                        "sPrevious": "Précédent"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                        "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                    },
+                    "select": {
+                        "rows": {
+                            "_": "%d lignes sélectionnées",
+                            "0": "Aucune ligne sélectionnée",
+                            "1": "1 ligne sélectionnée"
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     {{ include("navigation/navAdmin.html.twig") }}
-    {{ include("admin/hearder.html.twig") }}
+    {{ include("admin/header.html.twig") }}
 
-        {% if reservations %}
+<table class="table" id="tabReservations">
+    <thead>
+    <tr>
+        <th>Date de réservation</th>
+        <th>Départ</th>
+        <th>Arrivée</th>
+        <th>Confirmé</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if reservations %}
         {% for reservation in reservations %}
-            <div class="row">
-                <div class="cardSection">
-                    <div class="row">
-                        <div class="col-md-2 text-center mx-auto">
-                            <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
-                        </div>
-                        <div class="col-md-3 hrVerticalFine my-auto">
-                            <div class="row mx-auto">
-                                {{ reservation.carRide.adressPointDeparture  }}   <!-- A remplacer par la ville (adresse) de départ de la réservation -->
-                            </div>
-                            <hr>
-                            <div class="row mx-auto" >
-                                Chartres de Bretagne         <!-- A remplacer par la ville (adresse) d'arrivée de la réservation -->
-                            </div>
-                        </div>
-                        <div class="col-md-3 hrVerticalFine my-auto">
-                            <div class="row mx-auto">
-                                {{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i') : '' }}
-                            </div>
-                            <hr>
-                            <div class="row mx-auto">
-                                {{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('d/m/Y H:i') : '' }}
-                            </div>
-                        </div>
-                        <div class="col-md-4 hrVerticalFine my-auto">
-                            <div class="row mx-auto">
-                                Réservé par :
-                            </div>
-                            <hr>
-                            <div class="row mx-auto">
-                                Places Restantes :
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr>
+            <tr>
+                <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y H:i:s') : '' }}</td>
+                <td>{{ reservation.carRide.adressPointDeparture }} {{ reservation.carRide.postalCodePointDeparture }} {{ reservation.carRide.cityPointDeparture }}</td>
+                <td>{{ reservation.carRide.adressPointArrival }} {{ reservation.carRide.postalCodePointArrival }} {{ reservation.carRide.cityPointArrival }}</td>
+                <td>{{ reservation.isConfirmed }}</td>
+                <td>
+                    <a href="{{ path('admin_car_ride_show', {'id': car_ride.id}) }}">show</a>
+                </td>
+            </tr>
         {% endfor %}
         {% else %}
-            <h3>Il n'y a pas de réservations en cours.</h3>
-        {% endif %}
+            <tr>
+                <td colspan="10">Il n'y a pas de réservations.</td>
+            </tr>
+    {% endif %}
+    </tbody>
+</table>
     {{ include("admin/footer.html.twig") }}
 {% endblock %}
