@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Route("/admin/car", name="admin_")
@@ -92,15 +93,43 @@ class CarController extends AbstractController
     /**
      * @Route("/{id}/edit", name="car_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Car $car): Response
+    public function edit($id, Request $request, Car $car): Response
     {
+        $entityManager = $this->getDoctrine()->getManager();
+        
+        if (null === $car = $entityManager->getRepository(Car::class)->find($id)) {
+            throw $this->createNotFoundException('No car found for id '.$id);
+        }
+
+        $originalKeys = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Key objects in the database
+        foreach ($car->getKeys() as $key) {
+            $originalKeys->add($key);
+        }
+    
+        
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            foreach ($originalKeys as $key) {
+                if (false === $car->getKeys()->contains($key)) {
+                    
+                    // if it was a many-to-one relationship, remove the relationship like this
+                     $key->setCar(null);
+    
+                    $entityManager->persist($key);
+    
+                    // if you wanted to delete the Key entirely, you can also do that
+                    // $entityManager->remove($key);
+                }
+            }
+            $entityManager->persist($car);
+            $entityManager->flush();
 
-            return $this->redirectToRoute('admin_car_index');
+            return $this->redirectToRoute('admin_car_index', ['id' => $id]);
+           
         }
 
         return $this->render('admin/car/edit.html.twig', [
