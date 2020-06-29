@@ -21,37 +21,37 @@ class CarRideType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Code Postal'
+                'label' => 'Code postal de la ville de départ'
             ])
             ->add('city_point_departure', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Ville'
+                'label' => 'Ville de départ'
             ])
             ->add('adress_point_departure', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Adresse départ'
+                'label' => 'Adresse de départ'
             ])
             ->add('postal_code_point_arrival', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'CP arrivée'
+                'label' => 'Code postal de la ville d\'arrivée'
             ])
             ->add('city_point_arrival', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Ville arrivée'
+                'label' => 'Ville d\'arrivée'
             ])
             ->add('adress_point_arrival', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => "Adresse arrivée"
+                'label' => 'Adresse d\'arrivée'
             ])
             ->add('km_number', TextType::class, [
                 'attr' => [
@@ -66,7 +66,20 @@ class CarRideType extends AbstractType
                 ],                               
                 'label' => 'Statut du trajet'
             ])
-                        
+            ->add('date_start', DateTimeType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'widget' => 'single_text',
+                'label' => 'Date de départ'
+            ])
+            ->add('date_end', DateTimeType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'widget' => 'single_text',
+                'label' => 'Date d\'arrivée'
+            ])
         ;
     }
 

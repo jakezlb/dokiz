@@ -33,28 +33,6 @@ class ReservationType extends AbstractType
                 ],                               
                 'label' => 'Statut de la clé de la voiture'
             ])
-            ->add('state_premise_depature', DateTimeType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'widget' => 'single_text',
-                'label' => 'Date'
-            ])
-            ->add('state_premise_arrival', DateTimeType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'widget' => 'single_text',
-                'label' => "Date"
-            ])
-            ->add('carRides', CollectionType::class, [
-                'entry_type' => CarRideType::class,
-                'entry_options' => [
-                    'attr' => ['class' => 'form-control']
-                ],
-                'allow_add' => true,
-                'allow_delete' => true
-            ])
         ;
     }
 

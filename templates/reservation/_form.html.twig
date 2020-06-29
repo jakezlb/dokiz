@@ -8,123 +8,178 @@
 </script>
 
 {{ form_start(form) }}
-{#        {{ form_start(form1) }}#}
+{{ form_start(form1) }}
+{{ form_start(form2) }}
 
-<div class="titleReservation">
-    Départ
+<div class="cardSection2">
+<div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
+    ALLER
 </div>
 <hr>
 <div class="row">
-    <div class="col-md-6">
-        {{ form_label(form.state_premise_depature) }}
-        {{ form_widget(form.state_premise_depature) }}
+    <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC; border-right: 2px solid #00B4CC">
+        Départ
     </div>
-    <div class="col-md-6">
-        {{ form_label(form.state_premise_arrival) }}
-        {{ form_widget(form.state_premise_arrival) }}
+    <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC">
+        Arrivée
     </div>
 </div>
+<br>
+<div class="row">
+    <div class="col-md-6 ">
+        {{ form_label(form1.date_start) }}
+        {{ form_widget(form1.date_start) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form1.date_end) }}
+        {{ form_widget(form1.date_end) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6" >
+        {{ form_label(form1.postal_code_point_departure) }}
+        {{ form_widget(form1.postal_code_point_departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form1.postal_code_point_arrival) }}
+        {{ form_widget(form1.postal_code_point_arrival) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(form1.city_point_departure) }}
+        {{ form_widget(form1.city_point_departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form1.city_point_arrival) }}
+        {{ form_widget(form1.city_point_arrival) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(form1.adress_point_departure) }}
+        {{ form_widget(form1.adress_point_departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form1.adress_point_arrival) }}
+        {{ form_widget(form1.adress_point_arrival) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC;">
+        Informations complémentaires
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(form1.km_number) }}
+        {{ form_widget(form1.km_number) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(form1.status) }}
+        {{ form_widget(form1.status) }}
+    </div>
+</div>
+</div>
+<hr>
+<div class="cardSection2">
+    <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
+        RETOUR
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC; border-right: 2px solid #00B4CC">
+            Départ
+        </div>
+        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC">
+            Arrivée
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6 ">
+            {{ form_label(form2.date_start) }}
+            {{ form_widget(form2.date_start) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form2.date_end) }}
+            {{ form_widget(form2.date_end) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6" >
+            {{ form_label(form2.postal_code_point_departure) }}
+            {{ form_widget(form2.postal_code_point_departure) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form2.postal_code_point_arrival) }}
+            {{ form_widget(form2.postal_code_point_arrival) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form2.city_point_departure) }}
+            {{ form_widget(form2.city_point_departure) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form2.city_point_arrival) }}
+            {{ form_widget(form2.city_point_arrival) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form2.adress_point_departure) }}
+            {{ form_widget(form2.adress_point_departure) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form2.adress_point_arrival) }}
+            {{ form_widget(form2.adress_point_arrival) }}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC;">
+            Informations complémentaires
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_label(form2.km_number) }}
+            {{ form_widget(form2.km_number) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form2.status) }}
+            {{ form_widget(form2.status) }}
+        </div>
+    </div>
+</div>
+
 <hr>
 <div class="titleReservation">
     Autre informations
 </div>
+<hr>
 <div class="row">
     <div class="col-md-12">
         {{ form_label(form.status_key) }}
         {{ form_widget(form.status_key) }}
     </div>
 </div>
-<hr>
-<div class="row">
-    <div class="col-md-12">
-        <button type="button"
-        class="add-another-collection-widget btn btn-info"
-        data-list-selector="#carRides-fields-list">Ajouter un trajet</button>
-    </div>
-</div>
-<div id="carRides-fields-list"
-     data-prototype="{{ form_widget(form.carRides.vars.prototype)|e }}"
-     data-widget-tags="{{ '<li></li>'|e }}"
-     data-widget-counter="{{ form.carRides|length }}">
-{% for carRide in form.carRides %}
-<div class="row">
-    <div class="col-md-6">
-        {{ form_label(carRide.city_point_departure) }}
-        {{ form_widget(carRide.city_point_departure) }}
-    </div>
-    <div class="col-md-6">
-        {{ form_label(carRide.adress_point_departure) }}
-        {{ form_widget(carRide.adress_point_departure) }}
-    </div>
-</div>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(carRide.postal_code_point_departure) }}
-            {{ form_widget(carRide.postal_code_point_departure) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(carRide.city_point_arrival) }}
-            {{ form_widget(carRide.city_point_arrival) }}
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(carRide.adress_point_arrival) }}
-            {{ form_widget(carRide.adress_point_arrival) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(carRide.postal_code_point_arrival) }}
-            {{ form_widget(carRide.postal_code_point_arrival) }}
-        </div>
-    </div>
-    <hr>
-    <div class="titleReservation">
-        Autre informations
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(carRide.km_number) }}
-            {{ form_widget(carRide.km_number) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(carRide.status) }}
-            {{ form_widget(carRide.status) }}
-        </div>
-    </div>
-{% endfor %}
-</div>
-
 
 
 <hr>
 <div>
     <button class="btn btn-info w-100" >{{ button_label|default('Créer une nouvelle réservation') }}</button>
 </div>
+{{ form_end(form2) }}
+{{ form_end(form1) }}
 {{ form_end(form) }}
-
-<script>
-    jQuery(document).ready(function () {
-        jQuery('.add-another-collection-widget').click(function (e) {
-            var list = jQuery(jQuery(this).attr('data-list-selector'));
-            // Try to find the counter of the list or use the length of the list
-            var counter = list.data('widget-counter') || list.children().length;
-
-            // grab the prototype template
-            var newWidget = list.attr('data-prototype');
-            // replace the "__name__" used in the id and name of the prototype
-            // with a number that's unique to your emails
-            // end name attribute looks like name="contact[emails][2]"
-            newWidget = newWidget.replace(/__name__/g, counter);
-            // Increase the counter
-            counter++;
-            // And store it, the length cannot be used if deleting widgets is allowed
-            list.data('widget-counter', counter);
-
-            // create a new list element and add it to the list
-            var newElem = jQuery(list.attr('data-widget-tags')).html(newWidget);
-            newElem.appendTo(list);
-        });
-    });
-</script>
