@@ -5,55 +5,47 @@
 
 {% block body %}
 {{ include("navigation/navAdmin.html.twig") }}
-<!-- Header -->
-<header id="adminHeader">
-    <div class="mx-auto text-left">
-        <span class="sousNav">Bienvenue {{ app.user.firstname }}</span>   
-    </div>   
-</header>
-<main id="adminMain">
-    <div class="container">        
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ car_ride.id }}</td>
-                </tr>
-                <tr>
-                    <th>Départ</th>
-                    <td>{{ car_ride.cityPointDeparture }}</td>
-                </tr>
-                <tr>
-                    <th>Arrivée</th>
-                    <td>{{ car_ride.cityPointArrival }}</td>
-                </tr>
-                <tr>
-                    <th>Date de départ</th>
-                    <td>{{ car_ride.dateStart ? car_ride.dateStart|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Date d'arrivée</th>
-                    <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Status du trajet</th>
-                    <td>{{ car_ride.status }}</td>
-                </tr>
-                <tr>
-                    <th>Point de départ</th>
-                    <td>{{ car_ride.adressPointDeparture }}</td>
-                </tr>
-                <tr>
-                    <th>Point d'arrivée</th>
-                    <td>{{ car_ride.adressPointArrival }}</td>
-                </tr>
-                <tr>
-                    <th>Nombre de kilométre</th>
-                    <td>{{ car_ride.kmNumber }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</main>
+{{ include("admin/header.html.twig") }}    
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ car_ride.id }}</td>
+            </tr>
+            <tr>
+                <th>Départ</th>
+                <td>{{ car_ride.cityPointDeparture }}</td>
+            </tr>
+            <tr>
+                <th>Arrivée</th>
+                <td>{{ car_ride.cityPointArrival }}</td>
+            </tr>
+            <tr>
+                <th>Date de départ</th>
+                <td>{{ car_ride.dateStart ? car_ride.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date d'arrivée</th>
+                <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status du trajet</th>
+                <td>{{ car_ride.status }}</td>
+            </tr>
+            <tr>
+                <th>Point de départ</th>
+                <td>{{ car_ride.adressPointDeparture }}</td>
+            </tr>
+            <tr>
+                <th>Point d'arrivée</th>
+                <td>{{ car_ride.adressPointArrival }}</td>
+            </tr>
+            <tr>
+                <th>Nombre de kilométre</th>
+                <td>{{ car_ride.kmNumber }}</td>
+            </tr>
+        </tbody>
+    </table>
+{{ include("admin/footer.html.twig") }}  
 {% endblock %}
 

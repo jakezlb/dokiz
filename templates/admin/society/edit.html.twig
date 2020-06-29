@@ -3,11 +3,14 @@
 {% block title %}Edit Society{% endblock %}
 
 {% block body %}
-    <h1>Edit Society</h1>
+    {{ include("navigation/navAdmin.html.twig") }}
+    {{ include("admin/header.html.twig") }}   
+        <h1>Edit Society</h1>
 
-    {{ include('admin/society/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('admin/society/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('admin_society_index') }}">back to list</a>
+        <a href="{{ path('admin_society_index') }}">back to list</a>
 
-    {{ include('admin/society/_delete_form.html.twig') }}
+        {{ include('admin/society/_delete_form.html.twig') }}
+    {{ include("admin/footer.html.twig") }} 
 {% endblock %}

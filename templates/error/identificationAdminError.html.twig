@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservations{% endblock %}
+
+{% block body %}
+    <!-- Header -->
+    <header class="masthead backWhite" id="dokiz">
+        <div class="container h-100 align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
+            {{ include("navigation/navReservation.html.twig") }}
+            <div class="row mx-auto" style="margin-top: 40px" >
+                <h1 class="titlePageErro">Vous êtes perdus</h1>
+            </div>
+            <hr>
+
+        </div>
+    </header>
+{% endblock %}

@@ -3,48 +3,51 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Email</th>
-                <th>Rôles</th>
-                <th>Poste de travail</th>
-                <th>Société</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.email }}</td>
-                <td>                    
-                    {% for role in user.roles %}
-                        {% if role == "ROLE_USER" %}
-                            Utilisateur
-                        {% elseif role == "ROLE_SUPERADMIN" %}
-                            Super Admin
-                        {% elseif role == "ROLE_ADMIN" %}
-                            Administrateur
-                        {% endif %}
-                    {% endfor %}
-                </td>
-                <td>{{ user.job }}</td>
-                <td>{{ user.society }}</td>
-                <td>
-                    <td><a href="{{ path('admin_user_edit', {'id': user.id}) }}">Modifier</a></td>                  
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>   
+    {{ include("navigation/navAdmin.html.twig") }}
+    {{ include("admin/header.html.twig") }}  
+        <h1>Liste des utilisateurs</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Rôles</th>
+                    <th>Poste de travail</th>
+                    <th>Société</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>                    
+                        {% for role in user.roles %}
+                            {% if role == "ROLE_USER" %}
+                                Utilisateur
+                            {% elseif role == "ROLE_SUPERADMIN" %}
+                                Super Admin
+                            {% elseif role == "ROLE_ADMIN" %}
+                                Administrateur
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ user.job }}</td>
+                    <td>{{ user.society }}</td>
+                    <td>
+                        <td><a href="{{ path('admin_user_edit', {'id': user.id}) }}">Modifier</a></td>                  
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>   
+    {{ include("admin/footer.html.twig") }} 
 {% endblock %}

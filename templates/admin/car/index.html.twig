@@ -3,45 +3,48 @@
 {% block title %}Car index{% endblock %}
 
 {% block body %}
-    <h1>Car index</h1>
+    {{ include("navigation/navAdmin.html.twig") }}
+    {{ include("admin/header.html.twig") }}
+        <h1>Car index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Immatriculation</th>
-                <th>Place_number</th>
-                <th>Name</th>
-                <th>Fuel</th>
-                <th>Date_commissioning</th>
-                <th>Level_fuel</th>
-                <th>Mark</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for car in cars %}
-            <tr>
-                <td>{{ car.id }}</td>
-                <td>{{ car.immatriculation }}</td>
-                <td>{{ car.placeNumber }}</td>
-                <td>{{ car.name }}</td>
-                <td>{{ car.fuel }}</td>
-                <td>{{ car.dateCommissioning ? car.dateCommissioning|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ car.levelFuel }}</td>
-                <td>{{ car.mark }}</td>
-                <td>
-                    <a href="{{ path('admin_car_show', {'id': car.id}) }}">show</a>
-                    <a href="{{ path('admin_car_edit', {'id': car.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Immatriculation</th>
+                    <th>Place_number</th>
+                    <th>Name</th>
+                    <th>Fuel</th>
+                    <th>Date_commissioning</th>
+                    <th>Level_fuel</th>
+                    <th>Mark</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for car in cars %}
+                <tr>
+                    <td>{{ car.id }}</td>
+                    <td>{{ car.immatriculation }}</td>
+                    <td>{{ car.placeNumber }}</td>
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.fuel }}</td>
+                    <td>{{ car.dateCommissioning ? car.dateCommissioning|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ car.levelFuel }}</td>
+                    <td>{{ car.mark }}</td>
+                    <td>
+                        <a href="{{ path('admin_car_show', {'id': car.id}) }}">show</a>
+                        <a href="{{ path('admin_car_edit', {'id': car.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('admin_car_new') }}">Create new</a> 
+        <a href="{{ path('admin_car_new') }}">Create new</a> 
+    {{ include("admin/footer.html.twig") }}
 {% endblock %}

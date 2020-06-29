@@ -20,19 +20,20 @@ class CarRide
     private $id;
 
     /**
-     * @Assert\Blank
+     * @Assert\NotBlank
      * @ORM\Column(type="datetime")
      */
     private $date_start;
 
     /**
-     * @Assert\Blank
+     * @Assert\NotBlank
      * @ORM\Column(type="datetime")
      */
     private $date_end;
 
     /**
      * @Assert\NotBlank
+     * @Assert\Length(min=5, max=5, exactMessage="Le code postal doit faire 5 caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private $postal_code_point_departure;
@@ -51,6 +52,7 @@ class CarRide
 
     /**
      * @Assert\NotBlank
+     * @Assert\Length(min=5, max=5, exactMessage="Le code postal doit faire 5 caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private $postal_code_point_arrival;
@@ -68,6 +70,8 @@ class CarRide
     private $adress_point_arrival;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Positive(message="La valeur doit être positive.")
      * @ORM\Column(type="integer")
      */
     private $km_number;

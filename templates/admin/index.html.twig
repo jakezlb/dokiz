@@ -4,6 +4,6 @@
     {% if app.user %}
         {{ include("admin/dashbord.html.twig") }}
     {% else %}
-       <p>ixixi</p>
+      {{ include("error/identificationAdminError.html.twig") }}
     {% endif %}
 {% endblock %}
