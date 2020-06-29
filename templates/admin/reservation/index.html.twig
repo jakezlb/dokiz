@@ -4,7 +4,7 @@
 
 {% block body %}
     {{ include("navigation/navAdmin.html.twig") }}
-    {{ include("admin/hearder.html.twig") }}
+    {{ include("admin/header.html.twig") }}
 
         {% if reservations %}
         {% for reservation in reservations %}
@@ -16,11 +16,11 @@
                         </div>
                         <div class="col-md-3 hrVerticalFine my-auto">
                             <div class="row mx-auto">
-                                {{ reservation.carRide.adressPointDeparture  }}   <!-- A remplacer par la ville (adresse) de départ de la réservation -->
+                                {{ reservation.carRide.cityPointDeparture }}
                             </div>
                             <hr>
                             <div class="row mx-auto" >
-                                Chartres de Bretagne         <!-- A remplacer par la ville (adresse) d'arrivée de la réservation -->
+                                {{ reservation.carRide.cityPointArrival }}
                             </div>
                         </div>
                         <div class="col-md-3 hrVerticalFine my-auto">
