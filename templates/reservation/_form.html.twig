@@ -8,9 +8,8 @@
 </script>
 
 {{ form_start(form) }}
-{{ form_start(form1) }}
-{{ form_start(form2) }}
 
+{% for carRide in form.carRides %}
 <div class="cardSection2">
 <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
     ALLER
@@ -27,45 +26,45 @@
 <br>
 <div class="row">
     <div class="col-md-6 ">
-        {{ form_label(form1.date_start) }}
-        {{ form_widget(form1.date_start) }}
+        {{ form_label(carRide.date_start) }}
+        {{ form_widget(carRide.date_start) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(form1.date_end) }}
-        {{ form_widget(form1.date_end) }}
+        {{ form_label(carRide.date_end) }}
+        {{ form_widget(carRide.date_end) }}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-6" >
-        {{ form_label(form1.postal_code_point_departure) }}
-        {{ form_widget(form1.postal_code_point_departure) }}
+        {{ form_label(carRide.postal_code_point_departure) }}
+        {{ form_widget(carRide.postal_code_point_departure) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(form1.postal_code_point_arrival) }}
-        {{ form_widget(form1.postal_code_point_arrival) }}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-md-6">
-        {{ form_label(form1.city_point_departure) }}
-        {{ form_widget(form1.city_point_departure) }}
-    </div>
-    <div class="col-md-6">
-        {{ form_label(form1.city_point_arrival) }}
-        {{ form_widget(form1.city_point_arrival) }}
+        {{ form_label(carRide.postal_code_point_arrival) }}
+        {{ form_widget(carRide.postal_code_point_arrival) }}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-6">
-        {{ form_label(form1.adress_point_departure) }}
-        {{ form_widget(form1.adress_point_departure) }}
+        {{ form_label(carRide.city_point_departure) }}
+        {{ form_widget(carRide.city_point_departure) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(form1.adress_point_arrival) }}
-        {{ form_widget(form1.adress_point_arrival) }}
+        {{ form_label(carRide.city_point_arrival) }}
+        {{ form_widget(carRide.city_point_arrival) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(carRide.adress_point_departure) }}
+        {{ form_widget(carRide.adress_point_departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(carRide.adress_point_arrival) }}
+        {{ form_widget(carRide.adress_point_arrival) }}
     </div>
 </div>
 <br>
@@ -77,93 +76,94 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        {{ form_label(form1.km_number) }}
-        {{ form_widget(form1.km_number) }}
+        {{ form_label(carRide.km_number) }}
+        {{ form_widget(carRide.km_number) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(form1.status) }}
-        {{ form_widget(form1.status) }}
+        {{ form_label(carRide.status) }}
+        {{ form_widget(carRide.status) }}
     </div>
 </div>
 </div>
 <hr>
-<div class="cardSection2">
-    <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
-        RETOUR
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC; border-right: 2px solid #00B4CC">
-            Départ
-        </div>
-        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC">
-            Arrivée
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-6 ">
-            {{ form_label(form2.date_start) }}
-            {{ form_widget(form2.date_start) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(form2.date_end) }}
-            {{ form_widget(form2.date_end) }}
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-6" >
-            {{ form_label(form2.postal_code_point_departure) }}
-            {{ form_widget(form2.postal_code_point_departure) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(form2.postal_code_point_arrival) }}
-            {{ form_widget(form2.postal_code_point_arrival) }}
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form2.city_point_departure) }}
-            {{ form_widget(form2.city_point_departure) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(form2.city_point_arrival) }}
-            {{ form_widget(form2.city_point_arrival) }}
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form2.adress_point_departure) }}
-            {{ form_widget(form2.adress_point_departure) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(form2.adress_point_arrival) }}
-            {{ form_widget(form2.adress_point_arrival) }}
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-12" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC;">
-            Informations complémentaires
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-md-6">
-            {{ form_label(form2.km_number) }}
-            {{ form_widget(form2.km_number) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_label(form2.status) }}
-            {{ form_widget(form2.status) }}
-        </div>
-    </div>
-</div>
+{% endfor %}
 
-<hr>
+{#<div class="cardSection2">#}
+{#    <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">#}
+{#        RETOUR#}
+{#    </div>#}
+{#    <hr>#}
+{#    <div class="row">#}
+{#        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC; border-right: 2px solid #00B4CC">#}
+{#            Départ#}
+{#        </div>#}
+{#        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC">#}
+{#            Arrivée#}
+{#        </div>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="row">#}
+{#        <div class="col-md-6 ">#}
+{#            {{ form_label(form2.date_start) }}#}
+{#            {{ form_widget(form2.date_start) }}#}
+{#        </div>#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.date_end) }}#}
+{#            {{ form_widget(form2.date_end) }}#}
+{#        </div>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="row">#}
+{#        <div class="col-md-6" >#}
+{#            {{ form_label(form2.postal_code_point_departure) }}#}
+{#            {{ form_widget(form2.postal_code_point_departure) }}#}
+{#        </div>#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.postal_code_point_arrival) }}#}
+{#            {{ form_widget(form2.postal_code_point_arrival) }}#}
+{#        </div>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="row">#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.city_point_departure) }}#}
+{#            {{ form_widget(form2.city_point_departure) }}#}
+{#        </div>#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.city_point_arrival) }}#}
+{#            {{ form_widget(form2.city_point_arrival) }}#}
+{#        </div>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="row">#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.adress_point_departure) }}#}
+{#            {{ form_widget(form2.adress_point_departure) }}#}
+{#        </div>#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.adress_point_arrival) }}#}
+{#            {{ form_widget(form2.adress_point_arrival) }}#}
+{#        </div>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="row">#}
+{#        <div class="col-md-12" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC;">#}
+{#            Informations complémentaires#}
+{#        </div>#}
+{#    </div>#}
+{#    <br>#}
+{#    <div class="row">#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.km_number) }}#}
+{#            {{ form_widget(form2.km_number) }}#}
+{#        </div>#}
+{#        <div class="col-md-6">#}
+{#            {{ form_label(form2.status) }}#}
+{#            {{ form_widget(form2.status) }}#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#<hr>#}
 <div class="titleReservation">
     Autre informations
 </div>
@@ -179,7 +179,5 @@
 <hr>
 <div>
     <button class="btn btn-info w-100" >{{ button_label|default('Créer une nouvelle réservation') }}</button>
-</div>
-{{ form_end(form2) }}
-{{ form_end(form1) }}
+</div
 {{ form_end(form) }}

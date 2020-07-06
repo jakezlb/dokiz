@@ -44,15 +44,22 @@ class ReservationController extends AbstractController
 
         $reservation = new Reservation();
         $carRide1 = new CarRide();
+        $reservation->getCarRides()->add($carRide1);
         $carRide2 = new CarRide();
+        $reservation->getCarRides()->add($carRide2);
+
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
-        $form1 = $this->createForm(CarRideType::class, $carRide1);
-        $form1->handleRequest($request);
-        $form2 = $this->createForm(CarRideType::class, $carRide2);
-        $form2->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $form1->isSubmitted() && $form1->isValid() && $form2->isSubmitted() && $form2->isValid()) {
+//        $carRide1 = new CarRide();
+//        $form1 = $this->createForm(, $carRide1);
+//        $form1->handleRequest($request);
+//        $carRide2 = new CarRide();
+//        $form2 = $this->createForm(CarRideType::class, $carRide2);
+//        $form2->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $reservation->setIsConfirmed(false);
@@ -82,29 +89,28 @@ class ReservationController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
 
-            $entityManager->persist($carRide1);
-            $entityManager->flush();
-
-            $entityManager->persist($carRide2);
-            $entityManager->flush();
-
-            $entityManager->persist($passenger1);
-            $entityManager->flush();
-
-            $entityManager->persist($passenger2);
-            $entityManager->flush();
+//            $entityManager->persist($carRide1);
+//            $entityManager->flush();
+//
+//            $entityManager->persist($carRide2);
+//            $entityManager->flush();
+//
+//            $entityManager->persist($passenger1);
+//            $entityManager->flush();
+//
+//            $entityManager->persist($passenger2);
+//            $entityManager->flush();
 
             return $this->redirectToRoute('reservation_index');
         }
 
-        return $this->render('reservation/new.html.twig', [
-            'reservation' => $reservation,
-            'carRide1' => $carRide1,
-            'carRide2' => $carRide2,
+        return $this->render('reservation/new.html.twig', array(
+//            'carRide1' => $carRide1,
+//            'carRide2' => $carRide2,
             'form' => $form->createView(),
-            'form1' => $form1->createView(),
-            'form2' => $form2->createView()
-        ]);
+//            'form1' => $form1->createView(),
+//            'form2' => $form2->createView()
+        ));
     }
 
     /**

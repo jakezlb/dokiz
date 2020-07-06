@@ -33,6 +33,15 @@ class ReservationType extends AbstractType
                 ],                               
                 'label' => 'Statut de la clé de la voiture'
             ])
+
+            ->add('carRides', CollectionType::class, [
+                // each entry in the array will be an "email" field
+                'entry_type' => CarRideType::class,
+                // these options are passed to each "email" type
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control'],
+                ],
+            ])
         ;
     }
 
