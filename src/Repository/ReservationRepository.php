@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Monolog\Logger;
 
 /**
  * @method Reservation|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,9 +20,29 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    /**
+     * @return Reservation[]
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findByUser($id): array
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT r.reservation_id
+            FROM reservation_user r
+            WHERE r.user_id IN('.$id.')';
+        $stmt = $conn->query($sql);
+        // here you go:
+        $id_resa= $stmt->fetchAll();
+        $array_id =[];
+        foreach ($id_resa as $row) {
+            array_push($array_id, $this->find($row["reservation_id"])) ;
+        }
+        return $array_id;
+    }
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects
-    //  */
+
     /*
     public function findByExampleField($value)
     {
