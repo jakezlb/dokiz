@@ -51,7 +51,7 @@ class Reservation
 
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CarRide", mappedBy="reservation")
+     * @ORM\OneToMany(targetEntity="App\Entity\CarRide", mappedBy="reservation",cascade={"persist"})
      */
     private $carRides;
     
