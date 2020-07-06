@@ -37,6 +37,20 @@ class ReservationController extends AbstractController
     }
 
     /**
+     * @Route("/reservation/user/{id}", name="reservation_user", methods={"GET"})
+     * @param ReservationRepository $reservationRepository
+     * @param int $id
+     * @return Response
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function indexById(ReservationRepository $reservationRepository, int $id): Response
+    {
+        return $this->render('reservation/index.html.twig', [
+            'reservations' => $reservationRepository->findByUser($id),
+        ]);
+    }
+
+    /**
      * @Route("/reservation/new", name="reservation_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response

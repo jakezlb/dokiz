@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger btnNav active" href="" id="section5"> Rechercher</a>
+                    <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('reservation_user', {id: app.user.id}) }}" id="section5"> Rechercher</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('car_ride_index') }}" id="section6"> Trajets</a>
@@ -25,7 +25,12 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" style="margin-top: -30px">
                             <li><a class="dropdown-item" href="{{ path('user', {id: app.user.id}) }}">Profil</a></li>
-                            <li><a class="dropdown-item" href="{{ path('reservation_index') }}">Réservations en cours</a></li>
+                            {% for r in app.user.getRoles() %}
+                                {% if r in "ROLE_SUPERADMIN" %}
+                                    <li><a class="dropdown-item" href="{{ path('admin_dashbord') }}">Dashboard admin</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            <li><a class="dropdown-item" href="{{ path('reservation_user', {id: app.user.id}) }}">Réservations en cours</a></li>
                             <li><a class="dropdown-item" href="{{ path('reservation_new') }}">Nouvelle Reservation</a></li>
                             <hr>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
