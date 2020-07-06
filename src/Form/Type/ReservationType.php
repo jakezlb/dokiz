@@ -33,19 +33,14 @@ class ReservationType extends AbstractType
                 ],                               
                 'label' => 'Statut de la clé de la voiture'
             ])
-            ->add('state_premise_depature', DateTimeType::class, [
-                'attr' => [
-                    'class' => 'form-control'
+
+            ->add('carRides', CollectionType::class, [
+                // each entry in the array will be an "email" field
+                'entry_type' => CarRideType::class,
+                // these options are passed to each "email" type
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control'],
                 ],
-                'widget' => 'single_text',
-                'label' => 'Date'
-            ])
-            ->add('state_premise_arrival', DateTimeType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'widget' => 'single_text',
-                'label' => "Date"
             ])
         ;
     }
@@ -54,6 +49,7 @@ class ReservationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Reservation::class,
+            'csrf_protection' => false,
         ]);
     }
 }

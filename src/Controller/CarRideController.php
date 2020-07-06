@@ -25,8 +25,11 @@ class CarRideController extends AbstractController
             'car_rides' => $carRideRepository->findAll(),
         ]);
     }
-      /**
+
+    /**
      * @Route("/car_ride", name="car_ride_index", methods={"GET"})
+     * @param CarRideRepository $carRideRepository
+     * @return Response
      */
     public function index(CarRideRepository $carRideRepository): Response
     {
@@ -55,25 +58,25 @@ class CarRideController extends AbstractController
         $form = $this->createForm(CarRideType::class, $carRide);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
-            $carRide->setStatus($statusDefault);
-
-            $entityManager->persist($carRide);
-            $entityManager->flush();
-
-            $passenger = new Passenger();
-            $passenger->setCarRide($carRide);
-            $passenger->setUser($user);
-            $passenger->setIsDriver(1);
-          
-            $entityManager->persist($passenger);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('car_ride_index');
-        }
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//
+//            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
+//            $carRide->setStatus($statusDefault);
+//
+//            $entityManager->persist($carRide);
+//            $entityManager->flush();
+//
+//            $passenger = new Passenger();
+//            $passenger->setCarRide($carRide);
+//            $passenger->setUser($user);
+//            $passenger->setIsDriver(1);
+//
+//            $entityManager->persist($passenger);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('car_ride_index');
+//        }
 
         return $this->render('car_ride/new.html.twig', [
             'car_ride' => $carRide,
