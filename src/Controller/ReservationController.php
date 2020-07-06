@@ -52,7 +52,7 @@ class ReservationController extends AbstractController
         $form2 = $this->createForm(CarRideType::class, $carRide2);
         $form2->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $form1->isSubmitted() && $form1->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $form1->isSubmitted() && $form1->isValid() && $form2->isSubmitted() && $form2->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
 
             $reservation->setIsConfirmed(false);
@@ -103,7 +103,7 @@ class ReservationController extends AbstractController
             'carRide2' => $carRide2,
             'form' => $form->createView(),
             'form1' => $form1->createView(),
-            'form2' => $form1->createView()
+            'form2' => $form2->createView()
         ]);
     }
 
