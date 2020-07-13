@@ -230,10 +230,14 @@ class Car
 
     public function addKey(KeyCar $keyCar)
     {
+        //$this->keys->add($keyCar);
+        $keyCar->setCar($this);
         $this->keys->add($keyCar);
     }
     public function removeKey(KeyCar $keyCar)
     {
         $this->keys->removeElement($keyCar);
     }
+
+
 }

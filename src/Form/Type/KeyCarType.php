@@ -13,7 +13,7 @@ class KeyCarType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('car')
+            //->add('car')
         ;
     }
 

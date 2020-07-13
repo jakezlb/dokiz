@@ -16,7 +16,7 @@ class KeyCar
      */
     private $id;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="keys")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="keys",cascade={"persist"})
      */
     private $car;
 
