@@ -21,12 +21,25 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ReservationController extends AbstractController
 {
+
+    /**
+     * @Route("reservation", name="reservation_index", methods={"GET"})
+     * @param ReservationRepository $reservationRepository
+     * @return Response
+     */
+    public function index(ReservationRepository $reservationRepository): Response
+    {
+        return $this->render('reservation/index.html.twig', [
+            'reservations' => $reservationRepository->findAll(),
+        ]);
+    }
+
     /**
      * @Route("admin/reservation", name="admin_reservation_index", methods={"GET"})
      * @param ReservationRepository $reservationRepository
      * @return Response
      */
-    public function index(ReservationRepository $reservationRepository): Response
+    public function indexAdmin(ReservationRepository $reservationRepository): Response
     {
         return $this->render('admin/reservation/index.html.twig', [
             'reservations' => $reservationRepository->findAll(),
