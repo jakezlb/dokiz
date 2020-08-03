@@ -8,6 +8,7 @@ use App\Entity\Reservation;
 use App\Entity\Status;
 use App\Form\Type\CarRideType;
 use App\Form\Type\ReservationType;
+use App\Repository\CarRepository;
 use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use phpDocumentor\Reflection\Types\Collection;
@@ -62,11 +63,12 @@ class ReservationController extends AbstractController
 
     /**
      * @Route("/reservation/new", name="reservation_new", methods={"GET","POST"})
+     * @param CarRepository $carRepository
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-    public function new(Request $request): Response
+    public function new(CarRepository $carRepository,Request $request): Response
     {
 
         $reservation = new Reservation();
@@ -74,7 +76,8 @@ class ReservationController extends AbstractController
         $reservation->getCarRides()->add($carRide1);
         $carRide2 = new CarRide();
         $reservation->getCarRides()->add($carRide2);
-
+        $cars = $carRepository->findAll();
+        $reservation->setCars($cars);
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
@@ -122,11 +125,11 @@ class ReservationController extends AbstractController
 //            $entityManager->persist($carRide2);
 //            $entityManager->flush();
 //
-//            $entityManager->persist($passenger1);
-//            $entityManager->flush();
+            $entityManager->persist($passenger1);
+            $entityManager->flush();
 //
-//            $entityManager->persist($passenger2);
-//            $entityManager->flush();
+            $entityManager->persist($passenger2);
+            $entityManager->flush();
 
             return $this->redirectToRoute('reservation_index');
         }

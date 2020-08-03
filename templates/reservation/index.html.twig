@@ -11,33 +11,54 @@
                 <h1 class="titleReservation">Réservations en cours</h1>
             </div>
             <hr>
-            {% set villeDepartAller = '' %}
-            {% set villeArriveAller = '' %}
-            {% set villeDepartRetour = '' %}
-            {% set villeArriveRetour = '' %}
-            {% set i = 0 %}
             {% if reservations %}
             {% for reservation in reservations %}
 
+                {% set i = 0 %}
+                {% set villeDepartAller = '' %}
+                {% set villeArriveAller = '' %}
+                {% set villeDepartRetour = '' %}
+                {% set villeArriveRetour = '' %}
+                {% set reservePar = '' %}
+                {% set dateDepartAller = null  %}
+                {% set dateArriveAller = null %}
+                {% set dateDepartRetour = null %}
+                {% set dateArriveRetour = null %}
                 {% for carRide in reservation.carRides %}
-                    {{ if i == 0 }}
-                        {{ villeDepartAller = carRide.city_point_departure }}
-                        {{ villeArriveAller = carRide.city_point_arrival }}
-                    {{ endif }}
-                    {{ if i == 1 }}
-                        {{ villeDepartRetour = carRide.city_point_departure }}
-                        {{ villeArriveRetour = carRide.city_point_arrival }}
-                    {{ endif }}
-                    {{ i++ }}
+                    {% if i == 0 %}
+                        {% set villeDepartAller = carRide.getCityPointDeparture() %}
+                        {% set villeArriveAller = carRide.getCityPointArrival() %}
+                        {% set dateDepartAller = carRide.getDateStart() %}
+                        {% set dateArriveAller = carRide.getDateEnd() %}
+
+                        {% for passenger in carRide.passengers %}
+                            {% set user = passenger.getUser() %}
+                            {% set reservePar = user.getFirstName() ~ ' ' ~ user.getLastName() %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if i == 1 %}
+                        {% set villeDepartRetour = carRide.getCityPointDeparture() %}
+                        {% set villeArriveRetour = carRide.getCityPointArrival() %}
+                        {% set dateDepartRetour = carRide.getDateStart() %}
+                        {% set dateArriveRetour = carRide.getDateEnd() %}
+                    {% endif %}
+                    {% set i = i + 1 %}
                 {% endfor %}
 
                 <div class="row">
                         <div class="cardSection">
-                            <div class="row">
-                                <div class="col-md-2 text-center mx-auto">
-                                    <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
+                            <div class="row hrHorizontalFine" >
+                                <div class="col-md-4 my-auto text-center">
+                                    <h2>Aller</h2>
                                 </div>
-                                <div class="col-md-3 hrVerticalFine my-auto">
+                                <div class="col-md-4 hrVerticalFine my-auto text-center">
+                                    <h2>Retour</h2>
+                                </div>
+                                <div class="col-md-4 hrVerticalFine my-auto">
+                                </div>
+                            </div>
+                            <div class="row" style="padding-left: 10px; padding-right: 10px">
+                                <div class="col-md-2 my-auto">
                                     <div class="row mx-auto">
                                         {{ villeDepartAller }}
                                     </div>
@@ -46,18 +67,36 @@
                                         {{ villeArriveAller }}
                                     </div>
                                 </div>
-                                <div class="col-md-3 hrVerticalFine my-auto">
+                                <div class="col-md-2 hrVerticalFine my-auto">
                                     <div class="row mx-auto">
-                                        {{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i') : '' }}
+                                        {{ dateDepartAller|date("m/d/Y h:m") }}
                                     </div>
                                     <hr>
                                     <div class="row mx-auto">
-                                        {{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('d/m/Y H:i') : '' }}
+                                        {{ dateArriveAller|date("m/d/Y h:m") }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2 hrVerticalFine my-auto">
+                                    <div class="row mx-auto">
+                                        {{ villeDepartRetour }}
+                                    </div>
+                                    <hr>
+                                    <div class="row mx-auto" >
+                                        {{ villeArriveRetour }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2 hrVerticalFine my-auto">
+                                    <div class="row mx-auto">
+                                        {{ dateDepartRetour|date("m/d/Y h:m") }}
+                                    </div>
+                                    <hr>
+                                    <div class="row mx-auto">
+                                        {{ dateArriveRetour|date("m/d/Y h:m") }}
                                     </div>
                                 </div>
                                 <div class="col-md-4 hrVerticalFine my-auto">
                                     <div class="row mx-auto">
-                                        Réservé par : {{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i') : '' }}
+                                        Réservé par : {{ reservePar }}
                                     </div>
                                     <hr>
                                     <div class="row mx-auto">

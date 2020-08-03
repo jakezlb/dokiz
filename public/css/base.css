@@ -420,6 +420,12 @@ html  {
     padding-right: 2rem;
 }
 
+.hrHorizontalFine {
+    border-bottom: 1px solid rgba(0, 180, 204, .5);
+    margin-left: 0;
+    margin-right: 0;
+}
+
 #adminHeader {
     background-image: linear-gradient(to top, #2adff3, #00c7ff, #00aaff, #0087ff, #4457ff);
     background-position: center;
