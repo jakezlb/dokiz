@@ -78,13 +78,6 @@ class ReservationController extends AbstractController
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
-//        $carRide1 = new CarRide();
-//        $form1 = $this->createForm(, $carRide1);
-//        $form1->handleRequest($request);
-//        $carRide2 = new CarRide();
-//        $form2 = $this->createForm(CarRideType::class, $carRide2);
-//        $form2->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -116,27 +109,11 @@ class ReservationController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
 
-//            $entityManager->persist($carRide1);
-//            $entityManager->flush();
-//
-//            $entityManager->persist($carRide2);
-//            $entityManager->flush();
-//
-//            $entityManager->persist($passenger1);
-//            $entityManager->flush();
-//
-//            $entityManager->persist($passenger2);
-//            $entityManager->flush();
-
             return $this->redirectToRoute('reservation_index');
         }
 
         return $this->render('reservation/new.html.twig', array(
-//            'carRide1' => $carRide1,
-//            'carRide2' => $carRide2,
             'form' => $form->createView(),
-//            'form1' => $form1->createView(),
-//            'form2' => $form2->createView()
         ));
     }
 
@@ -163,7 +140,14 @@ class ReservationController extends AbstractController
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            $carRides = $reservation->getCarRides();
+
+            $reservation->setIsConfirmed(false);
+            $reservation->setStatePremiseDepature($carRides->first()->getDateStart());
+            $reservation->setStatePremiseArrival($carRides->last()->getDateEnd());
+            $reservation->setDateReservation(new \DateTime());
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('reservation_index');
@@ -171,6 +155,7 @@ class ReservationController extends AbstractController
 
         return $this->render('reservation/edit.html.twig', [
             'reservation' => $reservation,
+            'carRides' => $reservation->getCarRides(),
             'form' => $form->createView(),
         ]);
     }

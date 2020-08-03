@@ -1,0 +1,105 @@
+<script>
+    $(document).ready(function() {
+        // you may need to change this code if you are not using Bootstrap Datepicker
+        $('.datetimepicker1').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
+</script>
+
+{{ form_start(form) }}
+
+{% for carRide in form.carRides %}
+<div class="cardSection2">
+<div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
+    ALLER
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC; border-right: 2px solid #00B4CC">
+        Départ
+    </div>
+    <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC">
+        Arrivée
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6 ">
+        {{ form_label(carRide.date_start) }}
+        {{ form_widget(carRide.date_start) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(carRide.date_end) }}
+        {{ form_widget(carRide.date_end) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6" >
+        {{ form_label(carRide.postal_code_point_departure) }}
+        {{ form_widget(carRide.postal_code_point_departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(carRide.postal_code_point_arrival) }}
+        {{ form_widget(carRide.postal_code_point_arrival) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(carRide.city_point_departure) }}
+        {{ form_widget(carRide.city_point_departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(carRide.city_point_arrival) }}
+        {{ form_widget(carRide.city_point_arrival) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(carRide.adress_point_departure) }}
+        {{ form_widget(carRide.adress_point_departure) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(carRide.adress_point_arrival) }}
+        {{ form_widget(carRide.adress_point_arrival) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC;">
+        Informations complémentaires
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(carRide.km_number) }}
+        {{ form_widget(carRide.km_number) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(carRide.status) }}
+        {{ form_widget(carRide.status) }}
+    </div>
+</div>
+</div>
+<hr>
+{% endfor %}
+
+<div class="titleReservation">
+    Autre informations
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        {{ form_label(form.status_key) }}
+        {{ form_widget(form.status_key) }}
+    </div>
+</div>
+<hr>
+<div>
+    <button class="btn btn-info w-100" >{{ button_label }}</button>
+</div
+{{ form_end(form) }}
