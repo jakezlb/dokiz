@@ -25,6 +25,11 @@ class KeyCar
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isTaken;
+
     public function __toString() {
         return $this->name;
     }

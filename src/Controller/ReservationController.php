@@ -8,6 +8,7 @@ use App\Entity\Reservation;
 use App\Entity\Status;
 use App\Form\Type\CarRideType;
 use App\Form\Type\ReservationType;
+use App\Repository\CarRepository;
 use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use phpDocumentor\Reflection\Types\Collection;
@@ -68,7 +69,6 @@ class ReservationController extends AbstractController
      */
     public function new(Request $request): Response
     {
-
         $reservation = new Reservation();
         $carRide1 = new CarRide();
         $reservation->getCarRides()->add($carRide1);
