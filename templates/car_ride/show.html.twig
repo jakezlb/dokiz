@@ -7,7 +7,7 @@
 <header class="masthead" id="dokiz">
     <div class="container d-flex h-100 align-items-center">
         {{ include("navigation/navCarRide.html.twig") }}
-    <h1>CarRide</h1>
+    <h1>Trajets</h1>
 
     <table class="table">
         <tbody>
@@ -32,7 +32,7 @@
                 <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Status du trajet</th>
+                <th>Statut du trajet</th>
                 <td>{{ car_ride.status }}</td>
             </tr>
             <tr>
@@ -44,16 +44,13 @@
                 <td>{{ car_ride.adressPointArrival }}</td>
             </tr>
             <tr>
-                <th>Nombre de kilométre</th>
+                <th>Nombre de kilomètres</th>
                 <td>{{ car_ride.kmNumber }}</td>
             </tr>
         </tbody>
     </table>
+        <a href="{{ path('car_ride_index') }}">Retourner à la liste</a>
+        {{ include('car_ride/_delete_form.html.twig') }}
     </div>
 </header>
-    <a href="{{ path('car_ride_index') }}">back to list</a>
-
-    <a href="{{ path('car_ride_edit', {'id': car_ride.id}) }}">edit</a>
-
-    {{ include('car_ride/_delete_form.html.twig') }}
 {% endblock %}

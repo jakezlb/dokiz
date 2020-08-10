@@ -8,7 +8,7 @@
         <div class="container align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navReservation.html.twig") }}
             <div class="row mx-auto" style="margin-top: 40px" >
-                <h1 class="titleReservation ">réservation n° {{ reservation.id }}</h1>
+                <h1 class="titleReservation ">Réservation n° {{ reservation.id }}</h1>
             </div>
             <hr>
             <div class="row">
@@ -44,16 +44,15 @@
                     <tr>
                         <th>Users</th>
                         {%  for user in reservation.users %}
-                            <td> {{  user.firstName }}</td>
+                            <td>{{ user.firstName }}</td>
                         {% else %}
-                            <td >no records found</td>
+                            <td>no records found</td>
                         {% endfor %}
                     </tr>
                     </tbody>
                 </table>
+                <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
+            </div>
         </div>
-        <a href="{{ path('reservation_index') }}">back to list</a>
-        <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
-        <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
     </header>
 {% endblock %}
