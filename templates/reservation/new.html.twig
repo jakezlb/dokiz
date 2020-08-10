@@ -32,10 +32,10 @@
         //     }
         // }
 
-        $("#car_ride_postal_code_point_departure").autocomplete({
+        $("#reservation_carRides_0_postal_code_point_departure").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_departure]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][0][postal_code_point_departure]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
@@ -55,13 +55,58 @@
             },
             // On remplit aussi la ville
             select: function(event, ui) {
-                $('#car_ride_city_point_departure').val(ui.item.city);
+                $('#reservation_carRides_0_city_point_departure').val(ui.item.city);
             }
         });
-        $("#car_ride_adress_point_departure").autocomplete({
+        $("#reservation_carRides_1_postal_code_point_departure").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_departure]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][1][postal_code_point_departure]']").val(),
+                    data: { q: request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        var postcodes = [];
+                        response($.map(data.features, function (item) {
+                            // Ici on est obligé d'ajouter les CP dans un array pour ne pas avoir plusieurs fois le même
+                            if ($.inArray(item.properties.postcode, postcodes) == -1) {
+                                postcodes.push(item.properties.postcode);
+                                return { label: item.properties.postcode + " - " + item.properties.city,
+                                    city: item.properties.city,
+                                    value: item.properties.postcode
+                                };
+                            }
+                        }));
+                    }
+                });
+            },
+            // On remplit aussi la ville
+            select: function(event, ui) {
+                $('#reservation_carRides_1_city_point_departure').val(ui.item.city);
+            }
+        });
+
+        $("#reservation_carRides_0_adress_point_departure").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][0][postal_code_point_departure]']").val(),
+                    data: { q: request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data.features, function (item) {
+                            // addPoint(item.geometry.coordinates[0], item.geometry.coordinates[1], 0, 0);
+                            return {
+                                label: item.properties.name,
+                                value: item.properties.name,
+                            };
+                        }));
+                    }
+                });
+            }
+        });
+        $("#reservation_carRides_1_adress_point_departure").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][1][postal_code_point_departure]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
@@ -77,10 +122,10 @@
             }
         });
 
-        $("#car_ride_postal_code_point_arrival").autocomplete({
+        $("#reservation_carRides_0_postal_code_point_arrival").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_arrival]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][0][postal_code_point_arrival]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
@@ -100,14 +145,54 @@
             },
             // On remplit aussi la ville
             select: function(event, ui) {
-                $('#car_ride_city_point_arrival').val(ui.item.city);
+                $('#reservation_carRides_0_city_point_arrival').val(ui.item.city);
+            }
+        });
+        $("#reservation_carRides_1_postal_code_point_arrival").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][1][postal_code_point_arrival]']").val(),
+                    data: { q: request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        var postcodes = [];
+                        response($.map(data.features, function (item) {
+                            // Ici on est obligé d'ajouter les CP dans un array pour ne pas avoir plusieurs fois le même
+                            if ($.inArray(item.properties.postcode, postcodes) == -1) {
+                                postcodes.push(item.properties.postcode);
+                                return { label: item.properties.postcode + " - " + item.properties.city,
+                                    city: item.properties.city,
+                                    value: item.properties.postcode
+                                };
+                            }
+                        }));
+                    }
+                });
+            },
+            // On remplit aussi la ville
+            select: function(event, ui) {
+                $('#reservation_carRides_1_city_point_arrival').val(ui.item.city);
             }
         });
 
-        $("#car_ride_adress_point_arrival").autocomplete({
+        $("#reservation_carRides_0_adress_point_arrival").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_arrival]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][0][postal_code_point_arrival]']").val(),
+                    data: { q: request.term },
+                    dataType: "json",
+                    success: function (data) {
+                        response($.map(data.features, function (item) {
+                            return { label: item.properties.name, value: item.properties.name};
+                        }));
+                    }
+                });
+            }
+        });
+        $("#reservation_carRides_1_adress_point_arrival").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='reservation[carRides][1][postal_code_point_arrival]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
