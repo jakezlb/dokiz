@@ -105,6 +105,7 @@ class CarController extends AbstractController
 
         // Create an ArrayCollection of the current Key objects in the database
         foreach ($car->getKeys() as $key) {
+                    
             $originalKeys->add($key);
         }
     
@@ -114,11 +115,11 @@ class CarController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($originalKeys as $key) {
-                if (false === $car->getKeys()->contains($key)) {
-                    
+                if (false === $car->getKeys()->contains($key)) {                   
+               
                     // if it was a many-to-one relationship, remove the relationship like this
-                    $key->setCar(null);                   
-    
+                    $key->setCar(null);   
+                    
                     $entityManager->persist($key);
 
                     // if you wanted to delete the Tag entirely, you can also do that

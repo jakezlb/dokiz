@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Car{% endblock %}
 
@@ -7,7 +7,7 @@
     {{ include("admin/header.html.twig") }}
         <h1>Car</h1>
 
-        <table class="table">
+        <table id="tableAdmin" class="display">
             <tbody>
                 <tr>
                     <th>Id</th>
@@ -36,6 +36,10 @@
                 <tr>
                     <th>Level_fuel</th>
                     <td>{{ car.levelFuel }}</td>
+                </tr>
+                <tr>
+                    <th>Mark</th>
+                    <td>{{ car.mark }}</td>
                 </tr>
                 <tr>
                     <th>Mark</th>

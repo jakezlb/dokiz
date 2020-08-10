@@ -35,7 +35,8 @@ class KeyCarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $keyCar->setIsTaken(0);
+            $entityManager = $this->getDoctrine()->getManager();            
             $entityManager->persist($keyCar);
             $entityManager->flush();
 

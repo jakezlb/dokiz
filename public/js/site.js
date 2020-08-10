@@ -81,6 +81,10 @@ $(function () {
         addKeyForm($collectionHolder, $newLinkLi);
     });
 
+    //Datatable
+    $('#tableAdmin').DataTable();
+    
+
 });
 
 
