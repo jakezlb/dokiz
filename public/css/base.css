@@ -457,6 +457,12 @@ html  {
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.5) !important;
 }
 
+#adminMain h1{
+    margin:30px 0;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
+
 .titleReservation {
     color: black !important;
     margin-bottom: 0 !important;
@@ -466,4 +472,75 @@ html  {
 
 .borderBlueRight{
     border-right: 2px solid #00B4CC !important;
+}
+
+#interfaceAdmin{
+    background-color: #f2f6fa;
+}
+
+#adminMain .adminContainer {
+    padding:45px;
+}
+
+/* ==============
+  Tables
+===================*/
+
+#tableAdmin tbody tr, #tableAdmin tbody tr .sorting_1 {
+    background-color: white;
+    border-radius: 5px;
+}
+  
+#tableAdmin {
+    margin-top: 10px !important;
+    margin-bottom: 18px !important;
+}
+/*table.dataTable thead {
+    background-color: #f2f6fa;
+}*/
+#tableAdmin thead {
+    margin-bottom: 20px;
+}
+#tableAdmin thead tr th{
+    border-bottom: transparent;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+#tableAdmin tbody tr td{
+    text-align: center;
+}
+#tableAdmin.no-footer{
+    border-bottom: transparent;
+}
+#tableAdmin_filter input[type="search"] {
+    border: none;
+    border-radius: 15px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    border: none;
+    background: white;
+    border-radius: 15px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    padding:3px 12px;
+}
+#tableAdmin_length select {
+    border:none;
+    border-radius: 10px;
+    padding: 3px;
+}
+#adminMain .adminContainer .btn{
+    padding:15px;
+    margin-top:25px;
+}
+.dataTables_wrapper {
+    margin-top:50px;
+}
+#adminMain a {
+    color:initial;
+}
+#adminMain a.btn.btn-primary {
+    color:white;
 }

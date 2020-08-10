@@ -1,12 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}KeyCar index{% endblock %}
 
 {% block body %}
     {{ include("navigation/navAdmin.html.twig") }}
     {{ include("admin/header.html.twig") }} 
-        <h1>KeyCar index</h1>
-
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>KeyCar index</h1>
+            </div>
+            <div class="col-sm-6">
+                <a href="{{ path('admin_key_car_new') }}">Create new</a>
+            </div>
+        </div>
+        
         <table class="table">
             <thead>
                 <tr>
@@ -33,6 +40,6 @@
             </tbody>
         </table>
 
-        <a href="{{ path('admin_key_car_new') }}">Create new</a>
+        
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}
