@@ -3,8 +3,9 @@
 {% block title %}Modifier un utilisateur{% endblock %}
 
 {% block body %}
+{{ include("admin/header.html.twig") }}
 {{ include("navigation/navAdmin.html.twig") }}
-{{ include("admin/header.html.twig") }}    
+    
     <h1>Modifier un utilisateur</h1>
     {{ form(userForm) }}
 {{ include("admin/footer.html.twig") }} 

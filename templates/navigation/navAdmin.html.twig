@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg" id="adminNav">
-    <a  class="nav-link" href="{{path('index') }}"><img src="{{ asset('image/Blanc.png') }}" title="source: imgur.com" class="img-fluid logo" alt=""></a>
+   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,7 +22,7 @@
                   <li><a class="dropdown-item" href="{{path('admin_car_index') }}">Liste des véhicules</a></li>
                   <li><a class="dropdown-item" href="{{path('admin_car_new') }}">Ajouter un véhicule</a></li>
                   <li><a class="dropdown-item" href="{{path('admin_key_car_index') }}">Liste des clés</a></li>
-                  <li><a class="dropdown-item" href="{{path('admin_key_car_new') }}">Ajouter une clé</a></li>
+                 
               </ul>
           </li>
           <li class="nav-item dropdown">
@@ -47,8 +47,8 @@
                   <li> <a class="dropdown-item" href="{{path('admin_society_new') }}">Ajouter une entreprises</a>  </li>
               </ul>
           </li>
-          <li><a class="dropdown-item text-white" href="{{ path('app_logout') }}">Se déconnecter</a></li>
-          <li><a class="dropdown-item text-right text-white" href="{{ path('index') }}">Retour à l'accueil</a></li>
       </ul>
   </div>
 </nav>
+<main id="adminMain">
+    <div class="adminContainer">   

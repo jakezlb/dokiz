@@ -87,6 +87,16 @@
         outline: none;
         border-bottom: 0.25rem solid #64a19d;
     }
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-bottom: 21px;
+        margin-bottom: -12px;
+    }
+    .navbar-expand-lg .navbar-nav .dropdown-menu {
+        left: 0;
+        width: 300px;
+        right: 0;
+        margin-top:7px !important;
+    }
 }
 
 .masthead {
@@ -421,14 +431,18 @@ html  {
 }
 
 #adminHeader {
-    background-image: linear-gradient(to top, #2adff3, #00c7ff, #00aaff, #0087ff, #4457ff);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: cover;
+   background-color: #4040bf;
     color: white;
     padding: 15px;
 }
+#adminHeader .sub_nav li{
+    list-style: none;
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: #353599b0;
+    border-radius: 100%;
+}
+
 #adminNav { 
     background-color: #36393f;     
 }

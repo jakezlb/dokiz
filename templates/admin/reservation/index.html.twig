@@ -42,10 +42,11 @@
 {% endblock %}
 
 {% block body %}
-    {{ include("navigation/navAdmin.html.twig") }}
     {{ include("admin/header.html.twig") }}
+    {{ include("navigation/navAdmin.html.twig") }}
+    
 
-<table class="table" id="tabReservations">
+<table id="tableAdmin" class="display">
     <thead>
     <tr>
         <th>Date de réservation</th>
@@ -64,7 +65,7 @@
                 <td>{{ reservation.carRide.adressPointArrival }} {{ reservation.carRide.postalCodePointArrival }} {{ reservation.carRide.cityPointArrival }}</td>
                 <td>{{ reservation.isConfirmed }}</td>
                 <td>
-                    <a href="{{ path('admin_car_ride_show', {'id': car_ride.id}) }}">show</a>
+                    <a href="{{ path('admin_car_ride_show', {'id': car_ride.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                 </td>
             </tr>
         {% endfor %}

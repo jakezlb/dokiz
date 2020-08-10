@@ -3,12 +3,13 @@
 {% block title %}New KeyCar{% endblock %}
 
 {% block body %}
-    {{ include("navigation/navAdmin.html.twig") }}
     {{ include("admin/header.html.twig") }}
+    {{ include("navigation/navAdmin.html.twig") }}
+    
         <h1>Create new KeyCar</h1>
 
         {{ include('admin/key_car/_form.html.twig') }}
 
-        <a href="{{ path('admin_key_car_index') }}">back to list</a>
+        <a href="{{ path('admin_key_car_index') }}">Retour</a>
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}

@@ -3,21 +3,28 @@
 {% block title %}Society index{% endblock %}
 
 {% block body %}
+    {{ include("admin/header.html.twig") }} 
     {{ include("navigation/navAdmin.html.twig") }}
-    {{ include("admin/header.html.twig") }}      
-        <h1>Society index</h1>
-
-        <table class="table">
+    
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Liste des sociétés</h1>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn btn-primary float-right" href="{{ path('admin_society_new') }}">Ajouter une nouvelle société</a>
+            </div>
+        </div>
+        <table id="tableAdmin" class="display">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Siret</th>
-                    <th>Social_reason</th>
-                    <th>Head_office</th>
-                    <th>Postal_code</th>
-                    <th>Email_interlocutor</th>
-                    <th>Tel_interlocutor</th>
-                    <th>actions</th>
+                    <th>Raison Social</th>
+                    <th>Siege</th>
+                    <th>Code postal</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,8 +38,8 @@
                     <td>{{ society.emailInterlocutor }}</td>
                     <td>{{ society.telInterlocutor }}</td>
                     <td>
-                        <a href="{{ path('admin_society_show', {'id': society.id}) }}">show</a>
-                        <a href="{{ path('admin_society_edit', {'id': society.id}) }}">edit</a>
+                        <a href="{{ path('admin_society_show', {'id': society.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{{ path('admin_society_edit', {'id': society.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                 </tr>
             {% else %}
@@ -42,7 +49,5 @@
             {% endfor %}
             </tbody>
         </table>
-
-        <a href="{{ path('admin_society_new') }}">Create new</a>
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}

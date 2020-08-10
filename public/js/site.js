@@ -82,7 +82,10 @@ $(function () {
     });
 
     //Datatable
-    $('#tableAdmin').DataTable();
+    
+    $('#tableAdmin').DataTable( {
+        responsive: true
+    } );
     
 
 });

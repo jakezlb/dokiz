@@ -3,8 +3,9 @@
 {% block title %}Car{% endblock %}
 
 {% block body %}
-    {{ include("navigation/navAdmin.html.twig") }}
     {{ include("admin/header.html.twig") }}
+    {{ include("navigation/navAdmin.html.twig") }}
+    
         <h1>Car</h1>
 
         <table id="tableAdmin" class="display">
@@ -48,7 +49,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('admin_car_index') }}">back to list</a>
+        <a href="{{ path('admin_car_index') }}">Retour</a>
 
         <a href="{{ path('admin_car_edit', {'id': car.id}) }}">edit</a>
 
