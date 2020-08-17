@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 use App\Entity\Car;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -27,8 +28,10 @@ class CarType extends AbstractType
                 'by_reference' => false,
                 
             ])
-            ->add('fuel')
-            ->add('date_commissioning')
+            ->add('fuel')            
+            ->add('date_commissioning', DateTimeType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('level_fuel')
             ->add('mark')
             ->add('society')

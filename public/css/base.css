@@ -1,4 +1,10 @@
-
+.text-blanc {
+    color:white;
+}
+.btn-secondary {
+    color:white;
+    background-color: #4040bf;
+}
 #mainNav, #reservationsNav {
     min-height: 56px;
     background-color: #fff;
@@ -557,4 +563,59 @@ html  {
 }
 #adminMain a.btn.btn-primary {
     color:white;
+}
+/* ==============
+  Upload file
+===================*/
+#upload_file {  
+    font-family: sans-serif;
+    margin-top:10px;
+}
+
+#upload_file > label{
+	display: block;
+	max-width: 200px;
+    /*margin: 0 auto 15px;*/
+	text-align: center;
+    word-wrap: break-word;
+	color: #1a4756;
+}
+
+#upload_file > .hidden, #upload_file > #uploadImg:not(.hidden) + #upload_file > label{
+	display: none;
+}
+
+#upload_file > .input_upload > #car_car_url{
+	display: none;
+  	margin: 0 auto;
+}
+
+#upload_file > .input_upload > #upload, .add_key_link{
+	display: block;
+	padding: 10px 25px;
+	border: 0;
+	margin: 0 auto;
+	font-size: 15px;
+	letter-spacing: 0.05em;
+	cursor: pointer;
+	background: #4040bf;
+	color: #fff;
+	outline: none;
+    transition: .3s ease-in-out;
+    margin-top:15px;
+}
+#upload_file > .input_upload > #upload:hover, #upload_file > .input_upload > #upload:focus{
+    background: #4040bf;
+}
+#upload_file > .input_upload > #upload:active{
+    background: #13D4C8;
+	transition: .1s ease-in-out;
+}
+#upload_file > img{
+	display: block;
+	margin: 0 auto 15px;
+}
+
+#car_keys {
+    text-align: center;
 }

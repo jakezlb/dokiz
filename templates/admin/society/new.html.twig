@@ -1,15 +1,15 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}New Society{% endblock %}
+{% block title %}Nouvelle société{% endblock %}
 
 {% block body %}
     {{ include("admin/header.html.twig") }} 
     {{ include("navigation/navAdmin.html.twig") }}
     
-        <h1>Create new Society</h1>
+        <h1>Créer une nouvelle société</h1>
 
         {{ include('admin/society/_form.html.twig') }}
 
-        <a href="{{ path('admin_society_index') }}">Retour</a>
+        <a class="btn btn-danger text-white" href="{{ path('admin_society_index') }}">Retour</a>
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}
