@@ -16,7 +16,7 @@
                 </script>
                 <div class="row">
                         <div  class="cardSection">
-                            <div href="{{ path('reservation_show', {'id': reservation.id}) }}" class="row">
+                            <div onclick="location.href='{{ path('reservation_show', {'id': reservation.id}) }}';" style="cursor:pointer;" class="row">
                                 <div class="col-md-2 text-center mx-auto">
                                     <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
                                 </div>
