@@ -13,20 +13,33 @@
             <hr>
             {% if reservations %}
             {% for reservation in reservations %}
-                </script>
+            {% set departCarRide, arriveeCarRide, nbPlacesRestantes, reservePart = "", "", "", "" %}
+                {% for carRide in reservation.carRides %}
+                    {% if loop.first and carRide.id %}
+                        {% set departCarRide = carRide.getCityPointDeparture() %}
+                        {% set arriveeCarRide = carRide.getCityPointArrival() %}
+                    {% endif %}
+                    {% set nbPlacesRestantes = 4 - carRide.passengers|length %}
+                {% endfor %}
+                {% for user in reservation.Users %}
+                    {% if loop.first %}
+                        {% set reservePart = user.lastName ~" "~ user.firstName %}
+                    {% endif %}
+                {% endfor %}
                 <div class="row">
                         <div  class="cardSection">
                             <div onclick="location.href='{{ path('reservation_show', {'id': reservation.id}) }}';" style="cursor:pointer;" class="row">
                                 <div class="col-md-2 text-center mx-auto">
                                     <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
                                 </div>
+
                                 <div class="col-md-3 hrVerticalFine my-auto">
                                     <div class="row mx-auto">
-                                        Saint-Herblain      <!-- A remplacer par la ville (adresse) de départ de la réservation -->
+                                        {{ departCarRide }}
                                     </div>
                                     <hr>
                                     <div class="row mx-auto" >
-                                        Chartres de Bretagne         <!-- A remplacer par la ville (adresse) d'arrivée de la réservation -->
+                                        {{ arriveeCarRide }}
                                     </div>
                                 </div>
                                 <div class="col-md-3 hrVerticalFine my-auto">
@@ -40,11 +53,11 @@
                                 </div>
                                 <div class="col-md-4 hrVerticalFine my-auto">
                                     <div class="row mx-auto">
-                                        Réservé par :
+                                        Réservé par : {{ reservePart }}
                                     </div>
                                     <hr>
                                     <div class="row mx-auto">
-                                        Places Restantes :
+                                        Places Restantes : {{ nbPlacesRestantes }}
                                     </div>
                                 </div>
                             </div>
