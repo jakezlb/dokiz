@@ -106,6 +106,8 @@ class ReservationController extends AbstractController
             $passenger2->setUser($user);
             $passenger2->setIsDriver(1);
 
+            $reservation->addUser($user);
+
             $entityManager->persist($reservation);
             $entityManager->flush();
 
