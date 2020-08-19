@@ -23,7 +23,7 @@
                 {% endfor %}
                 {% for user in reservation.Users %}
                     {% if loop.first %}
-                        {% set reservePart = user.lastName ~" "~ user.firstName %}
+                        {% set reservePart = user.firstName ~" "~ user.lastName %}
                     {% endif %}
                 {% endfor %}
                 <div class="row">

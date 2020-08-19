@@ -25,11 +25,11 @@
             </tr>
             <tr>
                 <th>Date de départ</th>
-                <td>{{ car_ride.dateStart ? car_ride.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car_ride.dateStart ? car_ride.dateStart|date('d/m/Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Date d'arrivée</th>
-                <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Statut du trajet</th>

@@ -28,8 +28,8 @@
             <tr>
                 <td>{{ car_ride_user.adressPointDeparture }} {{ car_ride_user.postalCodePointDeparture }} {{ car_ride_user.cityPointDeparture }}</td>
                 <td>{{ car_ride_user.adressPointArrival }} {{ car_ride_user.postalCodePointArrival }} {{ car_ride_user.cityPointArrival }}</td>
-                <td>{{ car_ride_user.dateStart ? car_ride_user.dateStart|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ car_ride_user.dateEnd ? car_ride_user.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ car_ride_user.dateStart ? car_ride_user.dateStart|date('d/m/Y H:i:s') : '' }}</td>
+                <td>{{ car_ride_user.dateEnd ? car_ride_user.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
                 <td>{{ car_ride_user.status }}</td>
                 <td>{{ car_ride_user.kmNumber }}</td>
                 <td>
