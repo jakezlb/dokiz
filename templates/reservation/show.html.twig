@@ -51,6 +51,9 @@
                     </tr>
                     </tbody>
                 </table>
+                {%  if app.user not in reservation.users %}
+                    <a>S'inscrire</a>
+                {% endif %}
                 <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">Editer la réservation</a>
                 <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
             </div>
