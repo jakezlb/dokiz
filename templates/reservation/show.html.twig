@@ -51,10 +51,16 @@
                     </tr>
                     </tbody>
                 </table>
-                {%  if app.user not in reservation.users %}
+                {% set nbPlacesRestantes = "" %}
+                {% for carRide in reservation.carRides %}
+                    {% set nbPlacesRestantes = 4 - carRide.passengers|length %}
+                {% endfor %}
+                {%  if app.user not in reservation.users and nbPlacesRestantes > 0 %}
                     <a>S'inscrire</a>
                 {% endif %}
-                <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">Editer la réservation</a>
+                {% if app.user == reservation.users|first %}
+                    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">Editer la réservation</a>
+                {% endif %}
                 <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
             </div>
         </div>
