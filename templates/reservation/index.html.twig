@@ -13,12 +13,8 @@
             <hr>
             {% if reservations %}
             {% for reservation in reservations %}
-            {% set departCarRide, arriveeCarRide, nbPlacesRestantes, reservePart = "", "", "", "" %}
+            {% set nbPlacesRestantes, reservePart = "", "" %}
                 {% for carRide in reservation.carRides %}
-                    {% if loop.first and carRide.id %}
-                        {% set departCarRide = carRide.getCityPointDeparture() %}
-                        {% set arriveeCarRide = carRide.getCityPointArrival() %}
-                    {% endif %}
                     {% set nbPlacesRestantes = 4 - carRide.passengers|length %}
                 {% endfor %}
                 {% for user in reservation.Users %}
@@ -34,13 +30,12 @@
                                 </div>
 
                                 <div class="col-md-3 hrVerticalFine my-auto">
-                                    <div class="row mx-auto">
-                                        {{ departCarRide }}
-                                    </div>
-                                    <hr>
-                                    <div class="row mx-auto" >
-                                        {{ arriveeCarRide }}
-                                    </div>
+                                    {% for carRide in reservation.carRides %}
+                                        <div class="row mx-auto">
+                                            {{ carRide.getCityPointDeparture() }} -  {{ carRide.getCityPointArrival() }}
+                                        </div>
+                                        <hr>
+                                    {% endfor %}
                                 </div>
                                 <div class="col-md-3 hrVerticalFine my-auto">
                                     <div class="row mx-auto">
