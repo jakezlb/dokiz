@@ -36,51 +36,43 @@ class CarRide
      * @Assert\Length(min=5, max=5, exactMessage="Le code postal doit faire 5 caractères.")
      * @ORM\Column(type="string", length=255)
      */
-    private $postal_code_point_departure;
+    private $start_postal_code;
 
     /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
-    private $city_point_departure;
+    private $start_city;
 
     /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
-    private $adress_point_departure;
+    private $start_address;
 
     /**
      * @Assert\NotBlank
      * @Assert\Length(min=5, max=5, exactMessage="Le code postal doit faire 5 caractères.")
      * @ORM\Column(type="string", length=255)
      */
-    private $postal_code_point_arrival;
+    private $end_postal_code;
 
     /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
-    private $city_point_arrival;
+    private $end_city;
 
     /**
      * @Assert\NotBlank
      * @ORM\Column(type="string", length=255)
      */
-    private $adress_point_arrival;
-
-    /**
-     * @Assert\NotBlank
-     * @Assert\Positive(message="La valeur doit être positive.")
-     * @ORM\Column(type="integer")
-     */
-    private $km_number;
+    private $end_address;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Reservation", inversedBy="carRides")
      */
     private $reservation;
-   
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="CarRide", orphanRemoval=true)
@@ -98,81 +90,164 @@ class CarRide
         $this->passengers = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getDateStart(): ?\DateTimeInterface
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateStart()
     {
         return $this->date_start;
     }
 
-    public function setDateStart(\DateTimeInterface $date_start): self
+    /**
+     * @param mixed $date_start
+     */
+    public function setDateStart($date_start): void
     {
         $this->date_start = $date_start;
-
-        return $this;
     }
 
-    public function getDateEnd(): ?\DateTimeInterface
+    /**
+     * @return mixed
+     */
+    public function getDateEnd()
     {
         return $this->date_end;
     }
 
-    public function setDateEnd(\DateTimeInterface $date_end): self
+    /**
+     * @param mixed $date_end
+     */
+    public function setDateEnd($date_end): void
     {
         $this->date_end = $date_end;
-
-        return $this;
     }
 
-    public function getAdressPointDeparture(): ?string
+    /**
+     * @return mixed
+     */
+    public function getStartPostalCode()
     {
-        return $this->adress_point_departure;
+        return $this->start_postal_code;
     }
 
-    public function setAdressPointDeparture(string $adress_point_departure): self
+    /**
+     * @param mixed $start_postal_code
+     */
+    public function setStartPostalCode($start_postal_code): void
     {
-        $this->adress_point_departure = $adress_point_departure;
-
-        return $this;
+        $this->start_postal_code = $start_postal_code;
     }
 
-    public function getAdressPointArrival(): ?string
+    /**
+     * @return mixed
+     */
+    public function getStartCity()
     {
-        return $this->adress_point_arrival;
+        return $this->start_city;
     }
 
-    public function setAdressPointArrival(string $adress_point_arrival): self
+    /**
+     * @param mixed $start_city
+     */
+    public function setStartCity($start_city): void
     {
-        $this->adress_point_arrival = $adress_point_arrival;
-
-        return $this;
+        $this->start_city = $start_city;
     }
 
-    public function getKmNumber(): ?int
+    /**
+     * @return mixed
+     */
+    public function getStartAddress()
     {
-        return $this->km_number;
+        return $this->start_address;
     }
 
-    public function setKmNumber(int $km_number): self
+    /**
+     * @param mixed $start_address
+     */
+    public function setStartAddress($start_address): void
     {
-        $this->km_number = $km_number;
-
-        return $this;
+        $this->start_address = $start_address;
     }
 
-    public function getReservation() : ?Reservation
+    /**
+     * @return mixed
+     */
+    public function getEndPostalCode()
+    {
+        return $this->end_postal_code;
+    }
+
+    /**
+     * @param mixed $end_postal_code
+     */
+    public function setEndPostalCode($end_postal_code): void
+    {
+        $this->end_postal_code = $end_postal_code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndCity()
+    {
+        return $this->end_city;
+    }
+
+    /**
+     * @param mixed $end_city
+     */
+    public function setEndCity($end_city): void
+    {
+        $this->end_city = $end_city;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndAddress()
+    {
+        return $this->end_address;
+    }
+
+    /**
+     * @param mixed $end_address
+     */
+    public function setEndAddress($end_address): void
+    {
+        $this->end_address = $end_address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReservation()
     {
         return $this->reservation;
     }
 
-    public function setReservation(?Reservation $reservation): self
+    /**
+     * @param mixed $reservation
+     */
+    public function setReservation($reservation): void
     {
         $this->reservation = $reservation;
-
-        return $this;
     }
 
     /**
@@ -193,92 +268,22 @@ class CarRide
         return $this;
     }
 
-    public function removePassenger(Passenger $passenger): self
-    {
-        if ($this->passengers->contains($passenger)) {
-            $this->passengers->removeElement($passenger);
-            // set the owning side to null (unless already changed)
-            if ($passenger->getCarRide() === $this) {
-                $passenger->setCarRide(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getStatus(): ?Status
+    /**
+     * @return mixed
+     */
+    public function getStatus()
     {
         return $this->status;
     }
 
-    public function setStatus(?Status $status): self
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status): void
     {
         $this->status = $status;
-
-        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPostalCodePointDeparture()
-    {
-        return $this->postal_code_point_departure;
-    }
 
-    /**
-     * @param mixed $postal_code_point_departure
-     */
-    public function setPostalCodePointDeparture($postal_code_point_departure): void
-    {
-        $this->postal_code_point_departure = $postal_code_point_departure;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getCityPointDeparture()
-    {
-        return $this->city_point_departure;
-    }
-
-    /**
-     * @param mixed $city_point_departure
-     */
-    public function setCityPointDeparture($city_point_departure): void
-    {
-        $this->city_point_departure = $city_point_departure;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPostalCodePointArrival()
-    {
-        return $this->postal_code_point_arrival;
-    }
-
-    /**
-     * @param mixed $postal_code_point_arrival
-     */
-    public function setPostalCodePointArrival($postal_code_point_arrival): void
-    {
-        $this->postal_code_point_arrival = $postal_code_point_arrival;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCityPointArrival()
-    {
-        return $this->city_point_arrival;
-    }
-
-    /**
-     * @param mixed $city_point_arrival
-     */
-    public function setCityPointArrival($city_point_arrival): void
-    {
-        $this->city_point_arrival = $city_point_arrival;
-    }
 }

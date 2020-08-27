@@ -26,49 +26,29 @@ class Reservation
     private $date_reservation;
 
     /**
-     * @Assert\NotBlank
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status_key;
-
-    /**
-     * @Assert\Blank
-     * @ORM\Column(type="datetime")
-     */
-    private $state_premise_depature;
-
-    /**
-     * @Assert\Blank
-     * @ORM\Column(type="datetime")
-     */
-    private $state_premise_arrival;
-
-    /**
      * @Assert\Blank
      * @ORM\Column(type="boolean")
      */
     private $is_confirmed;
 
-    
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CarRide", mappedBy="reservation",cascade={"persist"})
      */
     private $carRides;
     
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="reservations")
+     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="reservations")
      */
-    private $users;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="reservation")
      */
-    private $cars;
+    private $car;
 
     public function __construct()
     {
         $this->carRides = new ArrayCollection();
-        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,42 +64,6 @@ class Reservation
     public function setDateReservation(\DateTimeInterface $date_reservation): self
     {
         $this->date_reservation = $date_reservation;
-
-        return $this;
-    }
-
-    public function getStatusKey(): ?string
-    {
-        return $this->status_key;
-    }
-
-    public function setStatusKey(string $status_key): self
-    {
-        $this->status_key = $status_key;
-
-        return $this;
-    }
-
-    public function getStatePremiseDepature(): ?\DateTimeInterface
-    {
-        return $this->state_premise_depature;
-    }
-
-    public function setStatePremiseDepature(\DateTimeInterface $state_premise_depature): self
-    {
-        $this->state_premise_depature = $state_premise_depature;
-
-        return $this;
-    }
-
-    public function getStatePremiseArrival(): ?\DateTimeInterface
-    {
-        return $this->state_premise_arrival;
-    }
-
-    public function setStatePremiseArrival(\DateTimeInterface $state_premise_arrival): self
-    {
-        $this->state_premise_arrival = $state_premise_arrival;
 
         return $this;
     }
@@ -141,41 +85,36 @@ class Reservation
         return $this->carRides;
     }
 
-    public function getUsers(): Collection
-    {
-        return  $this->users;
-    }
     /**
      * @return mixed
      */
-    public function getCars()
+    public function getCar()
     {
-        return $this->cars;
+        return $this->car;
     }
 
     /**
-     * @param mixed $cars
+     * @param mixed $car
      */
-    public function setCars($cars): void
+    public function setCar($car): void
     {
-        $this->cars = $cars;
+        $this->car = $car;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 
-    public function addUser(User $user): self
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->addReservation($this);
-        }
-        return $this;
+        $this->user = $user;
     }
-    public function removeUser(User $user): self
-    {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            $user->removeReservation($this);
-        }
-        return $this;
-    }
+
 }

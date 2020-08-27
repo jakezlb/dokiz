@@ -22,7 +22,7 @@ final class Version20200519140457 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE car_ride ADD postal_code_point_departure VARCHAR(255) NOT NULL, ADD city_point_departure VARCHAR(255) NOT NULL, ADD postal_code_point_arrival VARCHAR(255) NOT NULL, ADD city_point_arrival VARCHAR(255) NOT NULL, DROP departure, DROP arrival, CHANGE reservation_id reservation_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE car_ride ADD start_postal_code VARCHAR(255) NOT NULL, ADD start_city VARCHAR(255) NOT NULL, ADD end_postal_code VARCHAR(255) NOT NULL, ADD end_city VARCHAR(255) NOT NULL, DROP departure, DROP arrival, CHANGE reservation_id reservation_id INT DEFAULT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20200519140457 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE car_ride ADD departure VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD arrival VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, DROP postal_code_point_departure, DROP city_point_departure, DROP postal_code_point_arrival, DROP city_point_arrival, CHANGE reservation_id reservation_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE car_ride ADD departure VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD arrival VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, DROP start_postal_code, DROP start_city, DROP end_postal_code, DROP end_city, CHANGE reservation_id reservation_id INT DEFAULT NULL');
     }
 }

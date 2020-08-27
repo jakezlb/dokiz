@@ -1,5 +1,5 @@
 function addKeyFormDeleteLink($keyFormLi) {
-    var $removeFormButton = $('<button type="button">Delete this key</button>');
+    var $removeFormButton = $('<button class="input-group-addon btn-danger text-white" type="button"><i class="fa fa-times" aria-hidden="true"></i></button>');
     $keyFormLi.append($removeFormButton);
 
     $removeFormButton.on('click', function(e) {
@@ -68,7 +68,8 @@ $(function () {
     // add the "add a tag" anchor and li to the keys ul
     $collectionHolder.append($newLinkLi);
 
-    $collectionHolder.find('div[id^=car_keys]').each(function() {
+    $collectionHolder.find('div[id^=car_keys] > div').each(function() {
+        $(this).addClass('input-group');
         addKeyFormDeleteLink($(this));
     });
 
@@ -94,13 +95,14 @@ $(function () {
     if(!container.find('#upload').length){
         container.find('.input_upload').append('<input type="button" value="'+txt+'" id="upload">');
         btn = $('#upload');
-        container.prepend('<img src="" class="hidden" alt="Uploaded file" id="uploadImg" width="100">');
+        container.prepend('<img src="" class="hidden" alt="Uploaded file" id="uploadImg" width="100">');        
         img = $('#uploadImg');
     }
             
     btn.on('click', function(){
         img.animate({opacity: 0}, 300);
         inputFile.click();
+        $('.miniature_car').addClass('hidden');
     });
 
     inputFile.on('change', function(e){

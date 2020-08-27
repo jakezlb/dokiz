@@ -75,6 +75,17 @@ class Car
     private $reservation;
 
     /**
+     * @Assert\Blank
+     * @ORM\Column(type="datetime")
+     */
+    private $start_reservation_date;
+    /**
+     * @Assert\Blank
+     * @ORM\Column(type="datetime")
+     */
+    private $end_reservation_date;
+
+    /**
      * @ORM\Column(type="string", length=200)
      */
     private $mark;
@@ -216,6 +227,37 @@ class Car
     public function getCarUrl()
     {
         return $this->carUrl;
+    }
+    /**
+     * @return mixed
+     */
+    public function getStartReservationDate()
+    {
+        return $this->start_reservation_date;
+    }
+
+    /**
+     * @param mixed $start_reservation_date
+     */
+    public function setStartReservationDate($start_reservation_date): void
+    {
+        $this->start_reservation_date = $start_reservation_date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEndReservationDate()
+    {
+        return $this->end_reservation_date;
+    }
+
+    /**
+     * @param mixed $end_reservation_date
+     */
+    public function setEndReservationDate($end_reservation_date): void
+    {
+        $this->end_reservation_date = $end_reservation_date;
     }
 
     /**

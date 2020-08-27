@@ -54,7 +54,8 @@ class AdminController extends AbstractController
         }
         
         return $this->render('admin/user/edit.html.twig', [
-            'userForm' => $form->createView(),
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 }
