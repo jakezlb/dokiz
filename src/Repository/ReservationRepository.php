@@ -28,15 +28,15 @@ class ReservationRepository extends ServiceEntityRepository
     {
 
         $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT r.reservation_id
-            FROM reservation_user r
+        $sql = 'SELECT r.id
+            FROM reservation r
             WHERE r.user_id IN('.$id.')';
         $stmt = $conn->query($sql);
         // here you go:
         $id_resa= $stmt->fetchAll();
         $array_id =[];
         foreach ($id_resa as $row) {
-            array_push($array_id, $this->find($row["reservation_id"])) ;
+            array_push($array_id, $this->find($row["id"])) ;
         }
         return $array_id;
     }

@@ -34,10 +34,10 @@
         //     }
         // }
 
-        $("#car_ride_postal_code_point_departure").autocomplete({
+        $("#car_ride_start_postal_code").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_departure]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[start_postal_code]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
@@ -57,13 +57,13 @@
             },
             // On remplit aussi la ville
             select: function(event, ui) {
-                $('#car_ride_city_point_departure').val(ui.item.city);
+                $('#car_ride_start_city').val(ui.item.city);
             }
         });
-        $("#car_ride_adress_point_departure").autocomplete({
+        $("#car_ride_start_address").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_departure]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[start_postal_code]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
@@ -79,10 +79,10 @@
             }
         });
 
-        $("#car_ride_postal_code_point_arrival").autocomplete({
+        $("#car_ride_end_postal_code").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_arrival]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[end_postal_code]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
@@ -102,14 +102,14 @@
             },
             // On remplit aussi la ville
             select: function(event, ui) {
-                $('#car_ride_city_point_arrival').val(ui.item.city);
+                $('#car_ride_end_city').val(ui.item.city);
             }
         });
 
-        $("#car_ride_adress_point_arrival").autocomplete({
+        $("#car_ride_end_address").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[postal_code_point_arrival]']").val(),
+                    url: "https://api-adresse.data.gouv.fr/search/?postcode="+$("input[name='car_ride[end_postal_code]']").val(),
                     data: { q: request.term },
                     dataType: "json",
                     success: function (data) {
@@ -139,7 +139,7 @@
             return deg * (Math.PI/180)
         }
 
-        // $("#car_ride_adress_point_departure").blur(function() {
+        // $("#car_ride_start_address").blur(function() {
         //     if($(this).val() != '') {
         //         $('#mapid').css('display', 'block');
         //     } else {
