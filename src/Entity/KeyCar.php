@@ -52,14 +52,26 @@ class KeyCar
     }
 
     public function getName(): ?string
-    {
-        return $this->name;
-    }
+{
+    return $this->name;
+}
 
     public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
-    }    
+    }
+    public function isTaken(): ?bool
+    {
+        return $this->isTaken;
+    }
+
+    public function setIsTaken(bool $isTaken): self
+    {
+        $this->isTaken = $isTaken;
+
+        return $this;
+    }
+
 }

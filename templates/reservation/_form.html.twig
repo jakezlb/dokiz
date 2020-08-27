@@ -174,8 +174,18 @@
         {{ form_widget(form.status_key) }}
     </div>
 </div>
-
-
+<hr>
+<div class="titleReservation">
+    Sélectionner une voiture
+</div>
+<hr>
+<div class="row">
+{% for car in cars %}
+    <div class="col-md-3">
+        <button class="btn btn-primary">{{car.name}}</button>
+    </div>
+{% endfor %}
+</div>
 <hr>
 <div>
     <button class="btn btn-info w-100" >{{ button_label|default('Créer une nouvelle réservation') }}</button>

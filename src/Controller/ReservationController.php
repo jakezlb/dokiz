@@ -63,17 +63,30 @@ class ReservationController extends AbstractController
 
     /**
      * @Route("/reservation/new", name="reservation_new", methods={"GET","POST"})
+     * @param CarRepository $carRepository
      * @param Request $request
      * @return Response
      * @throws \Exception
      */
-    public function new(Request $request): Response
+    public function new(CarRepository $carRepository, Request $request): Response
     {
         $reservation = new Reservation();
         $carRide1 = new CarRide();
         $reservation->getCarRides()->add($carRide1);
         $carRide2 = new CarRide();
         $reservation->getCarRides()->add($carRide2);
+
+        $carsTempo = $carRepository->findAll();
+        $cars = new ArrayCollection();
+        foreach($carsTempo as $carTempo){
+            $keys = $carTempo->getKeys();
+            foreach($keys as $key){
+                if(!$key->isTaken()){
+                    $cars->add($carTempo);
+                    break;
+                }
+            }
+        }
 
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
@@ -114,6 +127,7 @@ class ReservationController extends AbstractController
 
         return $this->render('reservation/new.html.twig', array(
             'form' => $form->createView(),
+            'cars' => $cars
         ));
     }
 
