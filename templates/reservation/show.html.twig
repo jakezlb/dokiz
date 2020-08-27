@@ -7,53 +7,71 @@
     <header class="masthead backWhite" id="dokiz">
         <div class="container align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navReservation.html.twig") }}
+            {% set nomPrenom = "" %}
+            {%  for user in reservation.users %}
+                {% if loop.first %}
+                    {%  set nomPrenom = user.firstName ~ ' ' ~ user.lastName %}
+                {% endif %}
+            {% endfor %}
             <div class="row mx-auto" style="margin-top: 40px" >
-                <h1 class="titleReservation ">réservation n° {{ reservation.id }}</h1>
+                <h1 class="titleReservation ">Réservation de {{ nomPrenom }}</h1>
             </div>
             <hr>
             <div class="row">
                 <div class="col-12" style="height: 15em; display: none;" id="mapid"></div>
             </div>
+            {% set nbPlacesRestantes = "" %}
+            {% for carRide in reservation.carRides %}
+                {% set nbPlacesRestantes = 4 - carRide.passengers|length %}
+            {% endfor %}
             <div class="row">
                 <table class="table">
                     <tbody>
                     <tr>
-                        <th>Id</th>
-                        <td>{{ reservation.id }}</td>
+                        <th>Trajets</th>
+                        <td>
+                        {% for carRide in reservation.carRides %}
+                               => {{ carRide.getCityPointDeparture() }} - {{ carRide.getCityPointArrival() }}<br />
+                        {% endfor %}</td>
                     </tr>
                     <tr>
-                        <th>Date_reservation</th>
-                        <td>{{ reservation.dateReservation ? reservation.dateReservation|date('Y-m-d H:i:s') : '' }}</td>
+                        <th>Date de réservation</th>
+                        <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y H:i:s') : '' }}</td>
                     </tr>
                     <tr>
-                        <th>Status_key</th>
+                        <th>Statut de la clé</th>
                         <td>{{ reservation.statusKey }}</td>
                     </tr>
                     <tr>
-                        <th>State_premise_depature</th>
-                        <td>{{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('Y-m-d H:i:s') : '' }}</td>
+                        <th>Date de départ</th>
+                        <td>{{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>
+                    {#<tr>
+                        <th>Date d'arrivée</th>
+                        <td>{{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('d/m/Y H:i:s') : '' }}</td>
+                    </tr>#}
+                    <tr>
+                        <th>Confirmé</th>
+                        <td>{{ reservation.isConfirmed ? 'Oui' : 'Non' }}</td>
                     </tr>
                     <tr>
-                        <th>State_premise_arrival</th>
-                        <td>{{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('Y-m-d H:i:s') : '' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Is_confirmed</th>
-                        <td>{{ reservation.isConfirmed ? 'Yes' : 'No' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Users</th>
+                        <th>Personnes</th>
                         {%  for user in reservation.users %}
-                            <td> {{  user.firstName }}</td>
+                            <td>{{ user.firstName ~ ' ' ~ user.lastName }}</td>
                         {% else %}
-                            <td >no records found</td>
+                            <td></td>
                         {% endfor %}
                     </tr>
                     </tbody>
                 </table>
+                {%  if app.user not in reservation.users and nbPlacesRestantes > 0 %}
+                    <a>S'inscrire</a>
+                {% endif %}
+                {% if app.user == reservation.users|first %}
+                    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">Editer la réservation</a>
+                {% endif %}
+                <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
+            </div>
         </div>
-        <a href="{{ path('reservation_index') }}">back to list</a>
-        <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
-        <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
     </header>
 {% endblock %}

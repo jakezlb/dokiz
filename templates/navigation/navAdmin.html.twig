@@ -1,53 +1,54 @@
 <nav class="navbar navbar-expand-lg" id="adminNav">
-    <a  class="nav-link" href="{{path('index') }}"><img src="{{ asset('image/Blanc.png') }}" title="source: imgur.com" class="img-fluid logo" alt=""></a>
+   
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Utilisateurs
-          </a>
-          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1" style="margin-top: -5px">
-              <li><a class="dropdown-item" href="{{path('admin_user_show') }}" id="gestionDroits">Gestion des droits</a></li>
-          </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Flotte de véhicules
-        </a>
-        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2" style="margin-top: -5px">
-          <li><a class="dropdown-item" href="{{path('admin_car_index') }}">Liste des véhicules</a></li>
-          <li><a class="dropdown-item" href="{{path('admin_car_new') }}">Ajouter un véhicule</a></li>
-           <li><a class="dropdown-item" href="{{path('admin_key_car_index') }}">Liste des clés</a></li>
-          <li><a class="dropdown-item" href="{{path('admin_key_car_new') }}">Ajouter une clé</a></li>
-        </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Gestion des trajets et des réservations
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3" style="margin-top: -5px">
-          <li><a class="dropdown-item" href="{{path('admin_car_ride_index') }}">Liste des trajets</a> </li>
-          <li><div class="dropdown-divider"></div> </li>
-          <li><a class="dropdown-item" href="{{path('admin_reservation_index') }}">Liste des réservations</a>             </li>
-        </ul>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Eléments
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink4" style="margin-top: -5px">
-          <li><a class="dropdown-item" href="{{path('admin_job_index') }}">Liste des postes</a> </li>
-          <li> <a class="dropdown-item" href="{{path('admin_job_new') }}">Ajouter un poste</a> </li>
-          <li><div class="dropdown-divider"></div> </li>
-          <li><a class="dropdown-item" href="{{path('admin_society_index') }}">Liste des entreprises</a> </li>
-          <li> <a class="dropdown-item" href="{{path('admin_society_new') }}">Ajouter une entreprises</a>  </li>
-        </ul>
-      </li>
-      <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
-    </ul>
+      <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Utilisateurs
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink1" style="margin-top: -5px">
+                  <li><a class="dropdown-item" href="{{path('admin_user_show') }}" id="gestionDroits">Gestion des droits</a></li>
+              </ul>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Flotte de véhicules
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink2" style="margin-top: -5px">
+                  <li><a class="dropdown-item" href="{{path('admin_car_index') }}">Liste des véhicules</a></li>
+                  <li><a class="dropdown-item" href="{{path('admin_car_new') }}">Ajouter un véhicule</a></li>
+                  <li><a class="dropdown-item" href="{{path('admin_key_car_index') }}">Liste des clés</a></li>
+                 
+              </ul>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Gestion des trajets et des réservations
+               </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3" style="margin-top: -5px">
+                  <li><a class="dropdown-item" href="{{path('admin_car_ride_index') }}">Liste des trajets</a> </li>
+                  <li><div class="dropdown-divider"></div> </li>
+                  <li><a class="dropdown-item" href="{{path('admin_reservation_index') }}">Liste des réservations</a>             </li>
+              </ul>
+          </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Eléments
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink4" style="margin-top: -5px">
+                  <li><a class="dropdown-item" href="{{path('admin_job_index') }}">Liste des postes</a> </li>
+                  <li> <a class="dropdown-item" href="{{path('admin_job_new') }}">Ajouter un poste</a> </li>
+                  <li><div class="dropdown-divider"></div> </li>
+                  <li><a class="dropdown-item" href="{{path('admin_society_index') }}">Liste des entreprises</a> </li>
+                  <li> <a class="dropdown-item" href="{{path('admin_society_new') }}">Ajouter une entreprises</a>  </li>
+              </ul>
+          </li>
+      </ul>
   </div>
 </nav>
+<main id="adminMain">
+    <div class="adminContainer">   

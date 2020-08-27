@@ -1,12 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
+    {{ include("admin/header.html.twig") }} 
     {{ include("navigation/navAdmin.html.twig") }}
-    {{ include("admin/header.html.twig") }}  
+     
         <h1>Liste des utilisateurs</h1>
-        <table class="table">
+        <table id="tableAdmin" class="display">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -39,7 +40,7 @@
                     <td>{{ user.job }}</td>
                     <td>{{ user.society }}</td>
                     <td>
-                        <td><a href="{{ path('admin_user_edit', {'id': user.id}) }}">Modifier</a></td>                  
+                        <td><a href="{{ path('admin_user_edit', {'id': user.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>                  
                     </td>
                 </tr>
             {% else %}

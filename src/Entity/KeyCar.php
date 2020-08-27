@@ -28,7 +28,7 @@ class KeyCar
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isTaken;
+    private $isTaken = '0';
 
     public function __toString() {
         return $this->name;
@@ -61,17 +61,17 @@ class KeyCar
         $this->name = $name;
 
         return $this;
-    }
-    public function isTaken(): ?bool
+    } 
+    
+    public function getIsTaken(): ?string
     {
         return $this->isTaken;
     }
 
-    public function setIsTaken(bool $isTaken): self
+    public function setIsTaken(string $isTaken): self
     {
         $this->isTaken = $isTaken;
 
         return $this;
     }
-
 }

@@ -1,4 +1,79 @@
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+  
+<div class="container">    
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                {{ form_label(form.immatriculation, 'Imatriculation', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.immatriculation, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="form-group">
+                {{ form_label(form.name, 'Nom', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                {{ form_label(form.place_number, 'Nombre de place', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.place_number, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.society, 'Société propriétaire de la voiture', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                {{ form_label(form.fuel, 'Essence', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.fuel, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.level_fuel, 'Niveau d\'essence aprés derniére utilisation', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.level_fuel, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                {{ form_label(form.mark, 'Marque', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.mark, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.date_commissioning, 'Date de mise en service', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.date_commissioning, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div id="upload_file">
+                {{ form_label(form.car_url, 'Séléctionner une image') }}
+                <div class="input_upload">
+                    {{ form_widget(form.car_url) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.keys, 'Clés de la voiture', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.keys) }}
+            </div>
+        </div>
+    </div>
+<div>   
+<button class="btn btn-secondary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

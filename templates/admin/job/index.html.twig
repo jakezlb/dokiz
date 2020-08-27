@@ -1,18 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Job index{% endblock %}
 
 {% block body %}
+    {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
-    {{ include("admin/header.html.twig") }}    
-        <h1>Job index</h1>
+        
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Liste des metiers</h1>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn btn-primary float-right" href="{{ path('admin_job_new') }}">Ajouter un nouveau métier</a>
+            </div>
+        </div>
 
-        <table class="table">
+        <table id="tableAdmin" class="display">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Wording</th>
-                    <th>actions</th>
+                    <th>Intitulé</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,8 +29,8 @@
                     <td>{{ job.id }}</td>
                     <td>{{ job.wording }}</td>
                     <td>
-                        <a href="{{ path('admin_job_show', {'id': job.id}) }}">show</a>
-                        <a href="{{ path('admin_job_edit', {'id': job.id}) }}">edit</a>
+                        <a href="{{ path('admin_job_show', {'id': job.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{{ path('admin_job_edit', {'id': job.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                 </tr>
             {% else %}
@@ -33,6 +41,6 @@
             </tbody>
         </table>
 
-        <a href="{{ path('admin_job_new') }}">Create new</a>
+    
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}
