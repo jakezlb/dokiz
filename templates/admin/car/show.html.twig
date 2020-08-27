@@ -6,52 +6,103 @@
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
     
-        <h1>Car</h1>
-
-        <table id="tableAdmin" class="display">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ car.id }}</td>
-                </tr>
-                <tr>
-                    <th>Immatriculation</th>
-                    <td>{{ car.immatriculation }}</td>
-                </tr>
-                <tr>
-                    <th>Place_number</th>
-                    <td>{{ car.placeNumber }}</td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td>{{ car.name }}</td>
-                </tr>
-                <tr>
-                    <th>Fuel</th>
-                    <td>{{ car.fuel }}</td>
-                </tr>
-                <tr>
-                    <th>Date_commissioning</th>
-                    <td>{{ car.dateCommissioning ? car.dateCommissioning|date('d/m/Y H:i:s') : '' }}</td>
-                </tr>
-                <tr>
-                    <th>Level_fuel</th>
-                    <td>{{ car.levelFuel }}</td>
-                </tr>
-                <tr>
-                    <th>Mark</th>
-                    <td>{{ car.mark }}</td>
-                </tr>
-                <tr>
-                    <th>Mark</th>
-                    <td>{{ car.mark }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <a href="{{ path('admin_car_index') }}">Retour</a>
-
-        <a href="{{ path('admin_car_edit', {'id': car.id}) }}">edit</a>
+        <h1>Information {{ car.name }}</h1>
+        <div class="container list-card-car bg-white">                       
+            <div class="row">
+                <div class="col-sm-5 text-center">
+                    <div class="miniature_car">
+                        <img src="{{asset('uploads/car_url/')}}{{ car.carUrl }}" alt="miniature">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card-car">
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Identifant de la voiture : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.id }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Immatriculation : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.immatriculation }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Nombre de place : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.placeNumber }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Nom de la voiture : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Carburant : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.fuel }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Date de mise en service : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.dateCommissioning ? car.dateCommissioning|date('d/m/Y') : '' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Niveau d'essence disponible : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.levelFuel }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Marque de la voiture : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ car.mark }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        
+        <a class="btn btn-primary text-white" href="{{ path('admin_car_index') }}">Retour</a>
+        <a class="btn btn-secondary  text-white" href="{{ path('admin_car_edit', {'id': car.id}) }}">Modifier</a>
 
     {{ include('admin/car/_delete_form.html.twig') }}
     {{ include("admin/footer.html.twig") }}

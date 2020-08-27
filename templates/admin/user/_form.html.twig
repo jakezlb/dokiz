@@ -1,0 +1,26 @@
+{{ form_start(form) }}  
+<div class="adminContainerWhite container">   
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {% set society = user.getSociety()%}
+                {{ form_label(society.getSocialReason(), 'Société', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(society.getSocialReason(), {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.email, 'Identifiant', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="form-group radio">
+               {{ form_label(form.roles, 'Roles de l\'utilisateur', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>        
+    </div>
+<div> 
+<div class="text-center">  
+    <button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>
+</div>
+{{ form_end(form) }}
