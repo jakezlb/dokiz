@@ -1,10 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}KeyCar{% endblock %}
 
 {% block body %}
-    {{ include("navigation/navAdmin.html.twig") }}
     {{ include("admin/header.html.twig") }} 
+    {{ include("navigation/navAdmin.html.twig") }}
+    
         <h1>KeyCar</h1>
 
         <table class="table">
@@ -20,7 +21,7 @@
             </tbody>
         </table>
 
-        <a href="{{ path('admin_key_car_index') }}">back to list</a>
+        <a href="{{ path('admin_key_car_index') }}">Retour</a>
 
         <a href="{{ path('admin_key_car_edit', {'id': key_car.id}) }}">edit</a>
 

@@ -84,6 +84,30 @@
                                     <div class="row mx-auto" >
                                         {{ villeArriveRetour }}
                                     </div>
+
+            {% set nbPlacesRestantes, reservePart = "", "" %}
+                {% for carRide in reservation.carRides %}
+                    {% set nbPlacesRestantes = 4 - carRide.passengers|length %}
+                {% endfor %}
+                {% for user in reservation.Users %}
+                    {% if loop.first %}
+                        {% set reservePart = user.firstName ~" "~ user.lastName %}
+                    {% endif %}
+                {% endfor %}
+                <div class="row">
+                        <div  class="cardSection">
+                            <div onclick="location.href='{{ path('reservation_show', {'id': reservation.id}) }}';" style="cursor:pointer;" class="row">
+                                <div class="col-md-2 text-center mx-auto">
+                                    <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
+                                </div>
+
+                                <div class="col-md-3 hrVerticalFine my-auto">
+                                    {% for carRide in reservation.carRides %}
+                                        <div class="row mx-auto">
+                                            {{ carRide.getCityPointDeparture() }} -  {{ carRide.getCityPointArrival() }}
+                                        </div>
+                                        <hr>
+                                    {% endfor %}
                                 </div>
                                 <div class="col-md-2 hrVerticalFine my-auto">
                                     <div class="row mx-auto">
@@ -100,7 +124,7 @@
                                     </div>
                                     <hr>
                                     <div class="row mx-auto">
-                                        Places Restantes :
+                                        Places Restantes : {{ nbPlacesRestantes }}
                                     </div>
                                 </div>
                             </div>
@@ -113,4 +137,6 @@
             {% endif %}
         </div>
     </header>
+
 {% endblock %}
+

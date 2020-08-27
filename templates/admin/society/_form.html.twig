@@ -1,4 +1,48 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+<div class="container">    
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                {{ form_label(form.siret, 'N° de Siret', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.siret, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.social_reason, 'Raison social', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.social_reason, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                {{ form_label(form.head_office, 'Adresse du siége', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.head_office, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.postal_code, 'Code postal', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.postal_code, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ">
+            <div class="form-group">
+                {{ form_label(form.email_interlocutor, 'Email de l\'interlocuteur', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.email_interlocutor, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.tel_interlocutor, 'Téléphone de l\'interlocuteur', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.tel_interlocutor, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-secondary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

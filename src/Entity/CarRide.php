@@ -127,7 +127,6 @@ class CarRide
         return $this;
     }
 
-
     public function getAdressPointDeparture(): ?string
     {
         return $this->adress_point_departure;

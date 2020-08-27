@@ -1,14 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}New Car{% endblock %}
+{% block title %}Nouvelle voiture{% endblock %}
 
 {% block body %}
-    {{ include("navigation/navAdmin.html.twig") }}
     {{ include("admin/header.html.twig") }}
-        <h1>Create new Car</h1>
+    {{ include("navigation/navAdmin.html.twig") }}
+    
+        <h1>Ajouter une nouvelle voiture</h1>
 
         {{ include('admin/car/_form.html.twig') }}
 
-        <a href="{{ path('admin_car_index') }}">back to list</a>
+        <a class="btn btn-danger text-white" href="{{ path('admin_car_index') }}">Retour</a>
     {{ include("admin/footer.html.twig") }}
 {% endblock %}
