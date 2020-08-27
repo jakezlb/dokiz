@@ -97,8 +97,8 @@ class ReservationController extends AbstractController
 
             $reservation->setIsConfirmed(false);
             $reservation->setDateReservation(new \DateTime());
-            $reservation->setStatePremiseDepature($carRide1->getDateStart());
-            $reservation->setStatePremiseArrival($carRide2->getDateEnd());
+            //$reservation->setStatePremiseDepature($carRide1->getDateStart());
+           // $reservation->setStatePremiseArrival($carRide2->getDateEnd());
 
             $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
             $carRide1->setStatus($statusDefault);
@@ -119,7 +119,7 @@ class ReservationController extends AbstractController
             $passenger2->setUser($user);
             $passenger2->setIsDriver(1);
 
-            $reservation->addUser($user);
+            $reservation->setUser($user);
 
             $entityManager->persist($reservation);
             $entityManager->flush();
@@ -142,37 +142,6 @@ class ReservationController extends AbstractController
     {
         return $this->render('reservation/show.html.twig', [
             'reservation' => $reservation,
-        ]);
-    }
-
-    /**
-     * @Route("/reservation/{id}/edit", name="reservation_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param Reservation $reservation
-     * @return Response
-     */
-    public function edit(Request $request, Reservation $reservation): Response
-    {
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            $carRides = $reservation->getCarRides();
-
-            $reservation->setIsConfirmed(false);
-            $reservation->setStatePremiseDepature($carRides->first()->getDateStart());
-            $reservation->setStatePremiseArrival($carRides->last()->getDateEnd());
-            $reservation->setDateReservation(new \DateTime());
-
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('reservation_index');
-        }
-
-        return $this->render('reservation/edit.html.twig', [
-            'reservation' => $reservation,
-            'carRides' => $reservation->getCarRides(),
-            'form' => $form->createView(),
         ]);
     }
 

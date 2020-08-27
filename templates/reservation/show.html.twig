@@ -7,23 +7,14 @@
     <header class="masthead backWhite" id="dokiz">
         <div class="container align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navReservation.html.twig") }}
-            {% set nomPrenom = "" %}
-            {%  for user in reservation.users %}
-                {% if loop.first %}
-                    {%  set nomPrenom = user.firstName ~ ' ' ~ user.lastName %}
-                {% endif %}
-            {% endfor %}
+            {% set user = reservation.user %}
             <div class="row mx-auto" style="margin-top: 40px" >
-                <h1 class="titleReservation ">Réservation de {{ nomPrenom }}</h1>
+                <h1 class="titleReservation ">Réservation de {{ user.firstName~' '~user.lastName }}</h1>
             </div>
             <hr>
             <div class="row">
                 <div class="col-12" style="height: 15em; display: none;" id="mapid"></div>
             </div>
-            {% set nbPlacesRestantes = "" %}
-            {% for carRide in reservation.carRides %}
-                {% set nbPlacesRestantes = 4 - carRide.passengers|length %}
-            {% endfor %}
             <div class="row">
                 <table class="table">
                     <tbody>
@@ -31,43 +22,33 @@
                         <th>Trajets</th>
                         <td>
                         {% for carRide in reservation.carRides %}
-                               => {{ carRide.getCityPointDeparture() }} - {{ carRide.getCityPointArrival() }}<br />
-                        {% endfor %}</td>
+                               => {{ carRide.getStartCity() }} - {{ carRide.getEndCity() }}<br />
+                        {% endfor %}
+                        </td>
                     </tr>
                     <tr>
                         <th>Date de réservation</th>
                         <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y H:i:s') : '' }}</td>
                     </tr>
                     <tr>
-                        <th>Statut de la clé</th>
-                        <td>{{ reservation.statusKey }}</td>
-                    </tr>
-                    <tr>
-                        <th>Date de départ</th>
-                        <td>{{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i:s') : '' }}</td>
-                    </tr>
-                    {#<tr>
-                        <th>Date d'arrivée</th>
-                        <td>{{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('d/m/Y H:i:s') : '' }}</td>
-                    </tr>#}
-                    <tr>
                         <th>Confirmé</th>
                         <td>{{ reservation.isConfirmed ? 'Oui' : 'Non' }}</td>
                     </tr>
                     <tr>
-                        <th>Personnes</th>
-                        {%  for user in reservation.users %}
-                            <td>{{ user.firstName ~ ' ' ~ user.lastName }}</td>
+                        <th>Passagers</th>
+                        {%  for passenger in carRide.passengers %}
+                            {% set userPassenger = passenger.user %}
+                            <td>{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</td>
                         {% else %}
                             <td></td>
                         {% endfor %}
                     </tr>
                     </tbody>
                 </table>
-                {%  if app.user not in reservation.users and nbPlacesRestantes > 0 %}
+                {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
                     <a>S'inscrire</a>
                 {% endif %}
-                {% if app.user == reservation.users|first %}
+                {% if app.user == user %}
                     <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">Editer la réservation</a>
                 {% endif %}
                 <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>

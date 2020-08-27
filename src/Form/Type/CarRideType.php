@@ -17,54 +17,41 @@ class CarRideType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('postal_code_point_departure', TextType::class, [
+            ->add('start_postal_code', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Code postal de la ville de départ'
             ])
-            ->add('city_point_departure', TextType::class, [
+            ->add('start_city', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Ville de départ'
             ])
-            ->add('adress_point_departure', TextType::class, [
+            ->add('start_address', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Adresse de départ'
             ])
-            ->add('postal_code_point_arrival', TextType::class, [
+            ->add('end_postal_code', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Code postal de la ville d\'arrivée'
             ])
-            ->add('city_point_arrival', TextType::class, [
+            ->add('end_city', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Ville d\'arrivée'
             ])
-            ->add('adress_point_arrival', TextType::class, [
+            ->add('end_address', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Adresse d\'arrivée'
-            ])
-            ->add('km_number', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control'
-                ],
-                'label' => "Nombre de kilomètres"
-            ])
-            ->add('status', EntityType::class, [
-                'class' => Status::class,
-                'attr' => [
-                    'class' => 'form-control'                   
-                ],                               
-                'label' => 'Statut du trajet'
             ])
             ->add('date_start', DateTimeType::class, [
                 'attr' => [

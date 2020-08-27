@@ -302,4 +302,5 @@ class User implements UserInterface
     {
         $this->updatedAt = $updatedAt;
     }
+
 }

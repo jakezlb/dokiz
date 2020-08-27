@@ -21,18 +21,6 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           
-            ->add('status_key', ChoiceType::class, [
-                'choices'  => [
-                    'Demander' => 'Demander',
-                    'En cours d\'utilisation' => 'En cours d\'utilisation',
-                    'Rendu' => 'Rendu',
-                ],
-                'attr' => [
-                    'class' => 'form-control'                   
-                ],                               
-                'label' => 'Statut de la clé de la voiture'
-            ])
 
             ->add('carRides', CollectionType::class, [
                 // each entry in the array will be an "email" field

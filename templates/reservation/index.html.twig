@@ -4,7 +4,7 @@
 
 {% block body %}
     <!-- Header -->
-    <header class="masthead backWhite" id="dokiz">
+    <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
         <div class="container h-100 align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navReservation.html.twig") }}
             <div class="row mx-auto" style="margin-top: 40px" >
@@ -14,56 +14,63 @@
             {% if reservations %}
             {% for reservation in reservations %}
             {% set nbPlacesRestantes, reservePart = "", "" %}
-                {% for carRide in reservation.carRides %}
-                    {% set nbPlacesRestantes = 4 - carRide.passengers|length %}
-                {% endfor %}
-                {% for user in reservation.Users %}
-                    {% if loop.first %}
-                        {% set reservePart = user.firstName ~" "~ user.lastName %}
-                    {% endif %}
-                {% endfor %}
+            {% set user = reservation.user %}
+            {%  set car = reservation.car %}
                 <div class="row">
-                        <div  class="cardSection">
-                            <div onclick="location.href='{{ path('reservation_show', {'id': reservation.id}) }}';" style="cursor:pointer;" class="row">
-                                <div class="col-md-2 text-center mx-auto">
-                                    <img src="{{ asset('image/students.png') }}" alt="Voiture" width="fill" class="img-fluid" style="padding: 5px; width: 100%">
-                                </div>
+                    <div  class="cardSection" style="padding: 15px">
+                        <div class="row">
+                            <div class="col-md-6 hrVerticalFine my-auto">
+                                <h5>Reservation de : {{ user.firstName ~' '~ user.lastName }} </h5>
+                            </div>
+                            <div class="col-md-6 hrVerticalFine my-auto">
+                                {% if car %}
+                                    <h5>Conduit par : {{ car.mark ~' '~ car.name }} </h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                    <br/>
+                        {% for carRide in reservation.carRides %}
+                            {% if loop.first %} <h5>ALLER</h5> {% else %} <h5>RETOUR</h5> {% endif %}
+                        <div  class="cardSection" style="padding: 10px">
+                            <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
+                                <div class="row">
+                                    <div class="col-md-4 hrVerticalFine my-auto">
+                                            <div class="row mx-auto">
+                                                {{ carRide.getStartCity() }} -  {{ carRide.getEndCity() }}
+                                            </div>
+                                    </div>
 
-                                <div class="col-md-3 hrVerticalFine my-auto">
-                                    {% for carRide in reservation.carRides %}
-                                        <div class="row mx-auto">
-                                            {{ carRide.getCityPointDeparture() }} -  {{ carRide.getCityPointArrival() }}
-                                        </div>
-                                        <hr>
-                                    {% endfor %}
-                                </div>
-                                <div class="col-md-3 hrVerticalFine my-auto">
-                                    <div class="row mx-auto">
-                                        {{ reservation.statePremiseDepature ? reservation.statePremiseDepature|date('d/m/Y H:i') : '' }}
+                                    <div class="col-md-5 hrVerticalFine my-auto">
+                                            <div class="row mx-auto">
+                                                {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
+                                            </div>
                                     </div>
-                                    <hr>
-                                    <div class="row mx-auto">
-                                        {{ reservation.statePremiseArrival ? reservation.statePremiseArrival|date('d/m/Y H:i') : '' }}
+                                    <div class="col-md-1 hrVerticalFine my-auto">
+                                            <div class="row mx-auto">
+                                                {{  4 - carRide.passengers|length }}
+                                            </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 hrVerticalFine my-auto">
-                                    <div class="row mx-auto">
-                                        Réservé par : {{ reservePart }}
-                                    </div>
-                                    <hr>
-                                    <div class="row mx-auto">
-                                        Places Restantes : {{ nbPlacesRestantes }}
+                                    <div class="col-md-2 hrVerticalFine my-auto">
+                                            <div class="row mx-auto">
+                                                {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
+                                                    <a>S'inscrire</a>
+                                                {% endif %}
+                                            </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                            {% if loop.first %} <hr> {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
-                <hr>
+             <hr>
             {% endfor %}
             {% else %}
                 <h3>Il n'y a pas de réservations en cours.</h3>
             {% endif %}
         </div>
+
     </header>
 
 {% endblock %}
