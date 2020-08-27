@@ -1,7 +1,7 @@
 
 {{ form_start(form) }}
   
-<div class="container">    
+<div class="adminContainerWhite container">    
     <div class="row">
         <div class="col-md-6 ">
             <div class="form-group">
@@ -62,7 +62,10 @@
         <div class="col-md-6 ">
             <div id="upload_file">
                 {{ form_label(form.car_url, 'Séléctionner une image') }}
-                <div class="input_upload">
+                 {% if car.getCarUrl() != '' %}
+                        <img class="miniature_car" src="{{asset('uploads/car_url/')}}{{ car.getCarUrl() }}" alt="miniature">
+                {% endif %}
+                <div class="input_upload">                   
                     {{ form_widget(form.car_url) }}
                 </div>
             </div>
@@ -70,10 +73,12 @@
         <div class="col-md-6">
              <div class="form-group">
                {{ form_label(form.keys, 'Clés de la voiture', {'label_attr': {'class': 'label_control'}}) }}
-               {{ form_widget(form.keys) }}
+               {{ form_widget(form.keys) }}             
             </div>
         </div>
     </div>
-<div>   
-<button class="btn btn-secondary">{{ button_label|default('Save') }}</button>
+<div> 
+<div class="text-center">  
+    <button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}

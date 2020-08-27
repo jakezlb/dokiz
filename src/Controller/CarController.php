@@ -93,7 +93,7 @@ class CarController extends AbstractController
     /**
      * @Route("/{id}/edit", name="car_edit", methods={"GET","POST"})
      */
-    public function edit($id, Request $request, Car $car): Response
+    public function edit($id, Request $request, Car $car,  SluggerInterface $slugger): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
         
@@ -126,6 +126,32 @@ class CarController extends AbstractController
                     $entityManager->remove($key);
     
                 }
+            }
+            $carUrl = $form->get('car_url')->getData();
+            // this condition is needed because the 'brochure' field is not required
+            // so the PDF file must be processed only when a file is uploaded
+            if ($carUrl) {
+           
+                $originalFilename = pathinfo($carUrl->getClientOriginalName(), PATHINFO_FILENAME);
+              
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$carUrl->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $carUrl->move(
+                        $this->getParameter('car_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                // updates the 'carUrl' property to store the PDF file name
+                // instead of its contents
+                $car->setCarUrl($newFilename);              
+
             }
             $entityManager->persist($car);
             $entityManager->flush();
