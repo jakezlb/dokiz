@@ -12,7 +12,11 @@
 {% for carRide in form.carRides %}
 <div class="cardSection2">
 <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
-    ALLER
+    {% if loop.first %}
+        ALLER
+    {% else %}
+        RETOUR
+    {% endif %}
 </div>
 <hr>
 <div class="row">
@@ -37,144 +41,40 @@
 <br>
 <div class="row">
     <div class="col-md-6" >
-        {{ form_label(carRide.postal_code_point_departure) }}
-        {{ form_widget(carRide.postal_code_point_departure) }}
+        {{ form_label(carRide.start_postal_code) }}
+        {{ form_widget(carRide.start_postal_code) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(carRide.postal_code_point_arrival) }}
-        {{ form_widget(carRide.postal_code_point_arrival) }}
+        {{ form_label(carRide.end_postal_code) }}
+        {{ form_widget(carRide.end_postal_code) }}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-6">
-        {{ form_label(carRide.city_point_departure) }}
-        {{ form_widget(carRide.city_point_departure) }}
+        {{ form_label(carRide.start_city) }}
+        {{ form_widget(carRide.start_city) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(carRide.city_point_arrival) }}
-        {{ form_widget(carRide.city_point_arrival) }}
+        {{ form_label(carRide.end_city) }}
+        {{ form_widget(carRide.end_city) }}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-6">
-        {{ form_label(carRide.adress_point_departure) }}
-        {{ form_widget(carRide.adress_point_departure) }}
+        {{ form_label(carRide.start_address) }}
+        {{ form_widget(carRide.start_address) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(carRide.adress_point_arrival) }}
-        {{ form_widget(carRide.adress_point_arrival) }}
+        {{ form_label(carRide.end_address) }}
+        {{ form_widget(carRide.end_address) }}
     </div>
 </div>
 <br>
-<div class="row">
-    <div class="col-md-12" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC;">
-        Informations complémentaires
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-md-6">
-        {{ form_label(carRide.km_number) }}
-        {{ form_widget(carRide.km_number) }}
-    </div>
-    <div class="col-md-6">
-        {{ form_label(carRide.status) }}
-        {{ form_widget(carRide.status) }}
-    </div>
-</div>
 </div>
 <hr>
 {% endfor %}
-
-{#<div class="cardSection2">#}
-{#    <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">#}
-{#        RETOUR#}
-{#    </div>#}
-{#    <hr>#}
-{#    <div class="row">#}
-{#        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC; border-right: 2px solid #00B4CC">#}
-{#            Départ#}
-{#        </div>#}
-{#        <div class="col-md-6" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC">#}
-{#            Arrivée#}
-{#        </div>#}
-{#    </div>#}
-{#    <br>#}
-{#    <div class="row">#}
-{#        <div class="col-md-6 ">#}
-{#            {{ form_label(form2.date_start) }}#}
-{#            {{ form_widget(form2.date_start) }}#}
-{#        </div>#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.date_end) }}#}
-{#            {{ form_widget(form2.date_end) }}#}
-{#        </div>#}
-{#    </div>#}
-{#    <br>#}
-{#    <div class="row">#}
-{#        <div class="col-md-6" >#}
-{#            {{ form_label(form2.postal_code_point_departure) }}#}
-{#            {{ form_widget(form2.postal_code_point_departure) }}#}
-{#        </div>#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.postal_code_point_arrival) }}#}
-{#            {{ form_widget(form2.postal_code_point_arrival) }}#}
-{#        </div>#}
-{#    </div>#}
-{#    <br>#}
-{#    <div class="row">#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.city_point_departure) }}#}
-{#            {{ form_widget(form2.city_point_departure) }}#}
-{#        </div>#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.city_point_arrival) }}#}
-{#            {{ form_widget(form2.city_point_arrival) }}#}
-{#        </div>#}
-{#    </div>#}
-{#    <br>#}
-{#    <div class="row">#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.adress_point_departure) }}#}
-{#            {{ form_widget(form2.adress_point_departure) }}#}
-{#        </div>#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.adress_point_arrival) }}#}
-{#            {{ form_widget(form2.adress_point_arrival) }}#}
-{#        </div>#}
-{#    </div>#}
-{#    <br>#}
-{#    <div class="row">#}
-{#        <div class="col-md-12" style="text-align: center; font-size: 18px; border-bottom: 2px solid #00B4CC;">#}
-{#            Informations complémentaires#}
-{#        </div>#}
-{#    </div>#}
-{#    <br>#}
-{#    <div class="row">#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.km_number) }}#}
-{#            {{ form_widget(form2.km_number) }}#}
-{#        </div>#}
-{#        <div class="col-md-6">#}
-{#            {{ form_label(form2.status) }}#}
-{#            {{ form_widget(form2.status) }}#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#<hr>#}
-<div class="titleReservation">
-    Autre informations
-</div>
-<hr>
-<div class="row">
-    <div class="col-md-12">
-        {{ form_label(form.status_key) }}
-        {{ form_widget(form.status_key) }}
-    </div>
-</div>
-
 
 <hr>
 <div>

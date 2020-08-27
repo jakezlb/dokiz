@@ -37,34 +37,34 @@
 <br>
 <div class="row">
     <div class="col-md-6" >
-        {{ form_label(carRide.postal_code_point_departure) }}
-        {{ form_widget(carRide.postal_code_point_departure) }}
+        {{ form_label(carRide.start_postal_code) }}
+        {{ form_widget(carRide.start_postal_code) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(carRide.postal_code_point_arrival) }}
-        {{ form_widget(carRide.postal_code_point_arrival) }}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-md-6">
-        {{ form_label(carRide.city_point_departure) }}
-        {{ form_widget(carRide.city_point_departure) }}
-    </div>
-    <div class="col-md-6">
-        {{ form_label(carRide.city_point_arrival) }}
-        {{ form_widget(carRide.city_point_arrival) }}
+        {{ form_label(carRide.end_postal_code) }}
+        {{ form_widget(carRide.end_postal_code) }}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col-md-6">
-        {{ form_label(carRide.adress_point_departure) }}
-        {{ form_widget(carRide.adress_point_departure) }}
+        {{ form_label(carRide.start_city) }}
+        {{ form_widget(carRide.start_city) }}
     </div>
     <div class="col-md-6">
-        {{ form_label(carRide.adress_point_arrival) }}
-        {{ form_widget(carRide.adress_point_arrival) }}
+        {{ form_label(carRide.end_city) }}
+        {{ form_widget(carRide.end_city) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_label(carRide.start_address) }}
+        {{ form_widget(carRide.start_address) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_label(carRide.end_address) }}
+        {{ form_widget(carRide.end_address) }}
     </div>
 </div>
 <br>
