@@ -6,44 +6,88 @@
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
      
-        <h1>Society</h1>
-
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Id</th>
-                    <td>{{ society.id }}</td>
-                </tr>
-                <tr>
-                    <th>Siret</th>
-                    <td>{{ society.siret }}</td>
-                </tr>
-                <tr>
-                    <th>Social_reason</th>
-                    <td>{{ society.socialReason }}</td>
-                </tr>
-                <tr>
-                    <th>Head_office</th>
-                    <td>{{ society.headOffice }}</td>
-                </tr>
-                <tr>
-                    <th>Postal_code</th>
-                    <td>{{ society.postalCode }}</td>
-                </tr>
-                <tr>
-                    <th>Email_interlocutor</th>
-                    <td>{{ society.emailInterlocutor }}</td>
-                </tr>
-                <tr>
-                    <th>Tel_interlocutor</th>
-                    <td>{{ society.telInterlocutor }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <a href="{{ path('admin_society_index') }}">Retour</a>
-
-        <a href="{{ path('admin_society_edit', {'id': society.id}) }}">edit</a>
+        <h1>Information {{ society.socialReason }}</h1>
+        <div class="container list-card-society bg-white">                       
+            <div class="row">
+                <div class="col-sm-6 offset-sm-3">
+                    <div class="card-society">
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Identifant de la société : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ society.id }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Siret : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ society.siret }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Raison Sociale : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ society.socialReason }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Adresse du Siege : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ society.headOffice }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Code postal : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ society.postalCode }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Email interlocuteur : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ society.emailInterlocutor }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <p>Téléphone interlocuteur : </p>
+                                </div>
+                                <div class="col-sm-5 text-left">
+                                    <p>{{ society.telInterlocutor }}</p>
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>  
+        </div>
+        
+        <a class="btn btn-primary text-white" href="{{ path('admin_society_index') }}">Retour</a>
+        <a class="btn btn-secondary  text-white" href="{{ path('admin_society_edit', {'id': society.id}) }}">Modifier</a>
 
         {{ include('admin/society/_delete_form.html.twig') }}
     {{ include("admin/footer.html.twig") }} 

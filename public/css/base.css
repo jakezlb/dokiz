@@ -637,34 +637,54 @@ html  {
 #car_keys .item_key{
     margin: 20px 0;
 }
+.tableKeyCar .available , .tableKeyCar .not_available{  
+    color: white;
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.tableKeyCar .available{
+    background-color: #04a204; 
+}
+
+
+.tableKeyCar .not_available{
+    background-color: #d27b7b; 
+}
+
+.list_ride_admin {
+    margin: 0 auto;
+}
+
 
 /* ==============
   Car
 ===================*/
 
-.card-car {
+.card-car, .card-society {
     padding:25px;
     border-radius: 15px;
     background-color: #36393f;
     color:white;
 }
-.card-car .item {
+.card-car .item, .card-society .item {
     display: block;
     padding:20px 0;
     border-bottom: 1px solid #00b2ccb0;
 }
-.card-car .item:last-child {
+.card-car .item:last-child, .card-society .item:last-child {
     border-bottom:0px;
 }
-.card-car .item p{
+.card-car .item p, .card-society .item p {
     margin-bottom: 0px;
     font-size:15px;
 }
-.card-car .item p strong{
+.card-car .item p strong, .card-society .item p strong{
     color: #9d9da6;
 }
 
-.list-card-car {
+.list-card-car, .list-card-society {
     padding:50px 30px;
 }
 

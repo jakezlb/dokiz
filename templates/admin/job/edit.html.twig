@@ -6,12 +6,16 @@
     {{ include("admin/header.html.twig") }}  
     {{ include("navigation/navAdmin.html.twig") }}
       
-        <h1>Edit Job</h1>
+        <div class="row">
+            <div class="col-sm-6">               
+                <h1>Modifier le nom</h1>
+            </div>
+            <div class="col-sm-6">
+                <a class="btn btn-primary pull-right" href="{{ path('admin_job_index') }}">Retour</a>
+            </div>
+        </div>
 
-        {{ include('admin/job/_form.html.twig', {'button_label': 'Update'}) }}
-
-        <a href="{{ path('admin_job_index') }}">Retour</a>
-
+    {{ include('admin/job/_form.html.twig', {'button_label': 'Update'}) }}    
     {{ include('admin/job/_delete_form.html.twig') }}
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}

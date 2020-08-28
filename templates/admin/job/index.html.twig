@@ -28,8 +28,7 @@
                 <tr>
                     <td>{{ job.id }}</td>
                     <td>{{ job.wording }}</td>
-                    <td>
-                        <a href="{{ path('admin_job_show', {'id': job.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <td>                        
                         <a href="{{ path('admin_job_edit', {'id': job.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                 </tr>

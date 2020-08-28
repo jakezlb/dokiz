@@ -32,7 +32,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-            ])            
+            ])                      
             ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
                 'required' => true,
