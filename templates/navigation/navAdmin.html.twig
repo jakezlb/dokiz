@@ -33,18 +33,20 @@
                   <li><a class="dropdown-item" href="{{path('admin_reservation_index') }}">Liste des réservations</a>             </li>
               </ul>
           </li>
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Eléments
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink4" style="margin-top: -5px">
-                  <li><a class="dropdown-item" href="{{path('admin_job_index') }}">Liste des postes</a> </li>
-                  <li> <a class="dropdown-item" href="{{path('admin_job_new') }}">Ajouter un poste</a> </li>
-                  <li><div class="dropdown-divider"></div> </li>
-                  <li><a class="dropdown-item" href="{{path('admin_society_index') }}">Liste des entreprises</a> </li>
-                  <li> <a class="dropdown-item" href="{{path('admin_society_new') }}">Ajouter une entreprises</a>  </li>
-              </ul>
-          </li>
+           {% if is_granted('ROLE_SUPERADMIN') %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Eléments
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink4" style="margin-top: -5px">
+                    <li><a class="dropdown-item" href="{{path('admin_job_index') }}">Liste des postes</a> </li>
+                    <li> <a class="dropdown-item" href="{{path('admin_job_new') }}">Ajouter un poste</a> </li>
+                    <li><div class="dropdown-divider"></div> </li>
+                    <li><a class="dropdown-item" href="{{path('admin_society_index') }}">Liste des entreprises</a> </li>
+                    <li> <a class="dropdown-item" href="{{path('admin_society_new') }}">Ajouter une entreprises</a>  </li>
+                </ul>
+            </li>
+          {% endif %}
       </ul>
   </div>
 </nav>
