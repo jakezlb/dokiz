@@ -6,15 +6,17 @@
         });
     });
 </script>
-
+{% set dateStart, dateEnd = date(), date() %}
 {{ form_start(form) }}
 
 {% for carRide in form.carRides %}
 <div class="cardSection2">
 <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
     {% if loop.first %}
+        {% set dateStart = carRide.date_start %}
         ALLER
     {% else %}
+        {% set dateEnd = carRide.date_end %}
         RETOUR
     {% endif %}
 </div>
@@ -74,7 +76,26 @@
 <br>
 </div>
 <hr>
+
 {% endfor %}
+
+<div class="cardSection2">
+    <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
+        Choisir le véhicule
+    </div>
+    <div class="row">
+        <div class="col-md-12 ">
+            <label for="cars">Liste des véhicules disponibles</label>
+            <select id="cars" name="cars" class="form-control">
+                {% for car in cars %}
+                    {% if car.getStartReservationDate() < dateStart and car.getStartReservationDate() > dateEnd and car.getEndReservationDate() < dateStart and car.getEndReservationDate() > dateEnd %}
+                        <option id="{{ car.id }}">{{ car.id ~' - '~ car.mark ~' '~ car.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
 <hr>
 <div>
     <button class="btn btn-info w-100" >{{ button_label|default('Créer une nouvelle réservation') }}</button>

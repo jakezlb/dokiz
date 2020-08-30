@@ -13,6 +13,7 @@
             <hr>
             {% if reservations %}
             {% for reservation in reservations %}
+
             {% set nbPlacesRestantes, reservePart = "", "" %}
             {% set user = reservation.user %}
             {% set car = reservation.car %}
