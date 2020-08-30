@@ -15,12 +15,14 @@
             </div>
         </div>
         
-        <table  id="tableAdmin" class="display">
+        <table  id="tableAdmin" class="display tableKeyCar">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>actions</th>
+                    <th>Nom</th>
+                    <th>Status</th>
+                    <th>Voiture</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +31,17 @@
                     <td>{{ key_car.id }}</td>
                     <td>{{ key_car.name }}</td>
                     <td>
-                        <a href="{{ path('admin_key_car_show', {'id': key_car.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        {% if key_car.isTaken|number_format == 0 %}
+                            <span class="available">Disponible</span>
+                        {% else %}
+                            <span class="not_available">Non disponible</span>
+                        {% endif %}
+                    </td>
+                    {% set car = key_car.car %}
+                    <td>
+                    {{ car.name }}
+                    </td>
+                    <td>                        
                         <a href="{{ path('admin_key_car_edit', {'id': key_car.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                 </tr>

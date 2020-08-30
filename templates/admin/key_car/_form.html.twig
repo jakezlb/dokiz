@@ -1,4 +1,18 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="adminContainerWhite container"> 
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_label(form.name, 'Nom de la clé', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_label(form.is_taken, 'Permission', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.is_taken, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="text-center">  
+            <button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+    
 {{ form_end(form) }}

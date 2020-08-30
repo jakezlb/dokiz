@@ -41,46 +41,53 @@
     </script>
 {% endblock %}
 
+
 {% block body %}
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
-    
 
-<table id="tableAdmin" class="display">
-    <thead>
-    <tr>
-        <th>Numéro de réservation</th>
-        <th>Date de réservation</th>
-        <th>Adresse de départ</th>
-        <th>Ville de départ</th>
-         <th>Adresse d'arrivée</th>
-        <th>Ville d'arrivée</th>      
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% if reservations %}
-        {% for reservation in reservations %}
-            {% for carRide in reservation.carRides %}
-                <tr>
-                    <td>{{ reservation.id }}</td>
-                    <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y H:i:s') : '' }}</td>
-                    <td>{{ carRide.getAdressPointDeparture() }}</td>
-                    <td>{{ carRide.getPostalCodePointDeparture() }} {{ carRide.getCityPointDeparture() }}</td>
-                    <td>{{ carRide.getAdressPointArrival() }}</td>
-                    <td>{{ carRide.getPostalCodePointArrival() }} {{ carRide.getCityPointArrival() }}</td>
-                    <td>
-                        <a href="{{ path('admin_car_ride_show', {'id': carRide.getId()}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
+    
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Liste des réservations</h1>
+        </div>
+    </div>
+    <table id="tableAdmin" class="display">
+        <thead>
+        <tr>
+            <th>Numéro de réservation</th>
+            <th>Date de réservation</th>
+            <th>Trajets</th> 
+        </tr>
+        </thead>
+        <tbody>
+        {% if reservations %}
+            {% for reservation in reservations %}         
+                    <tr>
+                        <td>{{ reservation.id }}</td>
+                        <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y H:i:s') : '' }}</td>
+                        <td class="text-center">
+                            <table class="list_ride_admin">
+                                <tbody>
+                                {% for carRide in reservation.carRides %}
+                                <tr>
+                                    <td>{{ carRide.getStartAddress() }}</td>
+                                    <td>{{ carRide.getStartPostalCode() }} {{ carRide.getStartCity() }}</td>
+                                    <td>{{ carRide.getEndAddress() }}</td>
+                                    <td>{{ carRide.getEndPostalCode() }} {{ carRide.getEndCity() }}</td>                            
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>            
             {% endfor %}
-        {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="10">Il n'y a pas de réservations.</td>
-            </tr>
-    {% endif %}
-    </tbody>
-</table>
+            {% else %}
+                <tr>
+                    <td colspan="10">Il n'y a pas de réservations.</td>
+                </tr>
+        {% endif %}
+        </tbody>
+    </table>
     {{ include("admin/footer.html.twig") }}
 {% endblock %}
