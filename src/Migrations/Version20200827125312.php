@@ -22,8 +22,7 @@ final class Version20200827125312 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE reservation_user');
-        $this->addSql('ALTER TABLE car_ride ADD start_postal_code VARCHAR(255) NOT NULL, ADD start_city VARCHAR(255) NOT NULL, ADD start_address VARCHAR(255) NOT NULL, ADD end_postal_code VARCHAR(255) NOT NULL, ADD end_city VARCHAR(255) NOT NULL, ADD end_address VARCHAR(255) NOT NULL, DROP start_address, DROP end_address, DROP km_number, DROP start_postal_code, DROP start_city, DROP end_postal_code, DROP end_city, CHANGE reservation_id reservation_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE car_ride ADD start_postal_code VARCHAR(255) NOT NULL, ADD start_city VARCHAR(255) NOT NULL, ADD start_address VARCHAR(255) NOT NULL, ADD end_postal_code VARCHAR(255) NOT NULL, ADD end_city VARCHAR(255) NOT NULL, ADD end_address VARCHAR(255) NOT NULL, CHANGE reservation_id reservation_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE user CHANGE job_id job_id INT DEFAULT NULL, CHANGE society_id society_id INT DEFAULT NULL, CHANGE roles roles JSON NOT NULL, CHANGE updated_at updated_at DATETIME DEFAULT NULL');
         $this->addSql('ALTER TABLE car ADD start_reservation_date DATETIME NOT NULL, ADD end_reservation_date DATETIME NOT NULL, CHANGE society_id society_id INT DEFAULT NULL, CHANGE name name VARCHAR(20) DEFAULT NULL, CHANGE fuel fuel VARCHAR(200) DEFAULT NULL');
         $this->addSql('ALTER TABLE key_car CHANGE car_id car_id INT DEFAULT NULL');
@@ -42,9 +41,6 @@ final class Version20200827125312 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE reservation_user (reservation_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_9BAA1B21A76ED395 (user_id), INDEX IDX_9BAA1B21B83297E7 (reservation_id), PRIMARY KEY(reservation_id, user_id)) DEFAULT CHARACTER SET utf8 COLLATE `utf8_unicode_ci` ENGINE = InnoDB COMMENT = \'\' ');
-        $this->addSql('ALTER TABLE reservation_user ADD CONSTRAINT FK_9BAA1B21A76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE reservation_user ADD CONSTRAINT FK_9BAA1B21B83297E7 FOREIGN KEY (reservation_id) REFERENCES reservation (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE car DROP start_reservation_date, DROP end_reservation_date, CHANGE society_id society_id INT DEFAULT NULL, CHANGE name name VARCHAR(20) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`, CHANGE fuel fuel VARCHAR(200) CHARACTER SET utf8mb4 DEFAULT \'NULL\' COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE car_ride ADD start_address VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD end_address VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD km_number INT NOT NULL, ADD start_postal_code VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD start_city VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD end_postal_code VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ADD end_city VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, DROP start_postal_code, DROP start_city, DROP start_address, DROP end_postal_code, DROP end_city, DROP end_adddress, CHANGE reservation_id reservation_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE key_car CHANGE car_id car_id INT DEFAULT NULL');

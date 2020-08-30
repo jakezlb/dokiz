@@ -31,14 +31,6 @@ class ReservationType extends AbstractType
                 ],
             ])
 
-            ->add('cars', CollectionType::class, [
-                // each entry in the array will be an "email" field-
-                'entry_type' => CarType::class,
-                // these options are passed to each "email" type
-                'entry_options' => [
-                    'attr' => ['class' => 'form-control'],
-                ],
-            ])
         ;
     }
 

@@ -7,6 +7,7 @@ use App\Entity\Passenger;
 use App\Entity\Reservation;
 use App\Entity\Status;
 use App\Form\Type\CarRideType;
+use App\Form\Type\CarType;
 use App\Form\Type\ReservationType;
 use App\Repository\CarRepository;
 use App\Repository\ReservationRepository;
@@ -76,31 +77,24 @@ class ReservationController extends AbstractController
         $carRide2 = new CarRide();
         $reservation->getCarRides()->add($carRide2);
 
-        $carsTempo = $carRepository->findAll();
-        $cars = new ArrayCollection();
-        foreach($carsTempo as $carTempo){
-            $keys = $carTempo->getKeys();
-            foreach($keys as $key){
-                if(!$key->isTaken()){
-                    $cars->add($carTempo);
-                    break;
-                }
-            }
-        }
+        $cars = $carRepository->findAll();
 
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $entityManager = $this->getDoctrine()->getManager();
+
+            $cars = $request->request->get('cars');
+            $carExplode = explode(" - ", $cars);
+            $car = $carRepository->find($carExplode[0]);
+            $car->setStartReservationDate($carRide1->getDateStart());
+            $car->setEndReservationDate($carRide2->getDateEnd());
 
             $reservation->setIsConfirmed(false);
             $reservation->setDateReservation(new \DateTime());
-            //$reservation->setStatePremiseDepature($carRide1->getDateStart());
-           // $reservation->setStatePremiseArrival($carRide2->getDateEnd());
 
-            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
+            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(2);
             $carRide1->setStatus($statusDefault);
             $carRide1->setReservation($reservation);
 
@@ -120,8 +114,12 @@ class ReservationController extends AbstractController
             $passenger2->setIsDriver(1);
 
             $reservation->setUser($user);
+            $reservation->setCar($car);
 
             $entityManager->persist($reservation);
+            $entityManager->flush();
+
+            $entityManager->persist($car);
             $entityManager->flush();
 
             return $this->redirectToRoute('reservation_index');
