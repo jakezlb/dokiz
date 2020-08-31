@@ -2,6 +2,10 @@
 
 {% block title %}CarRide{% endblock %}
 
+{% block javascripts %}
+    <script></script>
+{% endblock %}
+
 {% block body %}
     <!-- Header -->
     <header class="masthead backWhite" id="dokiz">
@@ -62,21 +66,48 @@
                 </table>
             </div>
             <div class="row">
-                <div class="col-md-5 text-center">
+                {% set colSize = false %}
+                {% set reservation = carRide.reservation %}
+                {% set passengers = carRide.passengers %}
+                {% set user = app.user %}
+
+                {% if user not in carRide.passengers and app.user != reservation.user and passengers|length < 4 %}
+                    {% set colSize = true %}
+                {% endif %}
+                <div class="{%   if colSize %}col-md-5{% else %}col-md-6{% endif %} text-center">
                     <a class="btn btn-info" href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
                 </div>
-                <div class="col-md-4 text-center ">
-                    {% set reservation = carRide.reservation %}
-                    {% if app.user == reservation.user %}
+                <div class="{% if colSize %}col-md-3{% else %}col-md-6{% endif %} text-center ">
+                    {% if user == reservation.user %}
                         <a class="btn btn-info" href="{{ path('car_ride_edit', {'id': carRide.id}) }}">Editer la réservation</a>
                     {% endif %}
                 </div>
-                <div class="col-md-3 text-center">
-                    {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
-                        <a class="btn btn-success">S'inscrire</a>
+                {% if colSize %}
+                    {% if user not in passengers and user != reservation.user and passengers|length < 4 %}
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">S'inscrire</button>
                     {% endif %}
-                </div>
+                {% endif %}
             </div>
         </div>
     </header>
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the modal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}
