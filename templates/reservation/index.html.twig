@@ -5,10 +5,10 @@
 {% block body %}
     <!-- Header -->
     <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
-        <div class="container h-100 align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
+        <div class="container hAuto align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navReservation.html.twig") }}
             <div class="row mx-auto" style="margin-top: 40px" >
-                <h1 class="titleReservation">Réservations en cours</h1>
+                <h1 class="titleReservation">Mes reservations crée</h1>
             </div>
             <hr>
             {% if reservations %}
@@ -69,8 +69,47 @@
             {% else %}
                 <h3>Il n'y a pas de réservations en cours.</h3>
             {% endif %}
-        </div>
+            <div class="row mx-auto" style="margin-top: 40px" >
+                <h1 class="titleReservation">Mes reservations en cours</h1>
+            </div>
+            <hr>
+            {% if carRides %}
+                {% for carRide in carRides %}
+                    {% set nbPlacesRestantes, reservePart = "", "" %}
+                    <div  class="cardSection parentCity" style="padding: 10px; margin: 15px">
+                        <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
+                            <div class="row">
+                                <div class="col-md-4 hrVerticalFine my-auto">
+                                    <div class="row mx-auto searchCity" >
+                                        {{ carRide.getStartCity() }} -  {{ carRide.getEndCity() }}
+                                    </div>
+                                </div>
 
+                                <div class="col-md-5 hrVerticalFine my-auto">
+                                    <div class="row mx-auto searchDate">
+                                        {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
+                                    </div>
+                                </div>
+                                <div class="col-md-1 hrVerticalFine my-auto">
+                                    <div class="row mx-auto">
+                                        {{  4 - carRide.passengers|length }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2 hrVerticalFine my-auto">
+                                    <div class="row mx-auto">
+                                        {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
+                                            <a>S'inscrire</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3>Il n'y a pas de réservations en cours.</h3>
+            {% endif %}
+            </div>
     </header>
 
 {% endblock %}

@@ -619,3 +619,8 @@ html  {
 #car_keys {
     text-align: center;
 }
+
+.hAuto {
+    height: auto;
+    min-height: 100%;
+}

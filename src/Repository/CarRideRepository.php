@@ -19,6 +19,35 @@ class CarRideRepository extends ServiceEntityRepository
         parent::__construct($registry, CarRide::class);
     }
 
+    /**
+     * @return carRide[]
+     */
+    public function findByDate(): array
+    {
+        return $this->findBy(array(), array('date_start' => 'ASC'));
+    }
+
+    /**
+     * @return CarRide[]
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findByUser($id): array
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT p.car_ride_id
+            FROM passenger p
+            WHERE p.user_id IN('.$id.')';
+        $stmt = $conn->query($sql);
+        // here you go:
+        $id_resa= $stmt->fetchAll();
+        $array_id =[];
+        foreach ($id_resa as $row) {
+            array_push($array_id, $this->find($row["id"])) ;
+        }
+        return $array_id;
+    }
+
     // /**
     //  * @return CarRide[] Returns an array of CarRide objects
     //  */
