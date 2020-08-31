@@ -11,6 +11,7 @@ use Monolog\Logger;
  * @method Reservation|null find($id, $lockMode = null, $lockVersion = null)
  * @method Reservation|null findOneBy(array $criteria, array $orderBy = null)
  * @method Reservation[]    findAll()
+ * @method Reservation[]    findBySociety()
  * @method Reservation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ReservationRepository extends ServiceEntityRepository
@@ -20,6 +21,24 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
+    
+    /**
+     * @return Reservation[] Returns an array of Car objects
+    */
+    
+    public function findBySociety($value)
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.car', 'c')
+            ->andWhere('c.society = :val')            
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
+    
     /**
      * @return Reservation[]
      * @throws \Doctrine\DBAL\DBALException

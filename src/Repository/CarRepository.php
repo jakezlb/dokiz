@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Car|null find($id, $lockMode = null, $lockVersion = null)
  * @method Car|null findOneBy(array $criteria, array $orderBy = null)
  * @method Car[]    findAll()
+ * @method Car[]    findBySociety()
  * @method Car[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CarRepository extends ServiceEntityRepository
@@ -18,6 +19,22 @@ class CarRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Car::class);
     }
+
+    /**
+      * @return Car[] Returns an array of Car objects
+    */
+    
+    public function findBySociety($value)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.society = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     // /**
     //  * @return Car[] Returns an array of Car objects
