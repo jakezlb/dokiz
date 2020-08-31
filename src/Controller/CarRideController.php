@@ -49,6 +49,16 @@ class CarRideController extends AbstractController
     }
 
     /**
+     * @Route("/car_ride/date", name="car_date", methods={"GET"})
+     */
+    public function rideByDate(CarRideRepository $carRideRepository): Response
+    {
+        return $this->render('car_ride/index.html.twig', [
+            'carRides' => $carRideRepository->findByDate(),
+        ]);
+    }
+
+    /**
      * @Route("car_ride/new", name="car_ride_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -57,26 +67,6 @@ class CarRideController extends AbstractController
         $user = $this->getUser();        
         $form = $this->createForm(CarRideType::class, $carRide);
         $form->handleRequest($request);
-
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//
-//            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
-//            $carRide->setStatus($statusDefault);
-//
-//            $entityManager->persist($carRide);
-//            $entityManager->flush();
-//
-//            $passenger = new Passenger();
-//            $passenger->setCarRide($carRide);
-//            $passenger->setUser($user);
-//            $passenger->setIsDriver(1);
-//
-//            $entityManager->persist($passenger);
-//            $entityManager->flush();
-//
-//            return $this->redirectToRoute('car_ride_index');
-//        }
 
         return $this->render('car_ride/new.html.twig', [
             'car_ride' => $carRide,

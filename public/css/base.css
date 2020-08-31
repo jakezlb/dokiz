@@ -632,6 +632,7 @@ html  {
 #car_keys {
     text-align: center;
 }
+
 #car_keys .input-group label{
     display:none;
 }
@@ -694,12 +695,16 @@ html  {
     padding:50px 30px;
 }
 
-.list-card-car .miniature_car img{   
+.list-card-car .miniature_car img {
     position: absolute;
     top: 50%;
-    left: 50%;     
-    -webkit-transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.hAuto {
+    height: auto;
+    min-height: 100%;
 
 }

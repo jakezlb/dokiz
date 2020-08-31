@@ -6,15 +6,10 @@ use App\Entity\CarRide;
 use App\Entity\Passenger;
 use App\Entity\Reservation;
 use App\Entity\Status;
-use App\Form\Type\CarRideType;
-use App\Form\Type\CarType;
 use App\Form\Type\ReservationType;
-use App\Repository\CarRepository;
+use App\Repository\CarRideRepository;
 use App\Repository\ReservationRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -65,7 +60,10 @@ class ReservationController extends AbstractController
      */
     public function indexById(ReservationRepository $reservationRepository, int $id): Response
     {
+        $carRide = $this->getDoctrine()->getRepository(CarRide::class)
+            ->findByUser($id);
         return $this->render('reservation/index.html.twig', [
+            'carRides' => $carRide,
             'reservations' => $reservationRepository->findByUser($id),
         ]);
     }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light fixed-top scrolled" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top scrolled" id="reservationsNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="/" >DOKIZ</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -10,11 +10,12 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
-                    <a class="nav-link btnNav active" href="{{ path('car_ride_index') }}" > Rechercher un trajet</a>
+                    <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('car_date') }}" id="section5"> liste des trajets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btnNav" href="{{ path('reservation_index') }}" > Reservations</a>
+                    <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('reservation_user', {id: app.user.id}) }}">Mes réservations</a>
                 </li>
+
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if app.user %}
@@ -30,8 +31,8 @@
                                     <li><a class="dropdown-item" href="{{ path('admin_dashbord') }}">Dashboard admin</a></li>
                                 {% endif %}
                             {% endfor %}
-                            <li><a class="dropdown-item" href="{{ path('car_my_rides') }}">Mes trajets</a></li>
-                            <li><a class="dropdown-item" href="{{ path('car_ride_new') }}">Nouveau trajet</a></li>
+                            <li><a class="dropdown-item" href="{{ path('reservation_user', {id: app.user.id}) }}">Mes reservations</a></li>
+                            <li><a class="dropdown-item" href="{{ path('reservation_new') }}">Nouvelle Reservation</a></li>
                             <hr>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                         </ul>

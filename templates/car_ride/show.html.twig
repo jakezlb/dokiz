@@ -36,6 +36,19 @@
                     </tr>
                     <tr><th></th><td></td></tr>
                     <tr>
+                        <th>Conducteur</th>
+                        {%  set reservation = carRide.reservation %}
+                        {% set driver = reservation.user %}
+                        <td>{{ driver.firstName ~ ' ' ~ driver.lastName }}</td><br/>
+                    </tr>
+                    <tr>
+                        <th>Voiture</th>
+                        {%  set reservation = carRide.reservation %}
+                        {% set car = reservation.car %}
+                        <td>{{ 'car.url' ~ ' ' ~ 'car.mark' ~ ' ' ~ 'car.name' }}</td><br/>
+                    </tr>
+                    <tr><th></th><td></td></tr>
+                    <tr>
                         <th>Passagers</th>
                         {%  for passenger in carRide.passengers %}
                             {% set userPassenger = passenger.user %}

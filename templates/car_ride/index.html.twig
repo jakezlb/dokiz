@@ -1,50 +1,104 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes trajets{% endblock %}
+{% block title %}Trajets{% endblock %}
+
+{% block javascripts %}
+<script>
+function search(value) {
+    var input, filter, city, i, txtValue;
+    input = document.getElementById("myInput" + value);
+    city = document.getElementsByClassName("search" + value);
+    displayParent = document.getElementsByClassName("parentCity");
+    for (i = 0; i < city.length; i++) {
+        if(value === 'City') {
+            filter = input.value.toUpperCase();
+            txtValue = city[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                displayParent[i].style.display = "";
+            } else {
+                displayParent[i].style.display = "none";
+            }
+        } else {
+            filter = convertDate(input.value);
+            txtValue = city[i].innerText;
+            if (txtValue.indexOf(filter) > -1) {
+                displayParent[i].style.display = "";
+            } else {
+                displayParent[i].style.display = "none";
+            }
+        }
+    }
+}
+function convertDate(inputFormat) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    var d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')
+}
+</script>
+{% endblock %}
 
 {% block body %}
-<!-- Header -->
-<header class="masthead" id="dokiz">
-    <div class="container d-flex h-100 align-items-center">
-        {{ include("navigation/navCarRide.html.twig") }}
-    <h1>Trajets</h1>
+    <!-- Header -->
+    <script></script>
+    <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
+        <div class="container hAuto align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
+            {{ include("navigation/navCarRide.html.twig") }}
+            <div class="row mx-auto" style="margin-top: 40px" >
+                <h1 class="titleReservation">Liste des Trajets</h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6 hrVerticalFine my-auto">
+                    <div class="row mx-auto">
+                        <h5 style="margin-right: 5px">Ville de départ</h5>
+                        <input type="text" id="myInputCity" onkeyup="search('City')" placeholder="Chercher une ville...">
+                    </div>
+                </div>
+                <div class="col-md-6 hrVerticalFine my-auto">
+                    <div class="row mx-auto">
+                        <h5 style="margin-right: 5px">Date de départ</h5>
+                        <input type="date" id="myInputDate" onchange="search('Date')">
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% if carRides %}
+                {% for carRide in carRides %}
+                    {% set nbPlacesRestantes, reservePart = "", "" %}
+                        <div  class="cardSection parentCity" style="padding: 10px; margin: 15px">
+                            <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
+                                <div class="row">
+                                    <div class="col-md-4 hrVerticalFine my-auto">
+                                        <div class="row mx-auto searchCity" >
+                                            {{ carRide.getStartCity() }} -  {{ carRide.getEndCity() }}
+                                        </div>
+                                    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Départ</th>
-                <th>Arrivée</th>
-                <th>Date de début</th>
-                <th>Date d'arrivée</th>
-                <th>Statut</th>
-                <th>Nombre de KM</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% if car_rides %}
-        {% for car_ride in car_rides %}
-            <tr>
-                <td>{{ car_ride.adressPointDeparture }} {{ car_ride.postalCodePointDeparture }} {{ car_ride.cityPointDeparture }}</td>
-                <td>{{ car_ride.adressPointArrival }} {{ car_ride.postalCodePointArrival }} {{ car_ride.cityPointArrival }}</td>
-                <td>{{ car_ride.dateStart ? car_ride.dateStart|date('d/m/Y H:i:s') : '' }}</td>
-                <td>{{ car_ride.dateEnd ? car_ride.dateEnd|date('d/m/Y H:i:s') : '' }}</td>
-                <td>{{ car_ride.status }}</td>
-                <td>{{ car_ride.kmNumber }}</td>
-                <td>
-                    <a href="{{ path('car_ride_show', {'id': car_ride.id}) }}">Voir</a>
-                    <a href="{{ path('car_ride_edit', {'id': car_ride.id}) }}">Editer</a>
-                </td>
-            </tr>
-        {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="10">Il n'y a pas de trajets.</td>
-            </tr>
-        {% endif %}
-        </tbody>
-    </table>
-    </div>
-</header>
-    <a href="{{ path('car_ride_new') }}">Create new</a>
+                                    <div class="col-md-5 hrVerticalFine my-auto">
+                                        <div class="row mx-auto searchDate">
+                                            {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1 hrVerticalFine my-auto">
+                                        <div class="row mx-auto">
+                                            {{  4 - carRide.passengers|length }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 hrVerticalFine my-auto">
+                                        <div class="row mx-auto">
+                                            {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
+                                                <a>S'inscrire</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}
+            {% else %}
+                <h3>Il n'y a pas de trajets en cours.</h3>
+            {% endif %}
+
+    </header>
+
 {% endblock %}
+
