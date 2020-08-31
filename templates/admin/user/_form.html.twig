@@ -3,9 +3,8 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                {% set society = user.getSociety()%}
-                {{ form_label(society.getSocialReason(), 'Société', {'label_attr': {'class': 'label_control'}}) }}
-                {{ form_widget(society.getSocialReason(), {'attr': {'class': 'form-control'}}) }}
+                {{ form_label(form.society.social_reason, 'Société', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.society.social_reason, {'attr': {'class': 'form-control'}}) }}
             </div>
             <div class="form-group">
                 {{ form_label(form.email, 'Identifiant', {'label_attr': {'class': 'label_control'}}) }}

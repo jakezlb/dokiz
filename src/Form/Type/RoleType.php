@@ -40,6 +40,7 @@ class RoleType extends AbstractType
             'multiple' => true,
             'label' => 'Rôles' 
         ])
+            ->add('society', SocietyType::class)
         ->add('save', SubmitType::class, [
             'attr' => [
                 'class' => 'btn btn-lg btn-primary btn-block'
