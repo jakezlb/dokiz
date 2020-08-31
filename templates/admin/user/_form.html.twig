@@ -11,10 +11,15 @@
             </div>
         </div>
         <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.society.head_office, 'Poste de travail', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.society.head_office, {'attr': {'class': 'form-control'}}) }}
+            </div>
              <div class="form-group radio">
                {{ form_label(form.roles, 'Roles de l\'utilisateur', {'label_attr': {'class': 'label_control'}}) }}
                {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
             </div>
+
         </div>        
     </div>
 <div> 
