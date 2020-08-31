@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method KeyCar|null find($id, $lockMode = null, $lockVersion = null)
  * @method KeyCar|null findOneBy(array $criteria, array $orderBy = null)
  * @method KeyCar[]    findAll()
+ * @method Car[]    findBySociety()
  * @method KeyCar[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class KeyCarRepository extends ServiceEntityRepository
@@ -19,22 +20,21 @@ class KeyCarRepository extends ServiceEntityRepository
         parent::__construct($registry, KeyCar::class);
     }   
 
-     // /**
-    //  * @return KeyCar[] Returns an array of KeyCar objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+      * @return KeyCar[] Returns an array of Car objects
+     */
+    
+    public function findBySociety($value)
     {
-        return $this->createQueryBuilder('k')
-            ->andWhere('k.exampleField = :val')
+        return $this->createQueryBuilder('kc')
+            ->leftJoin('kc.car', 'c')
+            ->andWhere('c.society = :val')            
             ->setParameter('val', $value)
-            ->orderBy('k.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('c.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?KeyCar

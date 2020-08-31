@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/admin/key_car" , name="admin_")
@@ -18,11 +19,18 @@ class KeyCarController extends AbstractController
     /**
      * @Route("/", name="key_car_index", methods={"GET"})
      */
-    public function index(KeyCarRepository $keyCarRepository): Response
+    public function index(KeyCarRepository $keyCarRepository, UserInterface $user): Response
     {
-        return $this->render('admin/key_car/index.html.twig', [
-            'key_cars' => $keyCarRepository->findAll(),
-        ]);
+        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+            return $this->render('admin/key_car/index.html.twig', [
+                'key_cars' => $keyCarRepository->findAll(),
+            ]);
+        }else {
+          
+            return $this->render('admin/key_car/index.html.twig', [
+                'key_cars' => $keyCarRepository->findBySociety($user->getSociety()),
+            ]);
+        }
     }
 
     /**

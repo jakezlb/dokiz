@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class ReservationController extends AbstractController
@@ -34,6 +34,7 @@ class ReservationController extends AbstractController
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservationRepository->findAll(),
         ]);
+        
     }
 
     /**
@@ -41,11 +42,18 @@ class ReservationController extends AbstractController
      * @param ReservationRepository $reservationRepository
      * @return Response
      */
-    public function indexAdmin(ReservationRepository $reservationRepository): Response
+    public function indexAdmin(ReservationRepository $reservationRepository, UserInterface $user): Response
     {
-        return $this->render('admin/reservation/index.html.twig', [
-            'reservations' => $reservationRepository->findAll(),
-        ]);
+        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+            return $this->render('admin/reservation/index.html.twig', [
+                'reservations' => $reservationRepository->findAll(),
+            ]);
+        }else {
+          
+            return $this->render('admin/reservation/index.html.twig', [
+                'reservations' => $reservationRepository->findBySociety($user->getSociety()),
+            ]);
+        }
     }
 
     /**

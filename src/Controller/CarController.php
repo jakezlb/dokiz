@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/admin/car", name="admin_")
@@ -22,11 +23,20 @@ class CarController extends AbstractController
     /**
      * @Route("/", name="car_index", methods={"GET"})
      */
-    public function index(CarRepository $carRepository): Response
+    public function index(CarRepository $carRepository, UserInterface $user): Response
     {
-        return $this->render('admin/car/index.html.twig', [
-            'cars' => $carRepository->findAll(),
-        ]);
+        
+        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+            return $this->render('admin/car/index.html.twig', [
+                'cars' => $carRepository->findAll(),
+            ]);
+        }else {
+          
+            return $this->render('admin/car/index.html.twig', [
+                'cars' => $carRepository->findBySociety($user->getSociety()),
+            ]);
+        }
+       
     }
 
     /**
