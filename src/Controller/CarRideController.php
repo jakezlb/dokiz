@@ -39,17 +39,7 @@ class CarRideController extends AbstractController
     }
 
     /**
-     * @Route("/car_ride/my_rides", name="car_my_rides", methods={"GET"})
-     */
-    public function rideByUser(CarRideRepository $carRideRepository): Response
-    {
-        return $this->render('car_ride/my_rides.html.twig', [
-            'car_rides_user' => $carRideRepository->find('user_id'),
-        ]);
-    }
-
-    /**
-     * @Route("/car_ride/date", name="car_date", methods={"GET"})
+     * @Route("/car_ride/list", name="car_list", methods={"GET"})
      */
     public function rideByDate(CarRideRepository $carRideRepository): Response
     {

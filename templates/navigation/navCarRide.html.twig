@@ -10,12 +10,11 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('car_date') }}" id="section5"> liste des trajets</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('reservation_user', {id: app.user.id}) }}">Mes réservations</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('reservation_new') }}">Nouvelle réservation</a>
+                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if app.user %}
@@ -31,8 +30,6 @@
                                     <li><a class="dropdown-item" href="{{ path('admin_dashbord') }}">Dashboard admin</a></li>
                                 {% endif %}
                             {% endfor %}
-                            <li><a class="dropdown-item" href="{{ path('reservation_user', {id: app.user.id}) }}">Mes reservations</a></li>
-                            <li><a class="dropdown-item" href="{{ path('reservation_new') }}">Nouvelle Reservation</a></li>
                             <hr>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                         </ul>
