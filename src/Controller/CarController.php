@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Car;
+use App\Entity\Society;
 use App\Form\Type\CarType;
 use App\Repository\CarRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,7 +15,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Repository\SocietyRepository;
+
 
 /**
  * @Route("/admin/car", name="admin_")
@@ -42,9 +44,16 @@ class CarController extends AbstractController
     /**
      * @Route("/new", name="car_new", methods={"GET","POST"})
      */
-    public function new(Request $request, SluggerInterface $slugger): Response
+    public function new(Request $request, SluggerInterface $slugger, UserInterface $userConnect, SocietyRepository $SocietyRepository): Response
     {
         $car = new Car();
+
+        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $society = new Society();
+            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
+            $car->setSociety($society); 
+        }   
+
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
 
@@ -114,11 +123,12 @@ class CarController extends AbstractController
             $originalKeys->add($key);
         }
     
-        
+       
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+           
             foreach ($originalKeys as $key) {
                 if (false === $car->getKeys()->contains($key)) {                   
                
@@ -136,7 +146,7 @@ class CarController extends AbstractController
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($carUrl) {
-           
+                var_dump($carUrl);
                 $originalFilename = pathinfo($carUrl->getClientOriginalName(), PATHINFO_FILENAME);
               
                 // this is needed to safely include the file name as part of the URL
@@ -158,6 +168,9 @@ class CarController extends AbstractController
                 $car->setCarUrl($newFilename);              
 
             }
+            $car->setStartReservationDate(new \DateTime());
+            $car->setEndReservationDate(new \DateTime());
+
             $entityManager->persist($car);
             $entityManager->flush();
 

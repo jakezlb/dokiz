@@ -3,11 +3,25 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
+<div class="masthead">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                {{ form(form) }}
+            <div class="col-sm-10 offset-sm-1 text-center">
+                <div class="register-top">
+                    <h1 class="uppercase">Inscription</h1>                    
+                </div>
+            </div>
+        </div>     
+        <div class="row">
+            <div class="col-sm-8 offset-sm-2 formContainerWhite">
+               <div class="form-top">
+                    <p class="text-center">Bonjour,<br>Merci de saisir les informations ci-dessous afin de compléter votre inscription et d'accéder à votre espace personnel de gestion de véhicule</p>  
+                </div>   
+                <div class="form-register">
+                   {{ include('register/_form.html.twig') }}
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
