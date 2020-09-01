@@ -181,6 +181,12 @@
     border: 0;
 }
 
+.obligatory-field {
+    margin-top:20px;
+    margin-bottom:20px;
+    display: block;
+}
+
 .about-section {
     padding-top: 10rem;
     background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);

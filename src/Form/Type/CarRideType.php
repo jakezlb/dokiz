@@ -19,53 +19,61 @@ class CarRideType extends AbstractType
         $builder
             ->add('start_postal_code', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Code postal de la ville de départ'
+                'label' => 'Code postal de la ville de départ *'
             ])
             ->add('start_city', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Ville de départ'
+                'label' => 'Ville de départ *'
             ])
             ->add('start_address', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Adresse de départ'
+                'label' => 'Adresse de départ *'
             ])
             ->add('end_postal_code', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Code postal de la ville d\'arrivée'
+                'label' => 'Code postal de la ville d\'arrivée *'
             ])
             ->add('end_city', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Ville d\'arrivée'
+                'label' => 'Ville d\'arrivée *'
             ])
             ->add('end_address', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Adresse d\'arrivée'
+                'label' => 'Adresse d\'arrivée *'
             ])
             ->add('date_start', DateTimeType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
                 'widget' => 'single_text',
-                'label' => 'Date de départ'
+                'label' => 'Date de départ *'
             ])
             ->add('date_end', DateTimeType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
                 'widget' => 'single_text',
-                'label' => 'Date d\'arrivée'
+                'label' => 'Date d\'arrivée *'
             ])
         ;
     }
