@@ -1,3 +1,4 @@
+{{ form_start(form) }}
 <div class="adminContainerWhite container">
     <div class="row">
         <div class="col-sm-12">
@@ -12,7 +13,11 @@
         <div class="col-md-6">
             <div class="form-group">
                 {{ form_label(form.society, 'Société', {'label_attr': {'class': 'label_control'}}) }}
-                {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
+                {% if is_granted('ROLE_SUPERADMIN') == false %}
+                    {{ form_widget(form.society, {'attr': {'class': 'form-control','disabled':'disabled'}}) }}
+                {% else %}
+                    {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
+                {% endif %}
             </div>
             <div class="form-group">
                 {{ form_label(form.email, 'Identifiant', {'label_attr': {'class': 'label_control'}}) }}
@@ -30,3 +35,4 @@
 <div class="text-center">  
     <button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>
 </div>
+{{ form_end(form) }}

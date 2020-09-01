@@ -24,9 +24,9 @@
                     <th>Nombre de place</th>
                     <th>Nom</th>
                     <th>Carburant</th>
-                    <th>Mise en service</th>
-                    <th>Niveau carburant</th>
+                    <th>Mise en service</th>                    
                     <th>Marque</th>
+                    <th>Réservation</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -38,9 +38,9 @@
                     <td>{{ car.placeNumber }}</td>
                     <td>{{ car.name }}</td>
                     <td>{{ car.fuel }}</td>
-                    <td>{{ car.dateCommissioning ? car.dateCommissioning|date('d-m-Y') : '' }}</td>
-                    <td>{{ car.levelFuel }}</td>
+                    <td>{{ car.dateCommissioning ? car.dateCommissioning|date('d-m-Y') : '' }}</td>                    
                     <td>{{ car.mark }}</td>
+                    <td>Du {{ car.startReservationDate|date('d-m-Y')}} au {{ car.endReservationDate|date('d-m-Y')}} </td>
                     <td>
                         <a href="{{ path('admin_car_show', {'id': car.id}) }}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                         <a href="{{ path('admin_car_edit', {'id': car.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>

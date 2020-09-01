@@ -31,6 +31,8 @@ class RegisterController extends AbstractController
                 $passwordEncoder->encodePassword($user, $password)
             );
 
+            $user->setRoles(['ROLE_USER']);
+
             $user->setCreatedAt(new \DateTime());
 
             $em = $this->getDoctrine()->getManager();

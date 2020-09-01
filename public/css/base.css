@@ -1,9 +1,18 @@
 .text-blanc {
     color:white;
+    
+}
+.uppercase {
+    text-transform: uppercase;
 }
 .btn-secondary {
     color:white;
     background-color: #4040bf;
+}
+.formContainerWhite{
+    border-radius: 15px;
+    background-color: white;
+    padding:50px;
 }
 #mainNav, #reservationsNav {
     min-height: 56px;
@@ -272,6 +281,23 @@
 
 .contact-section .social a:active {
     color: #fff;
+}
+
+.register-top {
+    margin-bottom: 50px;
+}
+
+.form-top {
+    margin-bottom: 30px;
+}
+
+.form-top p{
+    font-size:15px;
+    line-height: 30px;
+}
+
+.form-register .btn{
+    margin-top:15px;
 }
 
 body {
@@ -626,7 +652,8 @@ html  {
 }
 #upload_file > img{
 	display: block;
-	margin: 0 auto 15px;
+    margin: 0 auto 15px;
+    max-width: 100%;
 }
 
 #car_keys {

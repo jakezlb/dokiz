@@ -48,14 +48,7 @@ class UserType extends AbstractType
                     ],
                     'label' => 'Confirmer le mot de passe'
                 ]
-            ])  
-            ->add('save', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-lg btn-primary btn-block'
-                ],
-                'label' => 'Valider'
-            ])
-            
+            ])            
         ;
     }
 
