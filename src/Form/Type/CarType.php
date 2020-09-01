@@ -10,6 +10,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 
 class CarType extends AbstractType
@@ -29,7 +31,7 @@ class CarType extends AbstractType
                 
             ])
             ->add('fuel')            
-            ->add('date_commissioning', DateTimeType::class, [
+            ->add('date_commissioning', DateType::class, [
                 'widget' => 'single_text',
             ])
             ->add('level_fuel')
