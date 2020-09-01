@@ -7,12 +7,12 @@
 function search(value) {
     var input, filter, city, i, txtValue;
     input = document.getElementById("myInput" + value);
-    city = document.getElementsByClassName("search" + value);
+    searchValue = document.getElementsByClassName("search" + value);
     displayParent = document.getElementsByClassName("parentCity");
-    for (i = 0; i < city.length; i++) {
+    for (i = 0; i < searchValue.length; i++) {
         if(value === 'City') {
             filter = input.value.toUpperCase();
-            txtValue = city[i].innerText;
+            txtValue = searchValue[i].innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 displayParent[i].style.display = "";
             } else {
@@ -20,8 +20,8 @@ function search(value) {
             }
         } else {
             filter = convertDate(input.value);
-            txtValue = city[i].innerText;
-            if (txtValue.indexOf(filter) > -1) {
+            txtValue = searchValue[i].innerText;
+            if (input.value == '' || txtValue.indexOf(filter) > -1) {
                 displayParent[i].style.display = "";
             } else {
                 displayParent[i].style.display = "none";
@@ -43,20 +43,28 @@ function convertDate(inputFormat) {
     <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
         <div class="container hAuto align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navCarRide.html.twig") }}
-            <div class="row mx-auto" style="margin-top: 40px" >
+            <div class="row mx-auto" style="margin-top: 40px; margin-bottom: 20px;" >
                 <h1 class="titleReservation">Liste des Trajets</h1>
             </div>
             <div class="row">
                 <div class="col-md-6 hrVerticalFine my-auto">
                     <div class="row mx-auto">
-                        <h5 style="margin-right: 5px">Ville de départ</h5>
-                        <input type="text" id="myInputCity" onkeyup="search('City')" placeholder="Chercher une ville...">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Ville de départ</span>
+                            </div>
+                            <input type="text" class="form-control" id="myInputCity" onkeyup="search('City')" placeholder="Rechercher une ville...">
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 hrVerticalFine my-auto">
                     <div class="row mx-auto">
-                        <h5 style="margin-right: 5px">Date de départ</h5>
-                        <input type="date" id="myInputDate" onchange="search('Date')">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Date de départ</span>
+                            </div>
+                            <input type="date" class="form-control" id="myInputDate" onchange="search('Date')">
+                        </div>
                     </div>
                 </div>
             </div>
