@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-6 ">
             <div class="form-group">
-                {{ form_label(form.immatriculation, 'Imatriculation', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_label(form.immatriculation, 'Immatriculation', {'label_attr': {'class': 'label_control'}}) }}
                 {{ form_widget(form.immatriculation, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-6">
              <div class="form-group">
-               {{ form_label(form.level_fuel, 'Niveau d\'essence aprés derniére utilisation', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_label(form.level_fuel, 'Niveau d\'essence après dernière utilisation', {'label_attr': {'class': 'label_control'}}) }}
                {{ form_widget(form.level_fuel, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
@@ -61,9 +61,9 @@
     <div class="row">
         <div class="col-md-6 ">
             <div id="upload_file">
-                {{ form_label(form.car_url, 'Séléctionner une image') }}
+                {{ form_label(form.car_url, 'Sélectionner une image') }}
                  {% if car.getCarUrl() != '' %}
-                        <img class="miniature_car" src="{{asset('uploads/car_url/')}}{{ car.getCarUrl() }}" alt="miniature">
+                        <img class="miniature_car" src="{{asset('uploads/car_url/')}}{{ car.getCarUrl() }}" alt="miniature" style="max-width: 70%;  ">
                 {% endif %}
                 <div class="input_upload">                   
                     {{ form_widget(form.car_url) }}
@@ -77,8 +77,13 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-9">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary pull-right">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
 <div> 
-<div class="text-center">  
-    <button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>
-</div>
+
 {{ form_end(form) }}

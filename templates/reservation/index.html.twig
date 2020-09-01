@@ -32,31 +32,31 @@
                     <br/>
                         {% for carRide in reservation.carRides %}
                             {% if loop.first %} <h5>ALLER</h5> {% else %} <h5>RETOUR</h5> {% endif %}
-                        <div  class="cardSection" style="padding: 10px">
+                        <div class="cardSection" style="padding: 10px">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
                                     <div class="col-md-4 hrVerticalFine my-auto">
-                                            <div class="row mx-auto">
-                                                {{ carRide.getStartCity() }} -  {{ carRide.getEndCity() }}
-                                            </div>
+                                        <div class="row mx-auto">
+                                            {{ carRide.getStartCity() }} -  {{ carRide.getEndCity() }}
+                                        </div>
                                     </div>
 
                                     <div class="col-md-5 hrVerticalFine my-auto">
-                                            <div class="row mx-auto">
-                                                {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
-                                            </div>
+                                        <div class="row mx-auto">
+                                            {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
+                                        </div>
                                     </div>
                                     <div class="col-md-1 hrVerticalFine my-auto">
-                                            <div class="row mx-auto">
-                                                {{  4 - carRide.passengers|length }}
-                                            </div>
+                                        <div class="row mx-auto">
+                                            {{ reservation.car.placeNumber - carRide.passengers|length }}
+                                        </div>
                                     </div>
                                     <div class="col-md-2 hrVerticalFine my-auto">
-                                            <div class="row mx-auto">
-                                                {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
-                                                    <a>S'inscrire</a>
-                                                {% endif %}
-                                            </div>
+                                        <div class="row mx-auto">
+                                            {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
+                                                <a>S'inscrire</a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

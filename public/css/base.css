@@ -711,3 +711,17 @@ html  {
 .position-initial {
     position: initial !important;
 }
+
+.redClass {
+    background-color: #ff3232 !important;
+}
+.orangeClass {
+    background-color: #ffb732 !important;
+}
+.blueClass {
+    background-color: #6666ff !important;
+}
+.greenClass {
+    background-color: #99cc99 !important;
+}
+
