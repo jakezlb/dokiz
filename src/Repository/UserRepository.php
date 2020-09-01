@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()
+ * @method User[]    findBySociety()
  * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
@@ -20,6 +21,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    /**
+     * @return User[] Returns an array of Car objects
+    */
+    
+    public function findBySociety($value)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.society = :val')            
+            ->setParameter('val', $value)
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     /**

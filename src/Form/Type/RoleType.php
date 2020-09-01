@@ -12,8 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class RoleType extends AbstractType
 {
@@ -40,7 +42,8 @@ class RoleType extends AbstractType
             'multiple' => true,
             'label' => 'Rôles' 
         ])
-            ->add('society', SocietyType::class)
+        ->add('password', PasswordType::class)
+        ->add('society')
         ->add('save', SubmitType::class, [
             'attr' => [
                 'class' => 'btn btn-lg btn-primary btn-block'
