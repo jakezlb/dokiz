@@ -46,10 +46,12 @@
                         <td>{{ driver.firstName ~ ' ' ~ driver.lastName }}</td><br/>
                     </tr>
                     <tr>
-                        <th>Voiture</th>
                         {%  set reservation = carRide.reservation %}
                         {% set car = reservation.car %}
-                        <td><img src="{{ asset('uploads/car_url/'~car.getCarUrl()) }}">{{  ' ' ~ car.mark ~ ' ' ~ car.name }}</td><br/>
+                        {% if null != car  %}
+                            <th>Voiture</th>
+                            <td><img src="{{ asset('uploads/car_url/'~car.getCarUrl()) }}">{{  ' ' ~ car.mark ~ ' ' ~ car.name }}</td><br/>
+                        {% endif %}
                     </tr>
                     <tr><th></th><td></td></tr>
                     <tr>
@@ -75,7 +77,7 @@
                     {% set colSize = true %}
                 {% endif %}
                 <div class="{%   if colSize %}col-md-5{% else %}col-md-6{% endif %} text-center">
-                    <a class="btn btn-info" href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
+                    <a class="btn btn-info" href="{{ path('car_list') }}">Retour à la liste des réservations</a>
                 </div>
                 <div class="{% if colSize %}col-md-3{% else %}col-md-6{% endif %} text-center ">
                     {% if user == reservation.user %}
