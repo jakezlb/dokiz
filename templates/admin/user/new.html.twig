@@ -5,11 +5,16 @@
 {% block body %}
     {{ include("admin/header.html.twig") }} 
     {{ include("navigation/navAdmin.html.twig") }}
-    
-        <h1>Ajouter un utilisateur</h1>
 
-        {{ include('admin/user/_form.html.twig') }}
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Ajouter un utilisateur</h1>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-primary pull-right" href="{{ path('admin_user_index') }}">Retour</a>
+        </div>
+    </div>
 
-        <a class="btn btn-danger text-white" href="{{ path('admin_user_index') }}">Retour</a>
+    {{ include('admin/user/_form.html.twig') }}
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}

@@ -1,12 +1,21 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Society{% endblock %}
+{% block title %}Société {{ society.socialReason }}{% endblock %}
 
 {% block body %}
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
-     
-        <h1>Information {{ society.socialReason }}</h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Information {{ society.socialReason }}</h1>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-primary pull-right" href="{{ path('admin_society_index') }}" style="margin-left: 10%;">Retour</a>
+            {{ include('admin/society/_delete_form.html.twig') }}
+            <a class="btn btn-secondary pull-right text-white" href="{{ path('admin_society_edit', {'id': society.id}) }}" style="margin-right: 10%;">Modifier</a>
+        </div>
+    </div>
         <div class="container list-card-society bg-white">                       
             <div class="row">
                 <div class="col-sm-6 offset-sm-3">
@@ -85,10 +94,5 @@
                 </div>
             </div>  
         </div>
-        
-        <a class="btn btn-primary text-white" href="{{ path('admin_society_index') }}">Retour</a>
-        <a class="btn btn-secondary  text-white" href="{{ path('admin_society_edit', {'id': society.id}) }}">Modifier</a>
-
-        {{ include('admin/society/_delete_form.html.twig') }}
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}

@@ -644,7 +644,7 @@ html  {
 #car_keys .item_key{
     margin: 20px 0;
 }
-.tableKeyCar .available , .tableKeyCar .not_available{  
+.tableKeyCar .available , .tableKeyCar .not_available{
     color: white;
     display: inline-block;
     padding: 5px 10px;
@@ -654,7 +654,6 @@ html  {
 .tableKeyCar .available{
     background-color: #04a204; 
 }
-
 
 .tableKeyCar .not_available{
     background-color: #d27b7b; 
