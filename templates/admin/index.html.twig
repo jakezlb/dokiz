@@ -1,7 +1,7 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block body %}
-    {% if app.user %}
+    {% if app.user && is_granted('ROLE_ADMIN') || app.user && is_granted('ROLE_SUPERADMIN') %}
         {{ include("admin/dashbord.html.twig") }}
     {% else %}
       {{ include("error/identificationAdminError.html.twig") }}

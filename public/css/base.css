@@ -2,6 +2,9 @@
     color:white;
     
 }
+.text-black {
+    color:black;
+}
 .uppercase {
     text-transform: uppercase;
 }

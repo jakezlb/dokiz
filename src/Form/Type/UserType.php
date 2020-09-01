@@ -32,6 +32,11 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
+            ]) 
+            ->add('phone', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
             ])                      
             ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,

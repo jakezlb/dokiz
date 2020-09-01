@@ -31,7 +31,11 @@ class RoleType extends AbstractType
             'required' => true,
             'attr' => ['class' =>'form-control'],
         ])
-       
+        ->add('phone', TextType::class, [
+            'attr' => [
+                'class' => 'form-control'
+            ],
+        ]) 
         ->add('roles', ChoiceType::class, [
             'choices' => [
                 'Utilisateur' => 'ROLE_USER',

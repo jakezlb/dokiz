@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <header class="masthead" id="dokiz">
+        <div class="container d-flex h-100 align-items-center">
+            <div class="mx-auto text-center ">
+                {#<img src="{{ asset('image/Blanc.png') }}" title="source: imgur.com" class="img-fluid" alt="" style="width:60%;">#}
+                <div class="card">
+                    <h5 class="card-header">Profil</h5>
+                    <div class="card-body">
+                        <h5 class="card-title uppercase">{{ user.firstName }} {{ user.lastName }}</h5>
+                        <p class="card-text"><a class="text-black" title="Envoyer un message" href="mailto:{{ user.email }}">{{ user.email }}</a></p>     
+                        <p class="card-text"><a class="text-black" title="Appeler"  href="tel:{{ user.email }}">{{ user.phone }}</a></p>                   
+                        {% if app.user.id and app.user.id == user.id %}              
+                            <a href="{{ path('edit_user', {'id': user.id}) }}" class="btn btn-primary">Modifier le profil</a>
+                        {% endif %}
+                        <a href="{{ path('index') }}" class="btn btn-success">Retour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock %}
