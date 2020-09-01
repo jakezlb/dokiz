@@ -85,7 +85,6 @@ class ReservationController extends AbstractController
         $reservation->getCarRides()->add($carRide2);
 
         $cars = $carRepository->findAll();
-
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
@@ -93,15 +92,15 @@ class ReservationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $cars = $request->request->get('cars');
-            $carExplode = explode(" - ", $cars);
-            $car = $carRepository->find($carExplode[0]);
+            $cars = str_replace("car", "", $cars);;
+            $car = $carRepository->find($cars);
             $car->setStartReservationDate($carRide1->getDateStart());
             $car->setEndReservationDate($carRide2->getDateEnd());
 
             $reservation->setIsConfirmed(false);
             $reservation->setDateReservation(new \DateTime());
 
-            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(2);
+            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
             $carRide1->setStatus($statusDefault);
             $carRide1->setReservation($reservation);
 

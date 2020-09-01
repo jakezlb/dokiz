@@ -4,6 +4,8 @@
         $('.datetimepicker1').datepicker({
             format: 'yyyy-mm-dd'
         });
+
+
     });
 </script>
 {% set dateStart, dateEnd = date(), date() %}
@@ -88,9 +90,7 @@
             <label for="cars">Liste des véhicules disponibles</label>
             <select id="cars" name="cars" class="form-control">
                 {% for car in cars %}
-                    {% if car.getStartReservationDate() < dateStart and car.getStartReservationDate() > dateEnd and car.getEndReservationDate() < dateStart and car.getEndReservationDate() > dateEnd %}
-                        <option id="{{ car.id }}">{{ car.id ~' - '~ car.mark ~' '~ car.name }}</option>
-                    {% endif %}
+                    <option id="car{{ car.id }}" value="car{{ car.id }}" data-id="{{ car.id|json_encode() }}" data-mark={{ car.mark|json_encode()|raw }} data-name={{ car.name|json_encode()|raw }} data-date-start={{ car.getStartReservationDate()|date('Y-m-d')|json_encode()|raw }} data-date-end={{ car.getEndReservationDate()|date('Y-m-d')|json_encode()|raw }}>{{ car.id ~' - '~ car.mark ~' '~ car.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -99,5 +99,59 @@
 <hr>
 <div>
     <button class="btn btn-info w-100" >{{ button_label|default('Créer une nouvelle réservation') }}</button>
-</div
+</div>
+
 {{ form_end(form) }}
+
+<script>
+    $(document).ready(function() {
+        $('#reservation_carRides_0_date_start').change(function () {
+            changeListCars();
+        });
+
+        $('#reservation_carRides_1_date_end').change(function () {
+            changeListCars();
+        });
+
+        function changeListCars() {
+            var cars = [];
+            var carsTempo = document.getElementById('cars').options;
+            for(var i = 0; i<carsTempo.length; i++){
+                var car = {
+                    id : 0,
+                    mark: "",
+                    name: "",
+                    dateStart: "",
+                    dateEnd: ""
+                };
+                car.id = $(carsTempo[i]).data("id");
+                car.mark = $(carsTempo[i]).data("dataMark");
+                car.name = $(carsTempo[i]).data("name");
+                car.dateStart = $(carsTempo[i]).data("dateStart");
+                car.dateEnd = $(carsTempo[i]).data("dateEnd");
+                cars.push(car);
+            }
+
+            var dateStartAller = $('#reservation_carRides_0_date_start').val();
+            var dateEndRetour = $('#reservation_carRides_1_date_end').val();
+
+            if (dateStartAller != "" && dateEndRetour != "") {
+                cars.forEach(function(car){
+                    var dateStartTempo = new Date(car.dateStart);
+                    var dateEndTempo = new Date(car.dateEnd);
+                    var dateStartAllerTempo = new Date(dateStartAller);
+                    var dateEndRetourTempo = new Date(dateEndRetour);
+                    var idCar = "car" + car.id;
+                    var carHtml = document.getElementById(idCar);
+                    if((dateStartAllerTempo<dateStartTempo && dateEndRetourTempo<dateStartTempo) || (dateStartAllerTempo>dateEndTempo && dateEndRetourTempo>dateEndTempo)){
+                        carHtml.hidden = false;
+                        $("#cars").val(idCar);
+                    }else{
+                        carHtml.hidden = true;
+                    }
+                });
+            }
+        }
+    });
+</script>
+
