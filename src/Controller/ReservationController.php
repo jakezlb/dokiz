@@ -40,7 +40,7 @@ class ReservationController extends AbstractController
      */
     public function indexAdmin(ReservationRepository $reservationRepository, UserInterface $user): Response
     {
-        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/reservation/index.html.twig', [
                 'reservations' => $reservationRepository->findAll(),
             ]);
@@ -91,42 +91,41 @@ class ReservationController extends AbstractController
 
         }
         $cars = $carRepository->findAll();
-
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            //$cars = $request->request->get('cars');
-            //$carExplode = explode(" - ", $cars);
-            //$car = $carRepository->find($carExplode[0]);
-            //$car->setStartReservationDate($carRide1->getDateStart());
+            $cars = $request->request->get('cars');
+            $carExplode = explode(" - ", $cars);
+            $car = $carRepository->find($carExplode[0]);
+            $car->setStartReservationDate($carRide1->getDateStart());
 
             $reservation->setIsConfirmed(false);
             $reservation->setDateReservation(new \DateTime());
 
-            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(2);
+            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
             $carRide1->setStatus($statusDefault);
             $carRide1->setReservation($reservation);
 
             $user = $this->getUser();
 
             if ($switchButton != true) {
-                //$car->setEndReservationDate($carRide1->getDateEnd());
+                $car->setEndReservationDate($carRide1->getDateEnd());
             } else {
-               // $car->setEndReservationDate($carRide2->getDateEnd());
+                $car->setEndReservationDate($carRide2->getDateEnd());
                 $carRide2->setStatus($statusDefault);
                 $carRide2->setReservation($reservation);
             }
 
             $reservation->setUser($user);
-            //$reservation->setCar($car);
+            $reservation->setCar($car);
 
             $entityManager->persist($reservation);
             $entityManager->flush();
 
-            //$entityManager->persist($car);
+            $entityManager->persist($car);
             $entityManager->flush();
 
             return $this->redirectToRoute('car_list');

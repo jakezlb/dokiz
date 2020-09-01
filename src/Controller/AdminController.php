@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Society;
 use App\Form\Type\RoleType;
 use App\Repository\UserRepository;
+use App\Repository\SocietyRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +34,7 @@ class AdminController extends AbstractController
      */
     public function usersList(UserRepository $UserRepository, UserInterface $user): Response
     {
-        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/user/index.html.twig', [
                 'users' => $UserRepository->findAll(),
             ]);
@@ -47,9 +49,16 @@ class AdminController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository): Response
     {
         $user = new User();
+     
+        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $society = new Society();
+            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
+            $user->setSociety($society); 
+        }   
+
         $form = $this->createForm(RoleType::class, $user);
         $form->handleRequest($request);
 
