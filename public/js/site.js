@@ -81,12 +81,6 @@ $(function () {
         // add a new tag form (see next code block)
         addKeyForm($collectionHolder, $newLinkLi);
     });
-
-    //Datatable
-    
-    $('#tableAdmin').DataTable( {
-        responsive: true
-    } );
     
     //uploadfile
     
