@@ -75,12 +75,11 @@ class Car
     private $reservation;
 
     /**
-     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $start_reservation_date;
+
     /**
-     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $end_reservation_date;

@@ -2,6 +2,43 @@
 
 {% block title %}Liste des voitures{% endblock %}
 
+{% block javascripts %}
+    <script>
+        $('#tableAdmin').DataTable({
+            "language": {
+                "sEmptyTable":     "Aucune voiture disponible dans le tableau",
+                "sInfo":           "Affichage des voitures _START_ à _END_ sur _TOTAL_ voitures",
+                "sInfoEmpty":      "",
+                "sInfoFiltered":   "(filtré à partir de _MAX_ voitures au total)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ",",
+                "sLengthMenu":     "Afficher _MENU_ voitures",
+                "sLoadingRecords": "Chargement...",
+                "sProcessing":     "Traitement...",
+                "sSearch":         "Rechercher :",
+                "sZeroRecords":    "Aucune voiture correspondante trouvée",
+                "oPaginate": {
+                    "sFirst":    "Premier",
+                    "sLast":     "Dernier",
+                    "sNext":     "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        "_": "%d lignes sélectionnées",
+                        "0": "Aucune ligne sélectionnée",
+                        "1": "1 ligne sélectionnée"
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
@@ -21,7 +58,7 @@
                 <tr>
                     <th>Identifiant</th>
                     <th>Immatriculation</th>
-                    <th>Nombre de place</th>
+                    <th>Nombre de places</th>
                     <th>Nom</th>
                     <th>Carburant</th>
                     <th>Mise en service</th>

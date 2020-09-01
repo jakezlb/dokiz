@@ -161,7 +161,7 @@ class CarController extends AbstractController
             $entityManager->persist($car);
             $entityManager->flush();
 
-            return $this->redirectToRoute('admin_car_index', ['id' => $id]);
+            return $this->redirectToRoute('admin_car_index');
            
         }
 
