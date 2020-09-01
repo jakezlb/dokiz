@@ -2,6 +2,43 @@
 
 {% block title %}Liste des utilisateurs{% endblock %}
 
+{% block javascripts %}
+    <script>
+        $('#tableAdmin').DataTable({
+            "language": {
+                "sEmptyTable":     "Aucun utilisateur disponible dans le tableau",
+                "sInfo":           "Affichage des utilisateurs _START_ à _END_ sur _TOTAL_ utilisateurs",
+                "sInfoEmpty":      "",
+                "sInfoFiltered":   "(filtré à partir de _MAX_ utilisateurs au total)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ",",
+                "sLengthMenu":     "Afficher _MENU_ utilisateurs",
+                "sLoadingRecords": "Chargement...",
+                "sProcessing":     "Traitement...",
+                "sSearch":         "Rechercher :",
+                "sZeroRecords":    "Aucun utilisateur correspondant trouvé",
+                "oPaginate": {
+                    "sFirst":    "Premier",
+                    "sLast":     "Dernier",
+                    "sNext":     "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        "_": "%d lignes sélectionnées",
+                        "0": "Aucune ligne sélectionnée",
+                        "1": "1 ligne sélectionnée"
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     {{ include("admin/header.html.twig") }} 
     {{ include("navigation/navAdmin.html.twig") }}
@@ -24,6 +61,7 @@
                     <th>Rôles</th>
                     <th>Poste de travail</th>
                     <th>Société</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,7 +85,7 @@
                     <td>{{ user.job }}</td>
                     <td>{{ user.society }}</td>
                     <td>
-                        <td><a href="{{ path('admin_user_edit', {'id': user.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>                  
+                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                 </tr>
             {% else %}

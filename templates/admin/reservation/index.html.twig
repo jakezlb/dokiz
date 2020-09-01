@@ -5,19 +5,30 @@
 {% block javascripts %}
     <script>
         $(document).ready(function() {
-            $('#tabReservations').DataTable({
+            $('#tableAdmin').DataTable({
+                "createdRow": function( row, data) {
+                    if (data[3] >= 4) {
+                        $(row).addClass('greenClass');
+                    } else if (data[3] == 3){
+                        $(row).addClass('blueClass');
+                    } else if (data[3] == 2){
+                        $(row).addClass('orangeClass');
+                    } else if (data[3] <= 1){
+                        $(row).addClass('redClass');
+                    }
+                },
                 "language": {
-                    "sEmptyTable":     "Aucune donnée disponible dans le tableau",
-                    "sInfo":           "Affichage des éléments _START_ à _END_ sur _TOTAL_ éléments",
+                    "sEmptyTable":     "Aucune réservation disponible dans le tableau",
+                    "sInfo":           "Affichage des réservations _START_ à _END_ sur _TOTAL_ réservations",
                     "sInfoEmpty":      "",
-                    "sInfoFiltered":   "(filtré à partir de _MAX_ éléments au total)",
+                    "sInfoFiltered":   "(filtré à partir de _MAX_ réservations au total)",
                     "sInfoPostFix":    "",
                     "sInfoThousands":  ",",
-                    "sLengthMenu":     "Afficher _MENU_ éléments",
+                    "sLengthMenu":     "Afficher _MENU_ réservations",
                     "sLoadingRecords": "Chargement...",
                     "sProcessing":     "Traitement...",
                     "sSearch":         "Rechercher :",
-                    "sZeroRecords":    "Aucun élément correspondant trouvé",
+                    "sZeroRecords":    "Aucune réservation correspondante trouvée",
                     "oPaginate": {
                         "sFirst":    "Premier",
                         "sLast":     "Dernier",
@@ -55,31 +66,36 @@
     <table id="tableAdmin" class="display">
         <thead>
         <tr>
-            <th>Numéro de réservation</th>
+            <th>N° de réservation</th>
             <th>Date de réservation</th>
             <th>Trajets</th> 
+            <th>Places disponibles</th>
         </tr>
         </thead>
         <tbody>
         {% if reservations %}
-            {% for reservation in reservations %}         
+            {% for reservation in reservations %}
+            {% set countPassengers = 0 %}
                     <tr>
                         <td>{{ reservation.id }}</td>
-                        <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y H:i:s') : '' }}</td>
-                        <td class="text-center">
+                        <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y') : '' }}</td>
+                        <td style="width: 65%;" >
                             <table class="list_ride_admin">
                                 <tbody>
                                 {% for carRide in reservation.carRides %}
+                                    {% set countPassengers = carRide.passengers|length %}
                                 <tr>
-                                    <td>{{ carRide.getStartAddress() }}</td>
-                                    <td>{{ carRide.getStartPostalCode() }} {{ carRide.getStartCity() }}</td>
-                                    <td>{{ carRide.getEndAddress() }}</td>
-                                    <td>{{ carRide.getEndPostalCode() }} {{ carRide.getEndCity() }}</td>                            
+                                    <td>{{ carRide.startAddress }}</td>
+                                    <td>{{ carRide.startPostalCode }} {{ carRide.startCity }}</td>
+                                    <td style="font-size: 30px;">-></td>
+                                    <td>{{ carRide.endAddress }}</td>
+                                    <td>{{ carRide.endPostalCode }} {{ carRide.endCity }}</td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
                         </td>
+                        <td>{{ reservation.car.placeNumber - countPassengers }}</td>
                     </tr>            
             {% endfor %}
             {% else %}
