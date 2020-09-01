@@ -706,5 +706,8 @@ html  {
 .hAuto {
     height: auto;
     min-height: 100%;
+}
 
+.position-initial {
+    position: initial !important;
 }

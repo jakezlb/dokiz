@@ -7,14 +7,14 @@ use App\Entity\Passenger;
 use App\Entity\Reservation;
 use App\Entity\Status;
 use App\Form\Type\ReservationType;
-use App\Repository\CarRideRepository;
+use App\Repository\CarRepository;
 use App\Repository\ReservationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Repository\CarRepository;
+
 
 
 class ReservationController extends AbstractController
@@ -81,9 +81,15 @@ class ReservationController extends AbstractController
         $reservation = new Reservation();
         $carRide1 = new CarRide();
         $reservation->getCarRides()->add($carRide1);
-        $carRide2 = new CarRide();
-        $reservation->getCarRides()->add($carRide2);
 
+        $switchButton = $request->request->get('customSwitches');
+        var_dump($switchButton);
+
+        if ($switchButton == true) {
+            $carRide2 = new CarRide();
+            $reservation->getCarRides()->add($carRide2);
+
+        }
         $cars = $carRepository->findAll();
 
         $form = $this->createForm(ReservationType::class, $reservation);
@@ -92,11 +98,10 @@ class ReservationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
 
-            $cars = $request->request->get('cars');
-            $carExplode = explode(" - ", $cars);
-            $car = $carRepository->find($carExplode[0]);
-            $car->setStartReservationDate($carRide1->getDateStart());
-            $car->setEndReservationDate($carRide2->getDateEnd());
+            //$cars = $request->request->get('cars');
+            //$carExplode = explode(" - ", $cars);
+            //$car = $carRepository->find($carExplode[0]);
+            //$car->setStartReservationDate($carRide1->getDateStart());
 
             $reservation->setIsConfirmed(false);
             $reservation->setDateReservation(new \DateTime());
@@ -105,31 +110,26 @@ class ReservationController extends AbstractController
             $carRide1->setStatus($statusDefault);
             $carRide1->setReservation($reservation);
 
-            $carRide2->setStatus($statusDefault);
-            $carRide2->setReservation($reservation);
-
             $user = $this->getUser();
 
-            $passenger1 = new Passenger();
-            $passenger1->setCarRide($carRide1);
-            $passenger1->setUser($user);
-            $passenger1->setIsDriver(1);
-
-            $passenger2 = new Passenger();
-            $passenger2->setCarRide($carRide2);
-            $passenger2->setUser($user);
-            $passenger2->setIsDriver(1);
+            if ($switchButton != true) {
+                //$car->setEndReservationDate($carRide1->getDateEnd());
+            } else {
+               // $car->setEndReservationDate($carRide2->getDateEnd());
+                $carRide2->setStatus($statusDefault);
+                $carRide2->setReservation($reservation);
+            }
 
             $reservation->setUser($user);
-            $reservation->setCar($car);
+            //$reservation->setCar($car);
 
             $entityManager->persist($reservation);
             $entityManager->flush();
 
-            $entityManager->persist($car);
+            //$entityManager->persist($car);
             $entityManager->flush();
 
-            return $this->redirectToRoute('reservation_index');
+            return $this->redirectToRoute('car_list');
         }
 
         return $this->render('reservation/new.html.twig', array(

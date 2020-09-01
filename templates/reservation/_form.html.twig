@@ -5,12 +5,23 @@
             format: 'yyyy-mm-dd'
         });
     });
+
+    function upRetour() {
+        $retour = document.getElementById('RETOUR');
+        if (!document.getElementById('customSwitches').checked) {
+            $retour.remove();
+        }
+    }
 </script>
 {% set dateStart, dateEnd = date(), date() %}
 {{ form_start(form) }}
 
 {% for carRide in form.carRides %}
-<div class="cardSection2">
+{% if loop.first %}
+    <div class="cardSection2" id="ALLER">
+{% else %}
+    <div class="cardSection2" id="RETOUR">
+{% endif %}
 <div class="titleReservation" style="text-align: center; color: #00B4CC !important;">
     {% if loop.first %}
         {% set dateStart = carRide.date_start %}
@@ -74,9 +85,16 @@
     </div>
 </div>
 <br>
+<div class="row">
+    {% if loop.first %}
+        <div class="col-md-12 custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input position-initial" id="customSwitches" checked onclick="upRetour()">
+            <label class="custom-control-label" for="customSwitches">Réaliser un aller - Retour</label>
+        </div>
+    {% endif %}
+</div>
 </div>
 <hr>
-
 {% endfor %}
 
 <div class="cardSection2">
