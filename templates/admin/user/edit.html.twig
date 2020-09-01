@@ -1,13 +1,21 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Modifier un utilisateur{% endblock %}
+{% block title %}Modifier un utilisateur {{ user.firstName }} {{ user.lastName }}{% endblock %}
 
 {% block body %}
 {{ include("admin/header.html.twig") }}
 {{ include("navigation/navAdmin.html.twig") }}
-    
-    <h1>Modifier un utilisateur</h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Modifier l'utilisateur {{ user.firstName }} {{ user.lastName }}</h1>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-primary pull-right" href="{{ path('admin_user_index') }}" style="margin-left: 10%;">Retour</a>
+            {#{{ include('admin/user/_delete_form.html.twig') }}#}
+        </div>
+    </div>
+
     {{ include('admin/user/_form.html.twig') }}
-    
-{{ include("admin/footer.html.twig") }} 
+    {{ include("admin/footer.html.twig") }}
 {% endblock %}

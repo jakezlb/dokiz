@@ -1,13 +1,13 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}New Job{% endblock %}
+{% block title %}Nouveau métier{% endblock %}
 
 {% block body %}
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
        <div class="row">
-            <div class="col-sm-6">               
-                <h1>Nouveau</h1>
+            <div class="col-sm-6">
+                <h1>Ajouter un métier</h1>
             </div>
             <div class="col-sm-6">
                 <a class="btn btn-primary pull-right" href="{{ path('admin_job_index') }}">Retour</a>

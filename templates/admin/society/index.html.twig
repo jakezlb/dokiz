@@ -1,6 +1,43 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Society index{% endblock %}
+{% block title %}Liste des sociétés{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $('#tableAdmin').DataTable({
+            "language": {
+                "sEmptyTable":     "Aucun société disponible dans le tableau",
+                "sInfo":           "Affichage des sociétés _START_ à _END_ sur _TOTAL_ sociétés",
+                "sInfoEmpty":      "",
+                "sInfoFiltered":   "(filtré à partir de _MAX_ sociétés au total)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ",",
+                "sLengthMenu":     "Afficher _MENU_ sociétés",
+                "sLoadingRecords": "Chargement...",
+                "sProcessing":     "Traitement...",
+                "sSearch":         "Rechercher :",
+                "sZeroRecords":    "Aucune société correspondante trouvée",
+                "oPaginate": {
+                    "sFirst":    "Premier",
+                    "sLast":     "Dernier",
+                    "sNext":     "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        "_": "%d lignes sélectionnées",
+                        "0": "Aucune ligne sélectionnée",
+                        "1": "1 ligne sélectionnée"
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
 
 {% block body %}
     {{ include("admin/header.html.twig") }} 

@@ -1,21 +1,21 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Edit Society{% endblock %}
+{% block title %}Modifier la société {{ society.socialReason }}{% endblock %}
 
 {% block body %}
     {{ include("admin/header.html.twig") }} 
     {{ include("navigation/navAdmin.html.twig") }}
 
-         <div class="row">
-            <div class="col-sm-6">               
-                <h1>Modifier {{ society.socialReason}}</h1>
-            </div>
-            <div class="col-sm-6">
-                <a class="btn btn-primary pull-right" href="{{ path('admin_job_index') }}">Retour</a>
-            </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Modifier la société {{ society.socialReason }}</h1>
         </div>
+        <div class="col-sm-6">
+            <a class="btn btn-primary pull-right" href="{{ path('admin_job_index') }}" style="margin-left: 10%;">Retour</a>
+            {{ include('admin/society/_delete_form.html.twig') }}
+        </div>
+    </div>
 
-    {{ include('admin/society/_form.html.twig', {'button_label': 'Modifier'}) }}
-    {{ include('admin/society/_delete_form.html.twig') }}
+    {{ include('admin/society/_form.html.twig', {'button_label': 'Enregistrer'}) }}
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}
