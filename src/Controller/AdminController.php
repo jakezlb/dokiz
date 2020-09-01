@@ -34,7 +34,7 @@ class AdminController extends AbstractController
      */
     public function usersList(UserRepository $UserRepository, UserInterface $user): Response
     {
-        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/user/index.html.twig', [
                 'users' => $UserRepository->findAll(),
             ]);
@@ -53,7 +53,7 @@ class AdminController extends AbstractController
     {
         $user = new User();
      
-        if( !$this->denyAccessUnlessGranted('ROLE_ADMIN') ) {
+        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             $society = new Society();
             $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
             $user->setSociety($society); 

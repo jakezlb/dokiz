@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/admin/car", name="admin_")
@@ -26,15 +27,14 @@ class CarController extends AbstractController
     public function index(CarRepository $carRepository, UserInterface $user): Response
     {
         
-        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/car/index.html.twig', [
                 'cars' => $carRepository->findAll(),
             ]);
         }else {
-          
             return $this->render('admin/car/index.html.twig', [
                 'cars' => $carRepository->findBySociety($user->getSociety()),
-            ]);
+            ]);           
         }
        
     }

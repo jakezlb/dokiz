@@ -40,7 +40,7 @@ class ReservationController extends AbstractController
      */
     public function indexAdmin(ReservationRepository $reservationRepository, UserInterface $user): Response
     {
-        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/reservation/index.html.twig', [
                 'reservations' => $reservationRepository->findAll(),
             ]);

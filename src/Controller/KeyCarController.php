@@ -21,7 +21,7 @@ class KeyCarController extends AbstractController
      */
     public function index(KeyCarRepository $keyCarRepository, UserInterface $user): Response
     {
-        if($this->denyAccessUnlessGranted('ROLE_ADMIN')) {
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/key_car/index.html.twig', [
                 'key_cars' => $keyCarRepository->findAll(),
             ]);
