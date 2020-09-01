@@ -9,6 +9,7 @@ use App\Entity\Status;
 use App\Form\Type\ReservationType;
 use App\Repository\CarRepository;
 use App\Repository\ReservationRepository;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,26 +81,23 @@ class ReservationController extends AbstractController
     {
         $reservation = new Reservation();
         $carRide1 = new CarRide();
+        $carRide2 = new CarRide();
         $reservation->getCarRides()->add($carRide1);
+        $reservation->getCarRides()->add($carRide2);
 
-        $switchButton = $request->request->get('customSwitches');
-        var_dump($switchButton);
-
-        if ($switchButton == true) {
-            $carRide2 = new CarRide();
-            $reservation->getCarRides()->add($carRide2);
-
-        }
         $cars = $carRepository->findAll();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $switchButton = $request->request->get('customSwitches');
+            $switchButton = boolval($switchButton);
+
             $entityManager = $this->getDoctrine()->getManager();
 
             $cars = $request->request->get('cars');
-            $carExplode = explode(" - ", $cars);
-            $car = $carRepository->find($carExplode[0]);
+            $cars = str_replace("car","",$cars);
+            $car = $carRepository->find($cars);
             $car->setStartReservationDate($carRide1->getDateStart());
 
             $reservation->setIsConfirmed(false);
@@ -113,6 +111,7 @@ class ReservationController extends AbstractController
 
             if ($switchButton != true) {
                 $car->setEndReservationDate($carRide1->getDateEnd());
+                $reservation->getCarRides()->remove($reservation->getCarRides()->count() -1 );
             } else {
                 $car->setEndReservationDate($carRide2->getDateEnd());
                 $carRide2->setStatus($statusDefault);

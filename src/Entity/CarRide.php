@@ -20,51 +20,51 @@ class CarRide
     private $id;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $date_start;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="datetime")
      */
     private $date_end;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @Assert\Length(min=5, max=5, exactMessage="Le code postal doit faire 5 caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private $start_postal_code;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="string", length=255)
      */
     private $start_city;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="string", length=255)
      */
     private $start_address;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @Assert\Length(min=5, max=5, exactMessage="Le code postal doit faire 5 caractères.")
      * @ORM\Column(type="string", length=255)
      */
     private $end_postal_code;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="string", length=255)
      */
     private $end_city;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank
      * @ORM\Column(type="string", length=255)
      */
     private $end_address;

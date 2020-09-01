@@ -49,7 +49,7 @@
                         <th>Voiture</th>
                         {%  set reservation = carRide.reservation %}
                         {% set car = reservation.car %}
-                        <td>{{ 'car.url' ~ ' ' ~ 'car.mark' ~ ' ' ~ 'car.name' }}</td><br/>
+                        <td><img src="{{ asset('uploads/car_url/'~car.getCarUrl()) }}">{{  ' ' ~ car.mark ~ ' ' ~ car.name }}</td><br/>
                     </tr>
                     <tr><th></th><td></td></tr>
                     <tr>

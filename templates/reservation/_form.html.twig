@@ -9,14 +9,16 @@
     });
 
     function upRetour() {
-        $retour = document.getElementById('RETOUR');
-        if (!document.getElementById('customSwitches').checked) {
-            $retour.remove();
+        retour = document.getElementById('RETOUR');
+        if (document.getElementById('customSwitches').checked) {
+            retour.style.display = 'block';
+        } else {
+            retour.style.display = 'none';
         }
     }
 </script>
 {% set dateStart, dateEnd = date(), date() %}
-{{ form_start(form) }}
+{{ form_start(form, { attr: {novalidate:'novalidate'}}) }}
 
 {% for carRide in form.carRides %}
 {% if loop.first %}
@@ -90,7 +92,7 @@
 <div class="row">
     {% if loop.first %}
         <div class="col-md-12 custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input position-initial" id="customSwitches" checked onclick="upRetour()">
+            <input type="checkbox" class="custom-control-input position-initial" id="customSwitches" name="customSwitches" value="true" onclick="upRetour()" checked>
             <label class="custom-control-label" for="customSwitches">Réaliser un aller - Retour</label>
         </div>
     {% endif %}
@@ -151,7 +153,12 @@
             }
 
             var dateStartAller = $('#reservation_carRides_0_date_start').val();
-            var dateEndRetour = $('#reservation_carRides_1_date_end').val();
+            if (document.getElementById('customSwitches').checked) {
+                var dateEndRetour = $('#reservation_carRides_1_date_end').val();
+            } else {
+                var dateEndRetour = $('#reservation_carRides_0_date_end').val();
+            }
+
 
             if (dateStartAller != "" && dateEndRetour != "") {
                 cars.forEach(function(car){
