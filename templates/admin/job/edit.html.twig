@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Edit Job{% endblock %}
+{% block title %}Modifier le métier {{ job.wording }}{% endblock %}
 
 {% block body %}
     {{ include("admin/header.html.twig") }}  
@@ -8,14 +8,14 @@
       
         <div class="row">
             <div class="col-sm-6">               
-                <h1>Modifier le nom</h1>
+                <h1>Modifier le métier {{ job.wording }}</h1>
             </div>
             <div class="col-sm-6">
-                <a class="btn btn-primary pull-right" href="{{ path('admin_job_index') }}">Retour</a>
+                <a class="btn btn-primary pull-right" href="{{ path('admin_job_index') }}" style="margin-left: 10%;">Retour</a>
+                {{ include('admin/job/_delete_form.html.twig') }}
             </div>
         </div>
 
-    {{ include('admin/job/_form.html.twig', {'button_label': 'Update'}) }}    
-    {{ include('admin/job/_delete_form.html.twig') }}
+    {{ include('admin/job/_form.html.twig', {'button_label': 'Enregistrer'}) }}
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}

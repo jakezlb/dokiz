@@ -2,6 +2,43 @@
 
 {% block title %}Liste des clés{% endblock %}
 
+{% block javascripts %}
+    <script>
+        $('#tableAdmin').DataTable({
+            "language": {
+                "sEmptyTable":     "Aucune clé disponible dans le tableau",
+                "sInfo":           "Affichage des clés _START_ à _END_ sur _TOTAL_ clés",
+                "sInfoEmpty":      "",
+                "sInfoFiltered":   "(filtré à partir de _MAX_ clés au total)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ",",
+                "sLengthMenu":     "Afficher _MENU_ clés",
+                "sLoadingRecords": "Chargement...",
+                "sProcessing":     "Traitement...",
+                "sSearch":         "Rechercher :",
+                "sZeroRecords":    "Aucune clé correspondante trouvée",
+                "oPaginate": {
+                    "sFirst":    "Premier",
+                    "sLast":     "Dernier",
+                    "sNext":     "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        "_": "%d lignes sélectionnées",
+                        "0": "Aucune ligne sélectionnée",
+                        "1": "1 ligne sélectionnée"
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
@@ -10,17 +47,17 @@
             <div class="col-sm-6">
                 <h1>Liste des clés</h1>
             </div>
-            <div class="col-sm-6">
-                <a class="btn btn-primary float-right" href="{{ path('admin_key_car_new') }}">Ajouter une nouvelle clé</a>
-            </div>
+            {#<div class="col-sm-6">#}
+                {#<a class="btn btn-primary float-right" href="{{ path('admin_key_car_new') }}">Ajouter une nouvelle clé</a>#}
+            {#</div>#}
         </div>
         
-        <table  id="tableAdmin" class="display tableKeyCar">
+        <table id="tableAdmin" class="display tableKeyCar">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nom</th>
-                    <th>Status</th>
+                    <th>Statut</th>
                     <th>Voiture</th>
                     <th>Actions</th>
                 </tr>
@@ -39,7 +76,7 @@
                     </td>
                     {% set car = key_car.car %}
                     <td>
-                    {{ car.name }}
+                        <u><a target="_blank" href="{{ path('admin_car_show', {'id': car.id}) }}">{{ car.name }}</a></u>
                     </td>
                     <td>                        
                         <a href="{{ path('admin_key_car_edit', {'id': key_car.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>

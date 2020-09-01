@@ -10,8 +10,11 @@
                 {{ form_widget(form.is_taken, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
-        <div class="text-center">  
-            <button class="btn btn-secondary ">{{ button_label|default('Save') }}</button>
+        <div class="row">
+            <div class="col-sm-9"></div>
+            <div class="col-sm-3">
+                <button class="btn btn-secondary pull-right">{{ button_label|default('Enregistrer') }}</button>
+            </div>
         </div>
     </div>
     

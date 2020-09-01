@@ -2,6 +2,43 @@
 
 {% block title %}Job index{% endblock %}
 
+{% block javascripts %}
+    <script>
+        $('#tableAdmin').DataTable({
+            "language": {
+                "sEmptyTable":     "Aucun métier disponible dans le tableau",
+                "sInfo":           "Affichage des métiers _START_ à _END_ sur _TOTAL_ métiers",
+                "sInfoEmpty":      "",
+                "sInfoFiltered":   "(filtré à partir de _MAX_ métiers au total)",
+                "sInfoPostFix":    "",
+                "sInfoThousands":  ",",
+                "sLengthMenu":     "Afficher _MENU_ métiers",
+                "sLoadingRecords": "Chargement...",
+                "sProcessing":     "Traitement...",
+                "sSearch":         "Rechercher :",
+                "sZeroRecords":    "Aucun métier correspondant trouvé",
+                "oPaginate": {
+                    "sFirst":    "Premier",
+                    "sLast":     "Dernier",
+                    "sNext":     "Suivant",
+                    "sPrevious": "Précédent"
+                },
+                "oAria": {
+                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
+                },
+                "select": {
+                    "rows": {
+                        "_": "%d lignes sélectionnées",
+                        "0": "Aucune ligne sélectionnée",
+                        "1": "1 ligne sélectionnée"
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}

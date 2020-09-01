@@ -43,8 +43,12 @@
             </div>
         </div>
     </div>
-</div>
-<div class="text-center">  
-    <button class="btn btn-secondary">{{ button_label|default('Save') }}</button>
+    <div class="row">
+        <div class="col-md-9">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary pull-right">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
 </div>
 {{ form_end(form) }}
