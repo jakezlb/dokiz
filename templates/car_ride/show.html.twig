@@ -19,54 +19,69 @@
                 <div class="col-12" style="height: 15em; display: none;" id="mapid"></div>
             </div>
             <div class="row">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th>Départ de </th>
-                        <td>{{ carRide.getStartAddress() ~', '~ carRide.getStartPostalCode() ~' '~ carRide.getStartCity() }}</td>
-                    </tr>
-                    <tr>
-                        <th>Le </th>
-                        <td>{{ carRide.getDateStart()|date('d/m/Y \\à H:i')  }}</td>
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    <tr>
-                        <th>Arrivé à </th>
-                        <td>{{ carRide.getEndAddress() ~', '~ carRide.getEndPostalCode() ~' '~ carRide.getEndCity() }}</td>
-                    </tr>
-                    <tr>
-                        <th>Le </th>
-                        <td>{{ carRide.getDateEnd()|date('d/m/Y \\à H:i') }}</td>
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    <tr>
-                        <th>Conducteur</th>
-                        {%  set reservation = carRide.reservation %}
-                        {% set driver = reservation.user %}
-                        <td>{{ driver.firstName ~ ' ' ~ driver.lastName }}</td><br/>
-                    </tr>
-                    <tr>
-                        {%  set reservation = carRide.reservation %}
-                        {% set car = reservation.car %}
-                        {% if null != car  %}
-                            <th>Voiture</th>
-                            <td><img src="{{ asset('uploads/car_url/'~car.getCarUrl()) }}">{{  ' ' ~ car.mark ~ ' ' ~ car.name }}</td><br/>
-                        {% endif %}
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    <tr>
-                        <th>Passagers</th>
-                        {%  for passenger in carRide.passengers %}
-                            {% set userPassenger = passenger.user %}
-                            <td>{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</td><br/>
-                        {% else %}
-                            <td></td>
-                        {% endfor %}
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    </tbody>
-                </table>
+                <div class="col-md-12 ">
+                    <div class="row trajet-raw">
+                        <div class="col-md-4 text-center">
+                            <p>{{ carRide.getDateStart()|date('d/m/Y \\à H:i')  }}</p>
+                        </div>
+                        <div class="col-md-8 hrVerticalFine text-center">
+                            <p>{{ carRide.getStartAddress() ~', '~ carRide.getStartPostalCode() ~' '~ carRide.getStartCity() }}</p>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-10 text-center">
+                            <div class="arrow">
+                                <a class="fa fa-arrow-down fa-2x" href="#"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row trajet-raw">
+                        <div class="col-md-4 text-center">
+                            <p>{{ carRide.getDateEnd()|date('d/m/Y \\à H:i') }}</p>
+                        </div>
+                        <div class="col-md-8 hrVerticalFine text-center">
+                            <p>{{ carRide.getEndAddress() ~', '~ carRide.getEndPostalCode() ~' '~ carRide.getEndCity() }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    {%  set reservation = carRide.reservation %}
+                    {% set car = reservation.car %}
+                    {% if null != car  %}
+                        <img width="100%" src="{{ asset('uploads/car_url/'~car.getCarUrl()) }}" alt="image_voiture">
+                        <br>
+                        <br>
+                        <h3>{{  ' ' ~ car.mark ~ ' ' ~ car.name }}</h3>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3> Conducteur </h3>
+                        </div>
+                        <div class="col-md-8">
+                            {%  set reservation = carRide.reservation %}
+                            {% set driver = reservation.user %}
+                            <p>{{ driver.firstName ~ ' ' ~ driver.lastName }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3> Passagers </h3>
+                        </div>
+                        <div class="col-md-8">
+                            {%  for passenger in carRide.passengers %}
+                                {% set userPassenger = passenger.user %}
+                                <p>{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+               <hr>
             <div class="row">
                 {% set colSize = false %}
                 {% set reservation = carRide.reservation %}
