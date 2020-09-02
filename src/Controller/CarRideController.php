@@ -116,4 +116,15 @@ class CarRideController extends AbstractController
 
         return $this->redirectToRoute('car_ride_index');
     }
+
+    /**
+     * @Route("car_ride/inscription", name="car_ride_inscription", methods={"POST"})
+     */
+    public function inscriptionCarRide(Request $request)
+    {
+        $data = $request->request->get('request');
+        $entityManager = $this->getDoctrine()->getManager();
+        dump($data);
+        die;
+    }
 }
