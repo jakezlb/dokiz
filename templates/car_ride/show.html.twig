@@ -106,9 +106,6 @@
                 {% set passengers = carRide.passengers %}
                 {% set user = app.user %}
 
-                {% if user not in carRide.passengers and app.user != reservation.user and passengers|length < 4 %}
-                    {% set colSize = true %}
-                {% endif %}
                 <div class="col-md-6">
                     <a class="btn btn-info" href="{{ path('car_list') }}">Retour à la liste des réservations</a>
                 </div>
@@ -118,13 +115,21 @@
 
                 </div>
                 {% endif %}
-                {% if colSize %}
-                    {% if user not in passengers and user != reservation.user and passengers|length < 4 %}
+                {% set isPresent = false %}
+                {% for passenger in carRide.passengers %}
+                    {% if user == passenger.user %}
+                        {% set isPresent = true %}
+                    {% endif %}
+                {% endfor %}
+                    {% if isPresent == false and user != reservation.user and passengers|length < 4 %}
                 <div class="col-md-6 text-center ">
                         <button type="button" class="btn btn-success btn-lg" style="float:right" id="inscriptionButton">S'inscrire</button>
                 </div>
+                    {% elseif isPresent and user != reservation.user %}
+                            <div class="col-md-6 text-center ">
+                                <button type="button" class="btn btn-danger btn-lg" style="float:right" id="desinscriptionButton">Se désinscrire</button>
+                            </div>
                     {% endif %}
-                {% endif %}
             </div>
         </div>
     </header>
@@ -132,20 +137,38 @@
 
 {% block javascripts %}
     <script>
-        var data = {inscription : true, id:1};
         $(document).ready(function() {
             $('#inscriptionButton').click(function () {
+                var data = {id:{{ carRide.id }}, idUser: "{{ app.user.id}}"};
                 $.post({
                     url: '{{path('car_ride_inscription')}}',
                     data: data,
-                    success: function (data, dataType) {
-                        alert(data);
+                    success: function (data) {
+                        var mess="Vous vous êtes bien inscrit au trajet vers {{ carRide.getStartCity() }}";
+                        alert(mess);
+                        window.location.reload();
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         alert('Error : ' + errorThrown);
                     },
                 });
             });
+            $('#desinscriptionButton').click(function () {
+                var data = {id:{{ carRide.id }}, idUser: "{{ app.user.id}}"};
+                $.post({
+                    url: '{{path('car_ride_desinscription')}}',
+                    data: data,
+                    success: function (data) {
+                        var mess="Vous vous êtes bien désinscrit du trajet vers {{ carRide.getStartCity() }}";
+                        alert(mess);
+                        window.location.reload();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert('Error : ' + errorThrown);
+                    },
+                });
+            });
+
         });
     </script>
 {% endblock %}

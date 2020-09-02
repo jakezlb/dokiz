@@ -8,6 +8,9 @@ use App\Entity\Status;
 
 use App\Form\Type\CarRideType;
 use App\Repository\CarRideRepository;
+use App\Repository\PassengerRepository;
+use App\Repository\UserRepository;
+use Proxies\__CG__\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -120,11 +123,48 @@ class CarRideController extends AbstractController
     /**
      * @Route("car_ride/inscription", name="car_ride_inscription", methods={"POST"})
      */
-    public function inscriptionCarRide(Request $request)
+    public function inscriptionCarRide(Request $request, CarRideRepository $carRideRepository, PassengerRepository $passengerRepository, UserRepository $userRepository)
     {
-        $data = $request->request->get('request');
+        $idUser = $request->request->get('idUser');
+        $user = $userRepository->find($idUser);
+
+        $idCarRide = $request->request->get('id');
+        $carRide = $carRideRepository->find($idCarRide);
+
         $entityManager = $this->getDoctrine()->getManager();
-        dump($data);
-        die;
+            $passenger = new Passenger();
+            $passenger->setIsDriver(false);
+            $passenger->setUser($user);
+            $passenger->setCarRide($carRide);
+            $entityManager->persist($passenger);
+            $entityManager->flush();
+
+
+
+        return $this->json("OK");
+    }
+
+    /**
+     * @Route("car_ride/desinscription", name="car_ride_desinscription", methods={"POST"})
+     */
+    public function desinscriptionCarRide(Request $request, CarRideRepository $carRideRepository, PassengerRepository $passengerRepository, UserRepository $userRepository)
+    {
+        $idUser = $request->request->get('idUser');
+        $user = $userRepository->find($idUser);
+
+        $idCarRide = $request->request->get('id');
+        $carRide = $carRideRepository->find($idCarRide);
+
+        $entityManager = $this->getDoctrine()->getManager();
+            $passenger = new Passenger();
+            $passengers = $carRide->getPassengers();
+            foreach ($passengers as $passengerTempo ){
+                if($passengerTempo->getUser()==$user) $passenger = $passengerTempo;
+            }
+            $entityManager->remove($passenger);
+            $entityManager->flush();
+
+
+        return $this->json("OK");
     }
 }
