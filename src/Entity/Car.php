@@ -157,18 +157,6 @@ class Car
         return $this;
     }
 
-    public function getLevelFuel(): ?int
-    {
-        return $this->level_fuel;
-    }
-
-    public function setLevelFuel(int $level_fuel): self
-    {
-        $this->level_fuel = $level_fuel;
-
-        return $this;
-    }
-
     public function getSociety() : ?Society
     {
         return $this->society;
