@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Car;
+use App\Entity\Reservation;
 use App\Entity\User;
 use App\Entity\Society;
 use App\Form\Type\RoleType;
@@ -24,8 +26,77 @@ class AdminController extends AbstractController
      */
     public function index()
     {
+        $reservationRepo = $this->getDoctrine()->getRepository(Reservation::class);
+        $carRepo = $this->getDoctrine()->getRepository(Car::class);
+
+        $reservationAllConfirmed = $reservationRepo->findAllConfirmed(true);
+        $reservationAllNotConfirmed = $reservationRepo->findAllConfirmed(false);
+
+        $nbReservationAllConfirmed = count($reservationAllConfirmed);
+        $nbReservationAllNotConfirmed = count($reservationAllNotConfirmed);
+
+        $ptReservationAllConfirmed = $nbReservationAllConfirmed / ($nbReservationAllConfirmed + $nbReservationAllNotConfirmed) * 100;
+        $ptReservationAllNotConfirmed = 100 - $ptReservationAllConfirmed;
+
+        $tabConfirmed = [];
+        $tabNotConfirmed = [];
+
+        $tabConfirmed['value'] = $nbReservationAllConfirmed;
+        $tabConfirmed['pt'] = $ptReservationAllConfirmed;
+        $tabNotConfirmed['value'] = $nbReservationAllNotConfirmed;
+        $tabNotConfirmed['pt'] = $ptReservationAllNotConfirmed;
+
+//        $levelFuel = $carRepo->getLevelFuel();
+
+//        $tabLevelFuel['min'] = [];
+//        $tabLevelFuel['med'] = [];
+//        $tabLevelFuel['max'] = [];
+//
+//        foreach ($levelFuel as $level) {
+//            if ($level['level_fuel'] < 11) {
+//                array_push($tabLevelFuel['min'], $level['level_fuel']);
+//            } elseif ($level['level_fuel'] >= 11 && $level['level_fuel'] < 41) {
+//                array_push($tabLevelFuel['med'], $level['level_fuel']);
+//            } else {
+//                array_push($tabLevelFuel['max'], $level['level_fuel']);
+//            }
+//        }
+//
+//        $tabLevelFuel['min'] = count($tabLevelFuel['min']);
+//        $tabLevelFuel['med'] = count($tabLevelFuel['med']);
+//        $tabLevelFuel['max'] = count($tabLevelFuel['max']);
+
+        $typeFuel = $carRepo->getFuel();
+        $i = 0;
+
+        $typeFuelTab = [];
+
+        foreach ($typeFuel as $key => $type) {
+            if ($key != 0) {
+                if ($typeFuel[$key - 1]['fuel'] == $typeFuel[$key]['fuel']) {
+                    if (!array_key_exists($type['fuel'], $typeFuelTab)) {
+                        $typeFuelTab[$type['fuel']] = [];
+                    }
+                    array_push($typeFuelTab[$type['fuel']], $i++);
+                } else {
+                    if (!array_key_exists($type['fuel'], $typeFuelTab)) {
+                        $typeFuelTab[$type['fuel']] = [];
+                    }
+                    array_push($typeFuelTab[$type['fuel']], $i++);
+                }
+            }
+        }
+
+        foreach ($typeFuelTab as $key => $type) {
+            $typeFuelTab[$key]['value'] = count($type);
+            $typeFuelTab[$key]['name'] = $key;
+        }
+
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
+            'tabConfirmed' => $tabConfirmed,
+            'tabNotConfirmed' => $tabNotConfirmed,
+            'tabFuel' => $typeFuelTab
         ]);
     }
 
