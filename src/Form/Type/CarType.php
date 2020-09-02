@@ -3,6 +3,7 @@
 namespace App\Form\Type;
 
 use App\Entity\Car;
+use App\Entity\Society;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,6 +12,8 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 
@@ -19,9 +22,25 @@ class CarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('immatriculation')
-            ->add('place_number')
-            ->add('name')            
+            ->add('immatriculation', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('place_number', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required',
+                    'placeholder' => 'Ex : Renault - ENI - 2020'
+                ],
+            ])            
             ->add('keys', CollectionType::class, [
                 'entry_type' => KeyCarType::class,
                 'entry_options' => ['label' => false],
@@ -30,13 +49,32 @@ class CarType extends AbstractType
                 'by_reference' => false,
                 
             ])
-            ->add('fuel')            
+            ->add('fuel', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])            
             ->add('date_commissioning', DateType::class, [
                 'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
             ])
-            ->add('level_fuel')
-            ->add('mark')
-            ->add('society')
+            ->add('mark', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('society', EntityType::class, [
+                'class' => Society::class,
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ]
+            ])
             ->add('car_url', FileType::class, [
                 'label' => 'Miniature voiture',
 

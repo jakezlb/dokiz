@@ -3,8 +3,13 @@
     
 }
 .text-black {
-    color:black;
+    color: black;
 }
+
+.text-greyLight {
+    color:#d5d2d2;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
