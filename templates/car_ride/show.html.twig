@@ -43,7 +43,15 @@
                         <th>Conducteur</th>
                         {%  set reservation = carRide.reservation %}
                         {% set driver = reservation.user %}
-                        <td>{{ driver.firstName ~ ' ' ~ driver.lastName }}</td><br/>
+                        <td><a data-toggle="modal" data-target="#myModal">{{ driver.firstName ~ ' ' ~ driver.lastName }}</a></td><br/>
+
+                        <div id="myModal" class="modal block fade">
+                            <div class="row">
+                                <div class="col md-12">
+                                    Bonjour
+                                </div>
+                            </div>
+                        </div>
                     </tr>
                     <tr>
                         {%  set reservation = carRide.reservation %}
@@ -70,11 +78,14 @@
             <div class="row">
                 {% set colSize = false %}
                 {% set reservation = carRide.reservation %}
+                {% set car = reservation.car %}
                 {% set passengers = carRide.passengers %}
                 {% set user = app.user %}
 
-                {% if user not in carRide.passengers and app.user != reservation.user and passengers|length < 4 %}
-                    {% set colSize = true %}
+                {% if car %}
+                    {% if user not in carRide.passengers and app.user != reservation.user and passengers|length < car.getPlaceNumber() -2 %}
+                        {% set colSize = true %}
+                    {% endif %}
                 {% endif %}
                 <div class="{%   if colSize %}col-md-5{% else %}col-md-6{% endif %} text-center">
                     <a class="btn btn-info" href="{{ path('car_list') }}">Retour à la liste des réservations</a>
