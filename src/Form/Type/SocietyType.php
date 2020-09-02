@@ -6,18 +6,53 @@ use App\Entity\Society;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 class SocietyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('siret')
-            ->add('social_reason')
-            ->add('head_office')
-            ->add('postal_code')
-            ->add('email_interlocutor')
-            ->add('tel_interlocutor')
+            ->add('siret', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('social_reason', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('head_office', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('postal_code', IntegerType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('email_interlocutor', EmailType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('tel_interlocutor', TelType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
         ;
     }
 

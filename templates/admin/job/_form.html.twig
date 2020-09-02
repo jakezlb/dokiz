@@ -2,12 +2,13 @@
     <div class="adminContainerWhite container"> 
         <div class="row">
             <div class="col-sm-6">
-                {{ form_label(form.wording, 'Nom du métier', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_label(form.wording, 'Nom du métier *', {'label_attr': {'class': 'label_control'}}) }}
                 {{ form_widget(form.wording, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-9">
+                <small class="obligatory-field">* Champ obligatoire</small>
             </div>
             <div class="col-md-3">
                 <button class="btn btn-secondary pull-right">{{ button_label|default('Save') }}</button>
