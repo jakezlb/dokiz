@@ -723,3 +723,10 @@ html  {
 
     margin-top: 1rem;
 }
+
+.borderRadiusTitle{
+    background-color: #343838;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding-bottom: 20px;
+}
