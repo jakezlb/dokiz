@@ -11,7 +11,6 @@ use Monolog\Logger;
  * @method Reservation|null find($id, $lockMode = null, $lockVersion = null)
  * @method Reservation|null findOneBy(array $criteria, array $orderBy = null)
  * @method Reservation[]    findAll()
- * @method Reservation[]    findBySociety()
  * @method Reservation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ReservationRepository extends ServiceEntityRepository
@@ -59,6 +58,16 @@ class ReservationRepository extends ServiceEntityRepository
         }
         return $array_id;
     }
+
+    public function findAllConfirmed($confirmed) {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.is_confirmed = :val')
+            ->setParameter('val', $confirmed)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects
 
