@@ -7,10 +7,16 @@
     <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
         <div class="container hAuto align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navReservation.html.twig") }}
-            <div class="row mx-auto" style="margin-top: 40px" >
-                <h1 class="titleReservation">Mes reservations créés</h1>
+            <div class="row" style="margin-top: 60px;" >
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6 text-center borderRadiusTitle">
+                    <h1 class="titleReservation " style="text-transform: uppercase; color:white !important;">Mes réservations créées</h1>
+                </div>
+                <div class="col-md-3">
+                </div>
             </div>
-            <hr>
+            <br>
             {% if reservations %}
             {% for reservation in reservations %}
 
@@ -20,7 +26,7 @@
                 <div class="row">
                     <div  class="cardSection" style="padding: 15px">
                         <div class="row">
-                            <div class="col-md-6 hrVerticalFine my-auto">
+                            <div class="col-md-6 my-auto">
                                 <h5>Reservation de : {{ user.firstName ~' '~ user.lastName }} </h5>
                             </div>
                             <div class="col-md-6 hrVerticalFine my-auto">
@@ -65,13 +71,23 @@
                         {% endfor %}
                     </div>
                 </div>
-             <hr>
+                <hr>
             {% endfor %}
             {% else %}
                 <h3>Il n'y a pas de réservations en cours.</h3>
             {% endif %}
-            <div class="row mx-auto" style="margin-top: 40px" >
-                <h1 class="titleReservation">Mes reservations en cours</h1>
+
+            <div class="row" style="background-color: #343838; padding-top: 5px; padding-bottom: 5px;" >
+
+            </div>
+            <div class="row" >
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6 text-center borderRadiusTitle">
+                    <h1 class="titleReservation " style="text-transform: uppercase; color:white !important;">Mes réservations en cours</h1>
+                </div>
+                <div class="col-md-3">
+                </div>
             </div>
             <hr>
             {% if carRides %}
@@ -106,6 +122,7 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
                 {% endfor %}
             {% else %}
                 <h3>Il n'y a pas de réservations en cours.</h3>

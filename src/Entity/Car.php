@@ -54,12 +54,6 @@ class Car
     private $date_commissioning;
 
     /**
-     * @Assert\NotBlank
-     * @ORM\Column(type="integer")
-     */
-    private $level_fuel;   
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="cars")
      */
     private $society;

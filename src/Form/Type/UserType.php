@@ -18,25 +18,32 @@ class UserType extends AbstractType
         $builder
             ->add('lastName', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Nom'
+                'label' => 'Nom *'
             ])
             ->add('firstName', TextType::class,[
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
-                'label' => 'Prénom'
+                'label' => 'Prénom *'
             ])
             ->add('email', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
+                'label' => 'Email *'
+                
             ]) 
             ->add('phone', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'required'=>'required'
                 ],
+                'label' => 'Téléphone *'
             ])                      
             ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
@@ -45,13 +52,13 @@ class UserType extends AbstractType
                     'attr' => [
                         'class' => 'form-control'
                     ],
-                    'label' => 'Mot de passe'
+                    'label' => 'Mot de passe *'
                 ],
                 'second_options' => [
                     'attr' => [
                         'class' => 'form-control'
                     ],
-                    'label' => 'Confirmer le mot de passe'
+                    'label' => 'Confirmer le mot de passe *'
                 ]
             ])            
         ;

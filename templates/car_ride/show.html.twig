@@ -11,70 +11,97 @@
     <header class="masthead backWhite" id="dokiz">
         <div class="container align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
             {{ include("navigation/navReservation.html.twig") }}
-            <div class="row mx-auto" style="margin-top: 40px" >
-                <h1 class="titleReservation ">Trajet vers  {{ carRide.getEndCity() }}</h1>
+            <div class="row" style="margin-top: 60px;">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6 text-center borderRadiusTitle">
+                    <h1 class="titleReservation " style="text-transform: uppercase; color:white !important;">Trajet vers  {{ carRide.getEndCity() }}</h1>
+                </div>
+                <div class="col-md-3">
+                </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-12" style="height: 15em; display: none;" id="mapid"></div>
             </div>
             <div class="row">
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <th>Départ de </th>
-                        <td>{{ carRide.getStartAddress() ~', '~ carRide.getStartPostalCode() ~' '~ carRide.getStartCity() }}</td>
-                    </tr>
-                    <tr>
-                        <th>Le </th>
-                        <td>{{ carRide.getDateStart()|date('d/m/Y \\à H:i')  }}</td>
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    <tr>
-                        <th>Arrivé à </th>
-                        <td>{{ carRide.getEndAddress() ~', '~ carRide.getEndPostalCode() ~' '~ carRide.getEndCity() }}</td>
-                    </tr>
-                    <tr>
-                        <th>Le </th>
-                        <td>{{ carRide.getDateEnd()|date('d/m/Y \\à H:i') }}</td>
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    <tr>
-                        <th>Conducteur</th>
-                        {%  set reservation = carRide.reservation %}
-                        {% set driver = reservation.user %}
-                        <td><a data-toggle="modal" data-target="#myModal">{{ driver.firstName ~ ' ' ~ driver.lastName }}</a></td><br/>
-
-                        <div id="myModal" class="modal block fade">
-                            <div class="row">
-                                <div class="col md-12">
-                                    Bonjour
-                                </div>
-                            </div>
-                        </div>
-                    </tr>
-                    <tr>
-                        {%  set reservation = carRide.reservation %}
-                        {% set car = reservation.car %}
-                        {% if null != car  %}
-                            <th>Voiture</th>
-                            <td><img src="{{ asset('uploads/car_url/'~car.getCarUrl()) }}">{{  ' ' ~ car.mark ~ ' ' ~ car.name }}</td><br/>
-                        {% endif %}
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    <tr>
-                        <th>Passagers</th>
-                        {%  for passenger in carRide.passengers %}
-                            {% set userPassenger = passenger.user %}
-                            <td>{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</td><br/>
+                <div class="col-md-12 text-center">
+                    <p> {% if carRide.getDateStart()|date('d/m/Y') != carRide.getDateEnd()|date('d/m/Y') %}
+                            Du
                         {% else %}
-                            <td></td>
-                        {% endfor %}
-                    </tr>
-                    <tr><th></th><td></td></tr>
-                    </tbody>
-                </table>
+                            Le
+                        {% endif %}
+                        {{ carRide.getDateStart()|date('d/m/Y')  }}
+                        {% if carRide.getDateStart()|date('d/m/Y') != carRide.getDateEnd()|date('d/m/Y') %}
+                            au {{ carRide.getDateEnd()|date('d/m/Y') }}
+                        {% endif %}
+                    </p>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 my-auto" style="max-width: 48%; padding-left: 0px; padding-right: 0px">
+                    <div class="row trajet-raw">
+                        <div class="col-md-4 text-center  my-auto   ">
+                            <p>{{ carRide.getDateStart()|date('H\\hi')  }}</p>
+                        </div>
+                        <div class="col-md-8 hrVerticalFine text-center">
+                            <p>{{ carRide.getStartAddress() }}<br>{{ carRide.getStartPostalCode() ~' '~ carRide.getStartCity() }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 text-center " style="max-width: 4%; padding-left: 0px; padding-right: 0px">
+                    <svg width="100%" height="100%" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                    </svg>
+                </div>
+                    <div class="col-md-6 my-auto" style="max-width: 48%; padding-left: 0px; padding-right: 0px">
+                        <div class="row trajet-raw ">
+                            <div class="col-md-4 text-center my-auto">
+                                <p>{{ carRide.getDateEnd()|date('H\\hi') }}</p>
+                            </div>
+                            <div class="col-md-8 hrVerticalFine text-center">
+                                <p>{{ carRide.getEndAddress() }}<br>{{ carRide.getEndPostalCode() ~' '~ carRide.getEndCity() }}</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    {%  set reservation = carRide.reservation %}
+                    {% set car = reservation.car %}
+                    {% if null != car  %}
+                        <img width="100%" src="{{ asset('uploads/car_url/'~car.getCarUrl()) }}" alt="image_voiture" style="border: 5px solid #343838;">
+                        <div class="col-md-12 text-center borderRadiusTitle" style="padding-bottom: 2px">
+                            <h3 style="color: white">{{  ' ' ~ car.mark ~ ' ' ~ car.name }}</h3>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <h3> Conducteur </h3>
+                        </div>
+                        <div class="col-md-8">
+                            {%  set reservation = carRide.reservation %}
+                            {% set driver = reservation.user %}
+                            <p>{{ driver.firstName ~ ' ' ~ driver.lastName }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <h3> Passagers </h3>
+                        </div>
+                        <div class="col-md-8">
+                            {%  for passenger in carRide.passengers %}
+                                {% set userPassenger = passenger.user %}
+                                <p>{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+               <hr>
             <div class="row">
                 {% set colSize = false %}
                 {% set reservation = carRide.reservation %}
@@ -87,40 +114,23 @@
                         {% set colSize = true %}
                     {% endif %}
                 {% endif %}
-                <div class="{%   if colSize %}col-md-5{% else %}col-md-6{% endif %} text-center">
+                <div class="col-md-6">
                     <a class="btn btn-info" href="{{ path('car_list') }}">Retour à la liste des réservations</a>
                 </div>
-                <div class="{% if colSize %}col-md-3{% else %}col-md-6{% endif %} text-center ">
-                    {% if user == reservation.user %}
-                        <a class="btn btn-info" href="{{ path('car_ride_edit', {'id': carRide.id}) }}">Editer la réservation</a>
-                    {% endif %}
+                {% if user == reservation.user %}
+                <div class="col-md-6 ">
+                        <a class="btn btn-danger" style="float: right" href="{{ path('car_ride_delete', {'id': carRide.id}) }}">Supprimer la réservation</a>
+
                 </div>
+                {% endif %}
                 {% if colSize %}
                     {% if user not in passengers and user != reservation.user and passengers|length < 4 %}
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">S'inscrire</button>
+                <div class="col-md-6 text-center ">
+                        <button type="button" class="btn btn-success btn-lg"  style="float:right">S'inscrire</button>
+                </div>
                     {% endif %}
                 {% endif %}
             </div>
         </div>
     </header>
-
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
 {% endblock %}

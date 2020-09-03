@@ -114,6 +114,6 @@ class CarRideController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('car_ride_index');
+        return $this->redirectToRoute('car_list');
     }
 }

@@ -31,9 +31,24 @@ class RoleType extends AbstractType
             'required' => true,
             'attr' => ['class' =>'form-control'],
         ])
+        ->add('lastName', TextType::class, [
+            'attr' => [
+                'class' => 'form-control',
+                'required'=>'required'
+            ],
+            'label' => 'Nom *'
+        ])
+        ->add('firstName', TextType::class,[
+            'attr' => [
+                'class' => 'form-control',
+                'required'=>'required'
+            ],
+            'label' => 'Prénom *'
+        ])
         ->add('phone', TextType::class, [
             'attr' => [
-                'class' => 'form-control'
+                'class' => 'form-control',
+                'required'=>'required'
             ],
         ]) 
         ->add('roles', ChoiceType::class, [
@@ -47,13 +62,14 @@ class RoleType extends AbstractType
             'label' => 'Rôles' 
         ])
         ->add('password', PasswordType::class)
-        ->add('society')
-        ->add('save', SubmitType::class, [
+        ->add('society', EntityType::class, [
+            'class' => Society::class,
             'attr' => [
-                'class' => 'btn btn-lg btn-primary btn-block'
-            ],
-            'label' => 'Valider'
-        ]);
+                'class' => 'form-control',
+                'required'=>'required'
+            ]
+        ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

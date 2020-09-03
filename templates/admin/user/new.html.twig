@@ -15,6 +15,6 @@
         </div>
     </div>
 
-    {{ include('admin/user/_form.html.twig') }}
+    {{ include('admin/user/_form.html.twig' ,{'button_label': 'Enregistrer'}) }}
     {{ include("admin/footer.html.twig") }} 
 {% endblock %}
