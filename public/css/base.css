@@ -727,6 +727,7 @@ html  {
 
 .list_ride_admin {
     margin: 0 auto;
+    border-radius: 20px;
 }
 
 
@@ -779,16 +780,16 @@ html  {
 
 
 .redClass {
-    background-color: #ff3232 !important;
+    background-color: #D51A01 !important;
 }
 .orangeClass {
     background-color: #ffb732 !important;
 }
 .blueClass {
-    background-color: #6666ff !important;
+    background-color: #45ADA8 !important;
 }
 .greenClass {
-    background-color: #99cc99 !important;
+    background-color: #519548 !important;
 }
 
 .trajet-raw {
@@ -809,4 +810,21 @@ html  {
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
     padding-bottom: 20px;
+}
+
+.carRideTitleBlock {
+    background-color: #343838;
+    color: white;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 4px solid #343838;
+}
+
+.carRideTextBlock {
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+    padding: 10px;
+    border: 4px solid #343838;
 }
