@@ -79,6 +79,8 @@ function convertDate(inputFormat) {
             {% if carRides %}
                 {% for carRide in carRides %}
                     {% set nbPlacesRestantes, reservePart = "", "" %}
+                    {% set reservation = carRide.getReservation() %}
+                    {% set car = reservation.getCar() %}
                         <div  class="cardSection parentCity" style="padding: 10px; margin: 15px">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
@@ -94,7 +96,7 @@ function convertDate(inputFormat) {
                                         </div>
                                     </div>
                                     <div class="col-md-1 hrVerticalFine my-auto  text-center">
-                                            {{  4 - carRide.passengers|length }}
+                                            {{  car.getPlaceNumber() - carRide.passengers|length - 1 }}
                                     </div>
                                     <div class="col-md-2 hrVerticalFine my-auto  text-center">
                                             {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}

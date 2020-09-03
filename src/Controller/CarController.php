@@ -59,7 +59,6 @@ class CarController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $carUrl = $form->get('car_url')->getData();
-
             if ($carUrl) {
            
                 $originalFilename = pathinfo($carUrl->getClientOriginalName(), PATHINFO_FILENAME);
@@ -76,6 +75,8 @@ class CarController extends AbstractController
 
                 $car->setCarUrl($newFilename);              
 
+            }else{
+                $car->setCarUrl("car_model_default.png");
             }
 
             $car->setStartReservationDate(new \DateTime());
