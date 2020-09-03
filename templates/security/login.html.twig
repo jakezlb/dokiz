@@ -8,9 +8,9 @@
             <div class="mx-auto text-center ">
                 <img src="{{ asset('image/Blanc.png') }}" title="source: imgur.com" class="img-fluid" alt=""
                      style="width:60%;">
-                <form method="post" class="">
+                <form method="post" style="margin-top: 5%;">
                     {% if error %}
-                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        <div class="alert alert-danger">E-mail ou mot de passe incorrect.</div>
                     {% endif %}
 
                     {% if app.user %}

@@ -12,8 +12,8 @@ function search(value) {
     for (i = 0; i < searchValue.length; i++) {
         if(value === 'City') {
             filter = input.value.toUpperCase();
-            txtValue = searchValue[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            txtValue = searchValue[i].innerText.split(' - ');
+            if (txtValue[0].toUpperCase().indexOf(filter) > -1) {
                 displayParent[i].style.display = "";
             } else {
                 displayParent[i].style.display = "none";
@@ -84,28 +84,24 @@ function convertDate(inputFormat) {
                         <div  class="cardSection parentCity" style="padding: 10px; margin: 15px">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
-                                    <div class="col-md-4 hrVerticalFine my-auto">
-                                        <div class="row mx-auto searchCity" >
+                                    <div class="col-md-4 hrVerticalFine my-auto text-center">
+                                        <div class="searchCity" >
                                             {{ carRide.getStartCity() }} -  {{ carRide.getEndCity() }}
                                         </div>
                                     </div>
 
-                                    <div class="col-md-5 hrVerticalFine my-auto">
-                                        <div class="row mx-auto searchDate">
+                                    <div class="col-md-5 hrVerticalFine my-auto text-center">
+                                        <div class="searchDate">
                                             {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
                                         </div>
                                     </div>
-                                    <div class="col-md-1 hrVerticalFine my-auto">
-                                        <div class="row mx-auto">
+                                    <div class="col-md-1 hrVerticalFine my-auto text-center">
                                             {% if car %}
                                                 {{  (car.getPlaceNumber() - 1) - carRide.passengers|length }}
                                             {% endif %}
-                                        </div>
                                     </div>
-                                    <div class="col-md-2 hrVerticalFine my-auto">
-                                        <div class="row mx-auto">
+                                    <div class="col-md-2 hrVerticalFine my-auto text-center">
                                             <a>Détails</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

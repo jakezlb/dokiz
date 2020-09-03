@@ -10,7 +10,6 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Car|null find($id, $lockMode = null, $lockVersion = null)
  * @method Car|null findOneBy(array $criteria, array $orderBy = null)
  * @method Car[]    findAll()
- * @method Car[]    findBySociety()
  * @method Car[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CarRepository extends ServiceEntityRepository
@@ -33,6 +32,26 @@ class CarRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getLevelFuel()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.level_fuel')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function getFuel()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.fuel')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
     
 
