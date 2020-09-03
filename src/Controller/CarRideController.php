@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class CarRideController extends AbstractController
@@ -34,10 +35,10 @@ class CarRideController extends AbstractController
      * @param CarRideRepository $carRideRepository
      * @return Response
      */
-    public function index(CarRideRepository $carRideRepository): Response
+    public function index(CarRideRepository $carRideRepository, UserInterface $user): Response
     {
         return $this->render('car_ride/index.html.twig', [
-            'car_rides' => $carRideRepository->findAll(),
+            'car_rides' => $carRideRepository->findBySociety($user->getSociety()),
         ]);
     }
 

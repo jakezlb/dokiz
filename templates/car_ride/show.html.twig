@@ -75,23 +75,37 @@
                 </div>
                 <div class="col-md-8">
                     <div class="row">
-                        <div class="col-md-4 text-center">
-                            <h3> Conducteur </h3>
+                        <div class="col-md-4 text-center" style="padding-right: 0">
+                            <h3 class="carRideTitleBlock"> Conducteur </h3>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 text-center" style="padding-left: 0">
                             {% set driver = reservation.user %}
-                            <p>{{ driver.firstName ~ ' ' ~ driver.lastName }}</p>
+                            <p class="carRideTextBlock">{{ driver.firstName ~ ' ' ~ driver.lastName }}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 text-center">
-                            <h3> Passagers </h3>
+                        <div class="col-md-4 text-center" style="padding-right: 0">
+                            <h3 class="carRideTitleBlock"> Passagers </h3>
                         </div>
-                        <div class="col-md-8">
-                            {%  for passenger in carRide.passengers %}
-                                {% set userPassenger = passenger.user %}
-                                <p>{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</p>
-                            {% endfor %}
+                        <div class="col-md-8 text-center" style="padding-left: 0">
+                            {%  if carRide.passengers|length > 0 %}
+                            {%  if carRide.passengers|length > 1 %}
+                                <div class="carRideTextBlock" style="border-bottom-left-radius: 40px">
+                                    {%  for passenger in carRide.passengers %}
+                                        {% set userPassenger = passenger.user %}
+                                        <p >{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% else  %}
+                                <div class="carRideTextBlock">
+                                    {%  for passenger in carRide.passengers %}
+                                        {% set userPassenger = passenger.user %}
+                                        <p style="margin-bottom: 0">{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</p>
+                                    {% endfor %}
+                                </div>
+
+                            {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

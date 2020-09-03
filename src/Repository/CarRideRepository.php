@@ -61,6 +61,19 @@ class CarRideRepository extends ServiceEntityRepository
         return $result;
     }
 
+    public function findBySociety($value)
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.reservation', 'r')
+            ->leftJoin('r.car', 'c')
+            ->andWhere('c.society = :val')
+            ->setParameter('val', $value)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return CarRide[] Returns an array of CarRide objects
     //  */

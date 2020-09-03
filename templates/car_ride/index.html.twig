@@ -5,7 +5,7 @@
 {% block javascripts %}
 <script>
 function search(value) {
-    var input, filter, city, i, txtValue;
+    var input, input2, filter, filter2, city, i, txtValue;
     input = document.getElementById("myInput" + value);
     searchValue = document.getElementsByClassName("search" + value);
     displayParent = document.getElementsByClassName("parentCity");
@@ -14,6 +14,16 @@ function search(value) {
             filter = input.value.toUpperCase();
             txtValue = searchValue[i].innerText.split(' - ');
             if (txtValue[0].toUpperCase().indexOf(filter) > -1) {
+                displayParent[i].style.display = "";
+            } else {
+                displayParent[i].style.display = "none";
+            }
+        } else if(value === 'CityEnd') {
+            input2 = document.getElementById("myInputCity");
+            filter = input.value.toUpperCase();
+            filter2 = input2.value.toUpperCase();
+            txtValue = searchValue[i].innerText.split(' - ');
+            if (txtValue[1].toUpperCase().indexOf(filter) > -1 && txtValue[0].toUpperCase().indexOf(filter2) > -1) {
                 displayParent[i].style.display = "";
             } else {
                 displayParent[i].style.display = "none";
@@ -53,12 +63,14 @@ function convertDate(inputFormat) {
                 </div>
             </div>
             <br>
+
+            <hr>
             <div class="row">
-                <div class="col-md-6 hrVerticalFine my-auto">
+                <div class="col-md-6 my-auto">
                     <div class="row mx-auto">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Ville de départ</span>
+                            <div class="input-group-prepend" style="width: 33%">
+                                <span class="input-group-text" style="width: 100%">Ville de départ</span>
                             </div>
                             <input type="text" class="form-control" id="myInputCity" onkeyup="search('City')" placeholder="Rechercher une ville...">
                         </div>
@@ -67,15 +79,26 @@ function convertDate(inputFormat) {
                 <div class="col-md-6 hrVerticalFine my-auto">
                     <div class="row mx-auto">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Date de départ</span>
+                            <div class="input-group-prepend" style="width: 33%">
+                                <span class="input-group-text" style="width: 100%">Ville d'arrivée</span>
                             </div>
-                            <input type="date" class="form-control" id="myInputDate" onchange="search('Date')">
+                            <input type="text" class="form-control" id="myInputCityEnd" onkeyup="search('CityEnd')" placeholder="Rechercher une ville...">
                         </div>
                     </div>
                 </div>
             </div>
-            <hr>
+            <br>
+            <div class="row">
+                <div class="col-md-6 my-auto">
+                    <div class="row mx-auto">
+                        <div class="input-group">
+                            <div class="input-group-prepend" style="width: 33%">
+                                <span class="input-group-text" style="width: 100%">Date de départ</span>
+                            </div>
+                            <input type="date" class="form-control" id="myInputDate" onchange="search('Date')">
+                        </div>
+                    </div>
+            </div>
             {% if carRides %}
                 {% for carRide in carRides %}
                     {% set nbPlacesRestantes, reservePart = "", "" %}
@@ -84,14 +107,14 @@ function convertDate(inputFormat) {
                         <div  class="cardSection parentCity" style="padding: 10px; margin: 15px">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
-                                    <div class="col-md-4 hrVerticalFine my-auto text-center">
-                                        <div class="searchCity" >
+                                    <div class="col-md-4 my-auto text-center">
+                                        <div class="searchCity searchCityEnd" >
                                             {{ carRide.getStartCity() }} -  {{ carRide.getEndCity() }}
                                         </div>
                                     </div>
 
                                     <div class="col-md-5 hrVerticalFine my-auto text-center">
-                                        <div class="searchDate">
+                                        <div class="searchDate ">
                                             {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
                                         </div>
                                     </div>
@@ -111,7 +134,8 @@ function convertDate(inputFormat) {
             {% else %}
                 <h3>Il n'y a pas de trajets en cours.</h3>
             {% endif %}
-
+            </div>
+        </div>
     </header>
 
 {% endblock %}

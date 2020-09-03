@@ -38,10 +38,6 @@
                  <small class="text-greyLight">Votre adresse email sera également votre identifant</small>
                 {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
             </div>
-             <div class="form-group">
-                {{ form_label(form.password, 'Mot de passe *', {'label_attr': {'class': 'label_control'}}) }}
-                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-             </div>
         </div> 
     </div>
 <div> 
@@ -54,4 +50,4 @@
     </div>
 </div>
 
-{{ form_end(form) }}
+{{ form_end(form,{'render_rest': false}) }}
