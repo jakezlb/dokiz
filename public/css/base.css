@@ -800,7 +800,6 @@ html  {
 }
 
 .trajet-raw p{
-
     margin-top: 1rem;
 }
 
@@ -809,4 +808,8 @@ html  {
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
     padding-bottom: 20px;
+}
+
+.cursorPointer {
+    cursor: pointer;
 }

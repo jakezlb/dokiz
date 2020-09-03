@@ -2,8 +2,6 @@
 
 {% block title %}Informations Trajet{% endblock %}
 
-
-
 {% block body %}
     <!-- Header -->
     {%  set reservation = carRide.reservation %}
@@ -105,8 +103,8 @@
                 {% set user = app.user %}
 
 
-                <div class="col-md-6">
-                    <a class="btn btn-info" href="{{ path('car_list') }}">Retour à la liste des réservations</a>
+                <div class="col-md-6 cursorPointer">
+                    <a class="btn btn-info text-white" onclick="window.history.back();">Retour</a>
                 </div>
                 {% if user == reservation.user %}
                 <div class="col-md-6 ">
