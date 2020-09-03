@@ -48,6 +48,19 @@ class CarRideRepository extends ServiceEntityRepository
         return $array_id;
     }
 
+    public function findByMonth($month)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT COUNT(cr.id)
+            FROM car_ride cr
+            WHERE MONTH(cr.date_start) = '.$month .'
+            AND YEAR(cr.date_start) = 2020';
+        $stmt = $conn->query($sql);
+        // here you go:
+        $result = $stmt->fetch();
+        return $result;
+    }
+
     // /**
     //  * @return CarRide[] Returns an array of CarRide objects
     //  */
