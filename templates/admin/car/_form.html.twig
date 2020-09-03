@@ -10,9 +10,9 @@
             </div>
         </div>
         <div class="col-md-6">
-             <div class="form-group">               
-                {{ form_label(form.name, 'Nom *', {'label_attr': {'class': 'label_control'}}) }}                 
-                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+             <div class="form-group">
+                 {{ form_label(form.mark, 'Marque *', {'label_attr': {'class': 'label_control'}}) }}
+                 {{ form_widget(form.mark, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
     </div>
@@ -43,8 +43,8 @@
         </div>
         <div class="col-md-6 ">
             <div class="form-group">
-                {{ form_label(form.mark, 'Marque *', {'label_attr': {'class': 'label_control'}}) }}
-                {{ form_widget(form.mark, {'attr': {'class': 'form-control'}}) }}
+                {{ form_label(form.name, 'Nom *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="row">
         <div class="col-md-6 ">
             <div id="upload_file">
-                {{ form_label(form.car_url, 'Sélectionner une image') }}
+                {{ form_label(form.car_url, 'Sélectionner une image (Taille maximale : 2 Mo)') }}
                  {% if car.getCarUrl() != '' %}
                         <img class="miniature_car" src="{{asset('uploads/car_url/')}}{{ car.getCarUrl() }}" alt="miniature" style="max-width: 70%;  ">
                 {% endif %}
