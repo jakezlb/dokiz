@@ -39,7 +39,7 @@
                             {% endif %}
 
 
-                            {% if society != null %}
+                            {% if app.user.society != null %}
                             <li><a class="dropdown-item" href="{{ path('reservation_user', {id: app.user.id}) }}">Mes réservations</a></li>
                             {% endif %}
                             <hr>
