@@ -199,7 +199,7 @@ class CarController extends AbstractController
                 $this->addFlash('success', 'La voiture a bien été supprimée');                
             }
         }catch(ForeignKeyConstraintViolationException $e){
-            $this->addFlash('danger', "Impossible de supprimer la voiture elle est réservée. Veuillez annuler tous les trajets avant de renouveler cette opération.");
+            $this->addFlash('danger', 'Impossible de supprimer la voiture elle est réservée. Veuillez annuler tous les trajets avant de renouveler cette opération.');
         } 
         return $this->redirectToRoute('admin_car_index');
         

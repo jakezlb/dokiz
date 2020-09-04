@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 /**
  * @Route("/admin/job", name="admin_")
@@ -83,10 +84,15 @@ class JobController extends AbstractController
      */
     public function delete(Request $request, Job $job): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$job->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($job);
-            $entityManager->flush();
+        try{            
+            if ($this->isCsrfTokenValid('delete'.$job->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($job);
+                $entityManager->flush();
+                $this->addFlash('success', 'Le poste à bien été supprimé');                
+            }
+        }catch(ForeignKeyConstraintViolationException $e){
+            $this->addFlash('danger', 'Impossible de supprimer le poste il est déjà attribué à des utilisateurs. Veuillez supprimer tous les utlisateurs avant de renouveler cette opération.');
         }
 
         return $this->redirectToRoute('admin_job_index');

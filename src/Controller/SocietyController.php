@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 /**
  * @Route("/admin/society" , name="admin_")
@@ -83,10 +84,15 @@ class SocietyController extends AbstractController
      */
     public function delete(Request $request, Society $society): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$society->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($society);
-            $entityManager->flush();
+        try{                 
+            if ($this->isCsrfTokenValid('delete'.$society->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($society);
+                $entityManager->flush();
+                $this->addFlash('success', 'La scoiété à bien été supprimé');                
+            }
+        }catch(ForeignKeyConstraintViolationException $e){            
+            $this->addFlash('danger', 'Impossible de supprimer la société elle est déjà attribuée à des utilisateurs et des véhicules. Veuillez supprimer tous les utilisateurs et les véhicules reliés à cette société avant de renouveler cette opération.');
         }
 
         return $this->redirectToRoute('admin_society_index');

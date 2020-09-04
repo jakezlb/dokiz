@@ -63,7 +63,7 @@
             <h1>Liste des réservations</h1>
         </div>
     </div>
-    <table id="tableAdmin" class="display">
+    <table id="tableAdmin" class="display tableAdminRide">
         <thead>
         <tr>
             <th>N° de réservation</th>
@@ -80,16 +80,20 @@
                         <td>{{ reservation.id }}</td>
                         <td style="color: white; font-weight: bold">{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y') : '' }}</td>
                         <td style="width: 65%; " >
-                            <table class="list_ride_admin">
-                                <tbody style="border-radius: 20px !important;">
+                            <table class="list-ride-admin">
+                                <tbody>
                                 {% for carRide in reservation.carRides %}
                                     {% set countPassengers = carRide.passengers|length %}
-                                <tr style="border-radius: 20px !important;">
-                                    <td>{{ carRide.startAddress }}</td>
-                                    <td>{{ carRide.startPostalCode }} {{ carRide.startCity }}</td>
-                                    <td style="font-size: 30px;">-></td>
-                                    <td>{{ carRide.endAddress }}</td>
-                                    <td>{{ carRide.endPostalCode }} {{ carRide.endCity }}</td>
+                                <tr>
+                                   <td>
+                                   <div class="item-ride-admin">
+                                        {{ carRide.startAddress }}
+                                        {{ carRide.startPostalCode }} {{ carRide.startCity|upper  }}
+                                        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                        {{ carRide.endAddress }}
+                                        {{ carRide.endPostalCode }} {{ carRide.endCity|upper  }}
+                                    </div>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>

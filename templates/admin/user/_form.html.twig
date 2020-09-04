@@ -26,6 +26,10 @@
             <div class="form-group">
                 {{ form_label(form.firstName, 'Prénom *', {'label_attr': {'class': 'label_control'}}) }}
                 {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+            </div>
+             <div class="form-group">
+                {{ form_label(form.job, 'Poste de travail *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.job, {'attr': {'class': 'form-control'}}) }}
             </div>     
         </div>
         <div class="col-md-6">
@@ -38,10 +42,14 @@
                  <small class="text-greyLight">Votre adresse email sera également votre identifant</small>
                 {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
             </div>
-             <div class="form-group">
-                {{ form_label(form.password, 'Mot de passe *', {'label_attr': {'class': 'label_control'}}) }}
-                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-             </div>
+            <div class="form-group">  
+                {{ form_label(form.password.first, 'Mot de passe *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.password.first, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.password.second, 'Confirmer votre mot de passe *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.password.second, {'attr': {'class': 'form-control'}}) }}          
+            </div>
         </div> 
     </div>
 <div> 

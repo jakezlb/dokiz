@@ -28,6 +28,16 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/errorIdentification", name="error_identifiaction")
+     */
+    public function errorIdentification()
+    {
+        $messageTitre = 'Autorisation refusé.';
+        $messageErreur = 'Merci de contacter votre administrateur.';
+        return $this->render('error/identificationAdminError.html.twig', [ 'messageTitre' => $messageTitre, 'messageErreur' => $messageErreur] );
+    }
+
+    /**
      * @Route("/logout", name="app_logout")
      */
     public function logout()
