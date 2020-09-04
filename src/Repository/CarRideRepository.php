@@ -63,12 +63,13 @@ class CarRideRepository extends ServiceEntityRepository
 
     public function findBySociety($value)
     {
+
         return $this->createQueryBuilder('t')
             ->leftJoin('t.reservation', 'r')
             ->leftJoin('r.car', 'c')
             ->andWhere('c.society = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('t.date_start', 'ASC')
             ->getQuery()
             ->getResult()
             ;

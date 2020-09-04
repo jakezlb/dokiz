@@ -9,6 +9,7 @@ use App\Entity\Status;
 use App\Form\Type\ReservationType;
 use App\Repository\CarRepository;
 use App\Repository\ReservationRepository;
+use App\Repository\SocietyRepository;
 use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,7 @@ class ReservationController extends AbstractController
      */
     public function index(ReservationRepository $reservationRepository): Response
     {
+
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservationRepository->findAll(),
         ]);
@@ -77,7 +79,7 @@ class ReservationController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function new(CarRepository $carRepository, Request $request): Response
+    public function new(CarRepository $carRepository, SocietyRepository $societyRepository, UserInterface $userInterface, Request $request): Response
     {
         $reservation = new Reservation();
         $carRide1 = new CarRide();
@@ -85,7 +87,11 @@ class ReservationController extends AbstractController
         $reservation->getCarRides()->add($carRide1);
         $reservation->getCarRides()->add($carRide2);
 
-        $cars = $carRepository->findAll();
+        $societyTempo = $userInterface->getSociety();
+        $idSociety = $societyTempo->getId();
+        $society = $societyRepository->find($idSociety);
+
+        $cars = $carRepository->findBySociety($society);
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 

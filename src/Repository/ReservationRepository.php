@@ -31,7 +31,7 @@ class ReservationRepository extends ServiceEntityRepository
             ->leftJoin('r.car', 'c')
             ->andWhere('c.society = :val')            
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
+            ->orderBy('r.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;

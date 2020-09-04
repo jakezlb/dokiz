@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\CarRide;
 use App\Entity\Passenger;
+use App\Entity\Society;
 use App\Entity\Status;
 
 use App\Form\Type\CarRideType;
 use App\Repository\CarRideRepository;
 use App\Repository\PassengerRepository;
+use App\Repository\SocietyRepository;
 use App\Repository\UserRepository;
 use Proxies\__CG__\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,13 +49,13 @@ class CarRideController extends AbstractController
     /**
      * @Route("/car_ride/list", name="car_list", methods={"GET"})
      */
-    public function rideByDate(CarRideRepository $carRideRepository, UserInterface $user): Response
+    public function rideByDate(CarRideRepository $carRideRepository, SocietyRepository $societyRepository, UserInterface $user): Response
     {
-        dump($user->getSociety());
-        dump($carRideRepository->findBySociety($user->getSociety()));
-        die;
+        $societyTempo = $user->getSociety();
+        $idSociety = $societyTempo->getId();
+        $society = $societyRepository->find($idSociety);
         return $this->render('car_ride/index.html.twig', [
-            'carRides' => $carRideRepository->findByDate(),
+            'carRides' => $carRideRepository->findBySociety($society),
         ]);
     }
 
