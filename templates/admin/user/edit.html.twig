@@ -7,10 +7,10 @@
 {{ include("navigation/navAdmin.html.twig") }}
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <h1>Modifier l'utilisateur {{ user.firstName }} {{ user.lastName }}</h1>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-5">
             <a class="btn btn-primary pull-right" href="{{ path('admin_user_index') }}" style="margin-left: 10%;">Retour</a>
             {#{{ include('admin/user/_delete_form.html.twig') }}#}
         </div>
