@@ -25,6 +25,7 @@ class CarRideController extends AbstractController
      */
     public function indexAdmin(CarRideRepository $carRideRepository): Response
     {
+
         return $this->render('admin/car_ride/index.html.twig', [
             'car_rides' => $carRideRepository->findAll(),
         ]);
@@ -37,6 +38,7 @@ class CarRideController extends AbstractController
      */
     public function index(CarRideRepository $carRideRepository, UserInterface $user): Response
     {
+
         return $this->render('car_ride/index.html.twig', [
             'car_rides' => $carRideRepository->findBySociety($user->getSociety()),
         ]);
@@ -45,8 +47,11 @@ class CarRideController extends AbstractController
     /**
      * @Route("/car_ride/list", name="car_list", methods={"GET"})
      */
-    public function rideByDate(CarRideRepository $carRideRepository): Response
+    public function rideByDate(CarRideRepository $carRideRepository, UserInterface $user): Response
     {
+        dump($user->getSociety());
+        dump($carRideRepository->findBySociety($user->getSociety()));
+        die;
         return $this->render('car_ride/index.html.twig', [
             'carRides' => $carRideRepository->findByDate(),
         ]);
