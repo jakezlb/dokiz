@@ -75,7 +75,7 @@ class CarRide
     private $reservation;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="CarRide", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Passenger", mappedBy="CarRide")
      */
     private $passengers;
 
@@ -283,7 +283,4 @@ class CarRide
     {
         $this->status = $status;
     }
-
-
-
 }

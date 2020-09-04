@@ -2,6 +2,25 @@
 
 {% block title %}Reservation{% endblock %}
 
+{%  block javascripts %}
+    <script>
+        window.onload = function() {
+            {% set list = [] %}
+            {% set list = list|merge([{ id: reservation.getId() }]) %}
+            $.post({
+                url: '{{ path('reservation_delete', reservation.getId()) }}',
+                success: function (data) {
+                    var mess="Trajet bien supprimé";
+                    alert(mess);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Error : ' + errorThrown);
+                },
+            });
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
     <!-- Header -->
     <header class="masthead backWhite" id="dokiz">
@@ -19,14 +38,6 @@
                 <table class="table">
                     <tbody>
                     <tr>
-                        <th>Trajets</th>
-                        <td>
-                        {% for carRide in reservation.carRides %}
-                               => {{ carRide.getStartCity() }} - {{ carRide.getEndCity() }}<br />
-                        {% endfor %}
-                        </td>
-                    </tr>
-                    <tr>
                         <th>Date de réservation</th>
                         <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y H:i:s') : '' }}</td>
                     </tr>
@@ -34,24 +45,8 @@
                         <th>Confirmé</th>
                         <td>{{ reservation.isConfirmed ? 'Oui' : 'Non' }}</td>
                     </tr>
-                    <tr>
-                        <th>Passagers</th>
-                        {%  for passenger in carRide.passengers %}
-                            {% set userPassenger = passenger.user %}
-                            <td>{{ userPassenger.firstName ~ ' ' ~ userPassenger.lastName }}</td>
-                        {% else %}
-                            <td></td>
-                        {% endfor %}
-                    </tr>
                     </tbody>
                 </table>
-                {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
-                    <a>S'inscrire</a>
-                {% endif %}
-                {% if app.user == user %}
-                    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">Editer la réservation</a>
-                {% endif %}
-                <a href="{{ path('reservation_index') }}">Retour à la liste des réservations</a>
             </div>
         </div>
     </header>

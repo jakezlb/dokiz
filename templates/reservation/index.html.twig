@@ -2,6 +2,16 @@
 
 {% block title %}Réservations{% endblock %}
 
+{% block javascripts %}
+    <script>
+        function confirmer() {
+            $bg = $('#bgConfirmation');
+            $bg.addClass('bg-success');
+            $txt = $('#txtConfirmation');
+            $txt.text("");
+        }
+    </script>
+{% endblock %}
 {% block body %}
     <!-- Header -->
     <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
@@ -24,7 +34,11 @@
             {% set user = reservation.user %}
             {% set car = reservation.car %}
                 <div class="row">
-                    <div  class="cardSection" style="padding: 15px">
+                    {% if not reservation.isConfirmed %}
+                        <div  class="cardSection" id="bgConfirmation" onclick="confirmer()" style="padding: 15px">
+                    {% else %}
+                            <div  class="cardSection bg-success" style="padding: 15px">
+                    {% endif %}
                         <div class="row">
                             <div class="col-md-6 my-auto">
                                 <h5>Reservation de : {{ user.firstName ~' '~ user.lastName }} </h5>
@@ -37,7 +51,18 @@
                         </div>
                     <br/>
                         {% for carRide in reservation.carRides %}
-                            {% if loop.first %} <h5>ALLER</h5> {% else %} <h5>RETOUR</h5> {% endif %}
+                            {% if loop.first %}
+                                <div class="row">
+                                    <div class="col-md-3 my-auto">
+                                        <h5>ALLER</h5>
+                                    </div>
+                                    <div class="col-md-9 my-auto" >
+                                        {% if not reservation.isConfirmed %}
+                                            <p id="txtConfirmation">Cliquer sur la reservation pour la confirmer</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% else %} <h5>RETOUR</h5> {% endif %}
                         <div class="cardSection" style="padding: 10px">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
@@ -59,8 +84,8 @@
                                     </div>
                                     <div class="col-md-2 hrVerticalFine my-auto">
                                         <div class="row mx-auto">
-                                            {%  if app.user not in carRide.passengers and carRide.passengers|length < 4 %}
-                                                <a>S'inscrire</a>
+                                            {%  if app.user not in carRide.passengers and carRide.passengers|length < reservation.car.placeNumber %}
+                                                    <a>Détails</a>
                                             {% endif %}
                                         </div>
                                     </div>

@@ -81,6 +81,7 @@ function convertDate(inputFormat) {
                     {% set nbPlacesRestantes, reservePart = "", "" %}
                     {% set reservation = carRide.reservation %}
                     {% set car = reservation.car %}
+                {% if reservation.isConfirmed %}
                         <div  class="cardSection parentCity" style="padding: 10px; margin: 15px">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
@@ -106,6 +107,7 @@ function convertDate(inputFormat) {
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                 {% endfor %}
             {% else %}
                 <h3>Il n'y a pas de trajets en cours.</h3>

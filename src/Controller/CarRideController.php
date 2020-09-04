@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CarRide;
 use App\Entity\Passenger;
+use App\Entity\Reservation;
 use App\Entity\Status;
 
 use App\Form\Type\CarRideType;
@@ -111,16 +112,22 @@ class CarRideController extends AbstractController
      */
     public function delete(Request $request, CarRide $carRide): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$carRide->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($carRide);
-            $entityManager->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $idResa = $carRide->getReservation();
+
+        $entityManager->remove($carRide);
+        $entityManager->flush();
+
+        $reservation = $entityManager->getRepository(Reservation::class)->findOneById($idResa->getId());
+
+        if($reservation->getCarRides()->count() < 1) {
+            return $this->redirectToRoute('reservation_delete',array('id' => $reservation->getId()));
+        } else {
+            return $this->redirectToRoute('car_list');
         }
-
-        return $this->redirectToRoute('car_list');
     }
-
-    /**
+        /**
      * @Route("car_ride/inscription", name="car_ride_inscription", methods={"POST"})
      */
     public function inscriptionCarRide(Request $request, CarRideRepository $carRideRepository, PassengerRepository $passengerRepository, UserRepository $userRepository)

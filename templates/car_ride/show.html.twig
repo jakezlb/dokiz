@@ -2,8 +2,6 @@
 
 {% block title %}CarRide{% endblock %}
 
-
-
 {% block body %}
     <!-- Header -->
     <header class="masthead backWhite" id="dokiz">
@@ -111,9 +109,12 @@
                 <div class="col-md-6">
                     <a class="btn btn-info" href="{{ path('car_list') }}">Retour à la liste des réservations</a>
                 </div>
-                {% if user == reservation.user %}
+                {% if user == reservation.user and not reservation.getIsConfirmed() %}
                 <div class="col-md-6 ">
-                        <a class="btn btn-danger" style="float: right" href="{{ path('car_ride_delete', {'id': carRide.id}) }}">Supprimer la réservation</a>
+                    <form method="post" action="{{ path('car_ride_delete', {'id': carRide.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ce trajet ?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btn btn-danger pull-right" style="float: right">Supprimer le trajet</button>
+                    </form>
 
                 </div>
                 {% endif %}
@@ -137,40 +138,40 @@
     </header>
 {% endblock %}
 {% block javascripts %}
-    <script>
-        $(document).ready(function() {
-            $('#inscriptionButton').click(function () {
-                var data = {id:{{ carRide.id }}, idUser: "{{ app.user.id}}"};
-                $.post({
-                    url: '{{path('car_ride_inscription')}}',
-                    data: data,
-                    success: function (data) {
-                        var mess="Vous vous êtes bien inscrit au trajet vers {{ carRide.getStartCity() }}";
-                        alert(mess);
-                        window.location.reload();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert('Error : ' + errorThrown);
-                    },
-                });
+<script>
+    $(document).ready(function() {
+        $('#inscriptionButton').click(function () {
+            var data = {id:{{ carRide.id }}, idUser: "{{ app.user.id}}"};
+            $.post({
+                url: '{{path('car_ride_inscription')}}',
+                data: data,
+                success: function (data) {
+                    var mess="Vous vous êtes bien inscrit au trajet vers {{ carRide.getStartCity() }}";
+                    alert(mess);
+                    window.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Error : ' + errorThrown);
+                },
             });
-            $('#desinscriptionButton').click(function () {
-                var data = {id:{{ carRide.id }}, idUser: "{{ app.user.id}}"};
-                $.post({
-                    url: '{{path('car_ride_desinscription')}}',
-                    data: data,
-                    success: function (data) {
-                        var mess="Vous vous êtes bien désinscrit du trajet vers {{ carRide.getStartCity() }}";
-                        alert(mess);
-                        window.location.reload();
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        alert('Error : ' + errorThrown);
-                    },
-                });
-            });
-
         });
-    </script>
+        $('#desinscriptionButton').click(function () {
+            var data = {id:{{ carRide.id }}, idUser: "{{ app.user.id}}"};
+            $.post({
+                url: '{{path('car_ride_desinscription')}}',
+                data: data,
+                success: function (data) {
+                    var mess="Vous vous êtes bien désinscrit du trajet vers {{ carRide.getStartCity() }}";
+                    alert(mess);
+                    window.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Error : ' + errorThrown);
+                },
+            });
+        });
+    });
+</script>
 {% endblock %}
+
 
