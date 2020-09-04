@@ -20,7 +20,6 @@ class RegisterController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -32,17 +31,17 @@ class RegisterController extends AbstractController
             );
 
             $user->setRoles(['ROLE_USER']);
-
             $user->setCreatedAt(new \DateTime());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
+
             $email = (new Email())
-                ->from('support@dokiz.com')
+                ->from('lebarsjakez@gmail.com')
                 ->to($user->getEmail())
                 ->subject('Bienvenue chez Dokiz !')
-                ->text("Bienvenue chez Dokiz {$user->getFirstName()}");
+                ->text("Bienvenue chez Dokiz " . $user->getFirstName() ." ". $user->getLastName());
 
             $mailer->send($email);
 

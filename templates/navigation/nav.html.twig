@@ -7,7 +7,6 @@
             Menu
             <i class="fas fa-bars"></i>
         </button>
-        {% set society = app.user.society %}
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
@@ -20,7 +19,7 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger btnNav" href="#contact" id="section4">Contact</a>
                 </li>
-                {% if app.user and society != null %}
+                {% if app.user and app.user.society != null %}
                 <li class="nav-item" >
                     <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('car_list') }}" id="section5">Liste des trajets</a>
                 </li>
