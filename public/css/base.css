@@ -709,7 +709,11 @@ html  {
 #car_keys .item_key{
     margin: 20px 0;
 }
-.tableKeyCar .available , .tableKeyCar .not_available{
+.tableKeyCar .available,
+.tableKeyCar .not_available,
+.tableUserAdmin .superAdmin,
+.tableUserAdmin .admin,
+.tableUserAdmin .user{
     color: white;
     display: inline-block;
     padding: 5px 10px;
@@ -722,6 +726,16 @@ html  {
 
 .tableKeyCar .not_available{
     background-color: #d27b7b; 
+}
+
+.tableUserAdmin .superAdmin{
+    background-color: #3232ff;
+}
+.tableUserAdmin .admin{
+    background-color: #6666ff;
+}
+.tableUserAdmin .user{
+    background-color: #9999ff;
 }
 
 .list_ride_admin {
