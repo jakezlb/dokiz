@@ -36,6 +36,10 @@ function addKeyForm($collectionHolder, $newLinkLi) {
 
 
 $(function () {
+    $('.close-flash').click(function(){
+        $('.flash').hide();
+    });
+
     $(document).scroll(function () {
         var $nav = $("#mainNav");
         var section2 = $("#section2");
@@ -116,9 +120,6 @@ $(function () {
         
         btn.val( txtAfter );
     });
-   
-    
-
 });
 
 

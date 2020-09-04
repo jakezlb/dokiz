@@ -78,13 +78,13 @@
             {% set countPassengers = 0 %}
                     <tr>
                         <td>{{ reservation.id }}</td>
-                        <td>{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y') : '' }}</td>
-                        <td style="width: 65%;" >
+                        <td style="color: white; font-weight: bold">{{ reservation.dateReservation ? reservation.dateReservation|date('d/m/Y') : '' }}</td>
+                        <td style="width: 65%; " >
                             <table class="list_ride_admin">
-                                <tbody>
+                                <tbody style="border-radius: 20px !important;">
                                 {% for carRide in reservation.carRides %}
                                     {% set countPassengers = carRide.passengers|length %}
-                                <tr>
+                                <tr style="border-radius: 20px !important;">
                                     <td>{{ carRide.startAddress }}</td>
                                     <td>{{ carRide.startPostalCode }} {{ carRide.startCity }}</td>
                                     <td style="font-size: 30px;">-></td>
@@ -95,7 +95,7 @@
                                 </tbody>
                             </table>
                         </td>
-                        <td>{{ reservation.car.placeNumber - countPassengers }}</td>
+                        <td style="color: white; font-weight: bold">{{ reservation.car.placeNumber - 1 - countPassengers }}</td>
                     </tr>            
             {% endfor %}
             {% else %}

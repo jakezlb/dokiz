@@ -5,17 +5,21 @@ namespace App\Controller;
 use App\Entity\CarRide;
 use App\Entity\Passenger;
 use App\Entity\Reservation;
+use App\Entity\Society;
 use App\Entity\Status;
 
 use App\Form\Type\CarRideType;
 use App\Repository\CarRideRepository;
 use App\Repository\PassengerRepository;
+use App\Repository\SocietyRepository;
 use App\Repository\UserRepository;
 use Proxies\__CG__\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 class CarRideController extends AbstractController
@@ -25,6 +29,7 @@ class CarRideController extends AbstractController
      */
     public function indexAdmin(CarRideRepository $carRideRepository): Response
     {
+
         return $this->render('admin/car_ride/index.html.twig', [
             'car_rides' => $carRideRepository->findAll(),
         ]);
@@ -35,20 +40,27 @@ class CarRideController extends AbstractController
      * @param CarRideRepository $carRideRepository
      * @return Response
      */
-    public function index(CarRideRepository $carRideRepository): Response
+    public function index(CarRideRepository $carRideRepository, UserInterface $user): Response
     {
+
         return $this->render('car_ride/index.html.twig', [
-            'car_rides' => $carRideRepository->findAll(),
+            'car_rides' => $carRideRepository->findBySociety($user->getSociety()),
         ]);
     }
 
     /**
      * @Route("/car_ride/list", name="car_list", methods={"GET"})
      */
-    public function rideByDate(CarRideRepository $carRideRepository): Response
+    public function rideByDate(CarRideRepository $carRideRepository, SocietyRepository $societyRepository, UserInterface $user): Response
     {
+        $societyTempo = $user->getSociety();
+        if($societyTempo==null){
+            return $this->redirectToRoute('index');
+        }
+        $idSociety = $societyTempo->getId();
+        $society = $societyRepository->find($idSociety);
         return $this->render('car_ride/index.html.twig', [
-            'carRides' => $carRideRepository->findByDate(),
+            'carRides' => $carRideRepository->findBySociety($society),
         ]);
     }
 

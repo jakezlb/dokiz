@@ -10,6 +10,33 @@
     color:#d5d2d2;
 }
 
+.alert {
+    text-align: center;
+    display: inline-block;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.close-flash {
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.flash {
+    background-color:#36393f52;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    padding:50px;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
@@ -450,7 +477,6 @@ html  {
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    cursor: pointer;
     text-transform: uppercase;
 }
 
@@ -710,7 +736,11 @@ html  {
 #car_keys .item_key{
     margin: 20px 0;
 }
-.tableKeyCar .available , .tableKeyCar .not_available{
+.tableKeyCar .available,
+.tableKeyCar .not_available,
+.tableUserAdmin .superAdmin,
+.tableUserAdmin .admin,
+.tableUserAdmin .user{
     color: white;
     display: inline-block;
     padding: 5px 10px;
@@ -725,8 +755,19 @@ html  {
     background-color: #d27b7b; 
 }
 
+.tableUserAdmin .superAdmin{
+    background-color: #3232ff;
+}
+.tableUserAdmin .admin{
+    background-color: #6666ff;
+}
+.tableUserAdmin .user{
+    background-color: #9999ff;
+}
+
 .list_ride_admin {
     margin: 0 auto;
+    border-radius: 20px;
 }
 
 
@@ -779,16 +820,16 @@ html  {
 
 
 .redClass {
-    background-color: #ff3232 !important;
+    background-color: #D51A01 !important;
 }
 .orangeClass {
     background-color: #ffb732 !important;
 }
 .blueClass {
-    background-color: #6666ff !important;
+    background-color: #45ADA8 !important;
 }
 .greenClass {
-    background-color: #99cc99 !important;
+    background-color: #519548 !important;
 }
 
 .trajet-raw {
@@ -800,7 +841,6 @@ html  {
 }
 
 .trajet-raw p{
-
     margin-top: 1rem;
 }
 
@@ -809,4 +849,25 @@ html  {
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
     padding-bottom: 20px;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.carRideTitleBlock {
+    background-color: #343838;
+    color: white;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 4px solid #343838;
+}
+
+.carRideTextBlock {
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;
+    padding: 10px;
+    border: 4px solid #343838;
 }

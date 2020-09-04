@@ -1,0 +1,65 @@
+{{ form_start(form) }}
+<div class="adminContainerWhite container">
+    <div class="row" style="margin-bottom: 5%; font-size: larger">
+        {% for box in form.roles %}
+            <div class="col-sm-4 text-center"> {{ form_widget(box) }} {{ form_label(box) }}  </div>
+        {% endfor %}
+    </div>   
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.lastName, 'Nom *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.firstName, 'Nom *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.phone, 'Téléphone *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.email, 'Email *', {'label_attr': {'class': 'label_control'}}) }}
+                <small class="text-greyLight">Votre adresse email sera également votre identifant</small>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+            {{ form_label(form.society, 'Société', {'label_attr': {'class': 'label_control'}}) }}
+            {% if is_granted('ROLE_SUPERADMIN') == false %}
+                {{ form_widget(form.society, {'attr': {'class': 'form-control','disabled':'disabled'}}) }}
+            {% else %}
+                {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
+            {% endif %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_label(form.job, 'Poste de travail', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.job, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <small class="obligatory-field">* Champ obligatoire</small>
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-secondary pull-right">{{ button_label|default('Save') }}</button>
+        </div>
+    </div>
+<div>
+    {{ form_rest(form) }}
+    {{ form_end(form,{'render_rest': false}) }}

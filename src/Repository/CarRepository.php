@@ -28,7 +28,7 @@ class CarRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.society = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.name', 'ASC')
+            ->orderBy('c.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;

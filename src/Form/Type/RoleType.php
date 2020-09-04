@@ -2,10 +2,12 @@
 
 namespace App\Form\Type;
 
+use App\Entity\Job;
 use App\Entity\User;
 use App\Entity\Society;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RoleType extends AbstractType
 {
@@ -53,29 +56,55 @@ class RoleType extends AbstractType
         ]) 
         ->add('roles', ChoiceType::class, [
             'choices' => [
-                'Utilisateur' => 'ROLE_USER',
                 'Super Admin' => 'ROLE_SUPERADMIN',
-                'Administrateur' => 'ROLE_ADMIN'
+                'Administrateur' => 'ROLE_ADMIN',
+                'Utilisateur' => 'ROLE_USER'
             ],
             'expanded' => true,
             'multiple' => true,
             'label' => 'Rôles' 
-        ])
-        ->add('password', PasswordType::class)
-        ->add('society', EntityType::class, [
+        ]);
+            if($options["showPassword"]) {
+                $builder->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'required' => true,
+                    'first_options' => [
+                        'attr' => [
+                            'class' => 'form-control'
+                        ],
+                        'label' => 'Mot de passe *'
+                    ],
+                    'second_options' => [
+                        'attr' => [
+                            'class' => 'form-control'
+                        ],
+                        'label' => 'Confirmer le mot de passe *'
+                    ]
+                ]);
+            } else {
+                $builder->add('password', HiddenType::class);
+            }
+        $builder->add('society', EntityType::class, [
             'class' => Society::class,
             'attr' => [
                 'class' => 'form-control',
-                'required'=>'required'
+                'required' => 'required'
             ]
         ])
-        ;
+        ->add('job', EntityType::class, [
+            'class' => Job::class,
+            'attr' => [
+                'class' => 'form-control',
+                'required' => 'required'
+            ]
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'showPassword' => true
         ]);
     }
 }

@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Modifier un utilisateur {{ user.firstName }} {{ user.lastName }}{% endblock %}
+{% block title %}Modifier l'utilisateur {{ user.firstName }} {{ user.lastName }}{% endblock %}
 
 {% block body %}
 {{ include("admin/header.html.twig") }}
@@ -16,6 +16,6 @@
         </div>
     </div>
 
-    {{ include('admin/user/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+    {{ include('admin/user/_formEdit.html.twig', {'button_label': 'Enregistrer'}) }}
     {{ include("admin/footer.html.twig") }}
 {% endblock %}
