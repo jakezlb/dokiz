@@ -7,6 +7,7 @@
             Menu
             <i class="fas fa-bars"></i>
         </button>
+        {% set society = app.user.society %}
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav" id="navbar-site">
                 <li class="nav-item">
@@ -19,7 +20,7 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger btnNav" href="#contact" id="section4">Contact</a>
                 </li>
-                {% if app.user %}
+                {% if app.user and society != null %}
                 <li class="nav-item" >
                     <a class="nav-link js-scroll-trigger btnNav active" href="{{ path('car_list') }}" id="section5">Liste des trajets</a>
                 </li>
@@ -37,7 +38,11 @@
                            {% if is_granted('ROLE_ADMIN') %}
                                     <li><a class="dropdown-item" href="{{ path('admin_dashbord') }}">Dashboard admin</a></li>
                             {% endif %}
+
+
+                            {% if society != null %}
                             <li><a class="dropdown-item" href="{{ path('reservation_user', {id: app.user.id}) }}">Mes réservations</a></li>
+                            {% endif %}
                             <hr>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                         </ul>

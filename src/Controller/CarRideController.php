@@ -14,6 +14,7 @@ use App\Repository\SocietyRepository;
 use App\Repository\UserRepository;
 use Proxies\__CG__\App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,6 +53,9 @@ class CarRideController extends AbstractController
     public function rideByDate(CarRideRepository $carRideRepository, SocietyRepository $societyRepository, UserInterface $user): Response
     {
         $societyTempo = $user->getSociety();
+        if($societyTempo==null){
+            return $this->redirectToRoute('index');
+        }
         $idSociety = $societyTempo->getId();
         $society = $societyRepository->find($idSociety);
         return $this->render('car_ride/index.html.twig', [
