@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Society;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RoleType extends AbstractType
 {
@@ -60,9 +62,28 @@ class RoleType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'label' => 'Rôles' 
-        ])
-        ->add('password', PasswordType::class)
-        ->add('society', EntityType::class, [
+        ]);
+            if($options["showPassword"]) {
+                $builder->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'required' => true,
+                    'first_options' => [
+                        'attr' => [
+                            'class' => 'form-control'
+                        ],
+                        'label' => 'Mot de passe *'
+                    ],
+                    'second_options' => [
+                        'attr' => [
+                            'class' => 'form-control'
+                        ],
+                        'label' => 'Confirmer le mot de passe *'
+                    ]
+                ]);
+            } else {
+                $builder->add('password', HiddenType::class);
+            }
+        $builder->add('society', EntityType::class, [
             'class' => Society::class,
             'attr' => [
                 'class' => 'form-control',
@@ -76,6 +97,7 @@ class RoleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'showPassword' => true
         ]);
     }
 }

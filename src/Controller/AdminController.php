@@ -178,7 +178,9 @@ class AdminController extends AbstractController
      */
     public function editUser(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $form = $this->createForm(RoleType::class, $user);
+        $form = $this->createForm(RoleType::class, $user, [
+            'showPassword' => false
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
