@@ -24,7 +24,7 @@
             {% set user = reservation.user %}
             {% set car = reservation.car %}
                 <div class="row">
-                    <div  class="cardSection" style="padding: 15px">
+                    <div class="cardSection" style="padding: 15px">
                         <div class="row">
                             <div class="col-md-6 my-auto">
                                 <h5>Reservation de : {{ user.firstName ~' '~ user.lastName }} </h5>
@@ -38,7 +38,7 @@
                     <br/>
                         {% for carRide in reservation.carRides %}
                             {% if loop.first %} <h5>ALLER</h5> {% else %} <h5>RETOUR</h5> {% endif %}
-                        <div class="cardSection" style="padding: 10px">
+                        <div class="cardSection" style="padding: 10px; cursor: pointer;">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
                                     <div class="col-md-4 hrVerticalFine my-auto">
