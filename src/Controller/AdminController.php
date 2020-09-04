@@ -184,10 +184,6 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $form->getData()->getPassword();
-            $user->setPassword(
-                $passwordEncoder->encodePassword($user, $password)
-            );
 
             $user->setUpdatedAt(new \DateTime());
             
