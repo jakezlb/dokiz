@@ -2,6 +2,7 @@
 
 namespace App\Form\Type;
 
+use App\Entity\Job;
 use App\Entity\User;
 use App\Entity\Society;
 use Doctrine\ORM\EntityRepository;
@@ -55,9 +56,9 @@ class RoleType extends AbstractType
         ]) 
         ->add('roles', ChoiceType::class, [
             'choices' => [
-                'Utilisateur' => 'ROLE_USER',
                 'Super Admin' => 'ROLE_SUPERADMIN',
-                'Administrateur' => 'ROLE_ADMIN'
+                'Administrateur' => 'ROLE_ADMIN',
+                'Utilisateur' => 'ROLE_USER'
             ],
             'expanded' => true,
             'multiple' => true,
@@ -87,10 +88,16 @@ class RoleType extends AbstractType
             'class' => Society::class,
             'attr' => [
                 'class' => 'form-control',
-                'required'=>'required'
+                'required' => 'required'
             ]
         ])
-        ;
+        ->add('job', EntityType::class, [
+            'class' => Job::class,
+            'attr' => [
+                'class' => 'form-control',
+                'required' => 'required'
+            ]
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

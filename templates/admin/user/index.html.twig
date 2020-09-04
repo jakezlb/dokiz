@@ -51,7 +51,7 @@
                 <a class="btn btn-primary float-right" href="{{ path('admin_user_new') }}">Ajouter un utilisateur</a>
             </div>
         </div>
-        <table id="tableAdmin" class="display">
+        <table id="tableAdmin" class="display tableUserAdmin">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -73,12 +73,12 @@
                     <td>{{ user.email }}</td>
                     <td>                    
                         {% for role in user.roles %}
-                            {% if role == "ROLE_USER" %}
-                                Utilisateur
-                            {% elseif role == "ROLE_SUPERADMIN" %}
-                                Super Admin
+                            {% if role == "ROLE_SUPERADMIN" %}
+                                <span class="superAdmin">Super Admin</span>
                             {% elseif role == "ROLE_ADMIN" %}
-                                Administrateur
+                                <span class="admin">Administrateur</span>
+                            {% elseif role == "ROLE_USER" %}
+                                <span class="user">Utilisateur</span>
                             {% endif %}
                         {% endfor %}
                     </td>

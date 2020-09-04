@@ -89,16 +89,18 @@ function convertDate(inputFormat) {
             </div>
             <br>
             <div class="row">
+                <div class="col-sm-3"></div>
                 <div class="col-md-6 my-auto">
                     <div class="row mx-auto">
                         <div class="input-group">
-                            <div class="input-group-prepend" style="width: 33%">
-                                <span class="input-group-text" style="width: 100%">Date de départ</span>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="width: 100%">Date de trajet (Départ | Arrivée)</span>
                             </div>
                             <input type="date" class="form-control" id="myInputDate" onchange="search('Date')">
                         </div>
                     </div>
-            </div>
+                </div>
+                <div class="col-sm-3"></div>
             {% if carRides %}
                 {% for carRide in carRides %}
                     {% set nbPlacesRestantes, reservePart = "", "" %}
@@ -114,7 +116,7 @@ function convertDate(inputFormat) {
                                     </div>
 
                                     <div class="col-md-5 hrVerticalFine my-auto text-center">
-                                        <div class="searchDate ">
+                                        <div class="searchDate">
                                             {{ carRide.getDateStart()|date('d/m/Y H:i') }} -  {{ carRide.getDateEnd()|date('d/m/Y H:i') }}
                                         </div>
                                     </div>

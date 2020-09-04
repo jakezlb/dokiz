@@ -44,24 +44,25 @@ class UserType extends AbstractType
                     'required'=>'required'
                 ],
                 'label' => 'Téléphone *'
-            ])
+            ])    
             ->add('password', RepeatedType::class, [
-                    'type' => PasswordType::class,
-                    'required' => true,
-                    'first_options' => [
-                        'attr' => [
-                            'class' => 'form-control'
-                        ],
-                        'label' => 'Mot de passe *'
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => [
+                    'attr' => [
+                        'class' => 'form-control'
                     ],
-                    'second_options' => [
-                        'attr' => [
-                            'class' => 'form-control'
-                        ],
-                        'label' => 'Confirmer le mot de passe *'
-                    ]
-                ])
-        ;
+                    'label' => 'Mot de passe *'
+                ],
+                'second_options' => [
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                    'label' => 'Confirmer le mot de passe *'
+                ]
+            ])
+            ;
+                
     }
 
     public function configureOptions(OptionsResolver $resolver)
