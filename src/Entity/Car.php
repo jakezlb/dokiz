@@ -59,7 +59,7 @@ class Car
     private $society;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\KeyCar", mappedBy="car",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\KeyCar", mappedBy="car",cascade={"persist", "remove"})
      */
     private $keys;
 

@@ -16,6 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\SocietyRepository;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 
 
 /**
@@ -190,12 +191,17 @@ class CarController extends AbstractController
      */
     public function delete(Request $request, Car $car): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($car);
-            $entityManager->flush();
-        }
-
+        try{            
+            if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($car);
+                $entityManager->flush();
+                $this->addFlash('success', 'La voiture a bien été supprimée');                
+            }
+        }catch(ForeignKeyConstraintViolationException $e){
+            $this->addFlash('danger', "Impossible de supprimer la voiture elle est réservée. Veuillez annuler tous les trajets avant de renouveler cette opération.");
+        } 
         return $this->redirectToRoute('admin_car_index');
+        
     }
 }
