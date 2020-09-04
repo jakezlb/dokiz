@@ -155,7 +155,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $data->getPassword();
+            $password = $form->getData()->getPassword();
             $user->setPassword(
                 $passwordEncoder->encodePassword($user, $password)
             );
@@ -176,16 +176,16 @@ class AdminController extends AbstractController
     /**
      * @Route("/utilisateurs/modifier/{id}", name="user_edit")
      */
-    public function editUser(User $user, Request $request)
+    public function editUser(User $user, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $form = $this->createForm(RoleType::class, $user);
+        $form = $this->createForm(RoleType::class, $user, [
+            'showPassword' => false
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $data->getPassword();
-            $user->setPassword(
-                $passwordEncoder->encodePassword($user, $password)
-            );
+
+            $user->setUpdatedAt(new \DateTime());
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
