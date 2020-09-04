@@ -116,9 +116,6 @@ $(function () {
         
         btn.val( txtAfter );
     });
-   
-    
-
 });
 
 
