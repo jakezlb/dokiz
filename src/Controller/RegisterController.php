@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 class RegisterController extends AbstractController
 {
@@ -22,44 +21,31 @@ class RegisterController extends AbstractController
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        
-        
-            if($form->isSubmitted() && $form->isValid()) {
-                $data = $form->getData();
 
-                $password = $data->getPassword();
-                $user->setPassword(
-                    $passwordEncoder->encodePassword($user, $password)
-                );
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
 
-                $user->setRoles(['ROLE_USER']);
-                $user->setCreatedAt(new \DateTime());
-                try{
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($user);
-                    $em->flush();
-                    $this->addFlash('Success', 'Votre compte a bien été crée'); 
+            $password = $data->getPassword();
+            $user->setPassword(
+                $passwordEncoder->encodePassword($user, $password)
+            );
 
-                    $email = (new Email())
-                    ->from('lebarsjakez@gmail.com')
-                    ->to($user->getEmail())
-                    ->subject('Bienvenue chez Dokiz !')
-                    ->text("Bienvenue chez Dokiz " . $user->getFirstName() ." ". $user->getLastName());
+            $user->setRoles(['ROLE_USER']);
+            $user->setCreatedAt(new \DateTime());
 
-                    $mailer->send($email);
-                    
-                    return $this->redirect($this->generateUrl('app_login'));
+            $email = (new Email())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Bienvenue chez Dokiz !')
+                ->text("Bienvenue chez Dokiz " . $user->getFirstName() ." ". $user->getLastName());
+            $mailer->send($email);
 
-                } catch(UniqueConstraintViolationException $e){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
-                    $this->addFlash('danger', 'L\'email est déjà existant');  
-                    return $this->redirectToRoute('register');
-                    
-                }
-
-                
-            }
-        
+            return $this->redirect($this->generateUrl('app_login'));
+        }
 
         return $this->render('register/index.html.twig', [
             'form' => $form->createView()

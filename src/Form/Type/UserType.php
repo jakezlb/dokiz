@@ -41,7 +41,7 @@ class UserType extends AbstractType
             ->add('phone', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'required'=>'required'
+                    'required'=> 'required'
                 ],
                 'label' => 'Téléphone *'
             ])    

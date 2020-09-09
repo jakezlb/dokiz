@@ -1347,7 +1347,8 @@
             "logging",
             "monolog",
             "productivity"
-        ]
+        ],
+        "abandoned": true
     },
     {
         "name": "egulias/email-validator",
@@ -1460,6 +1461,63 @@
             "highlight",
             "sql"
         ]
+    },
+    {
+        "name": "leafo/scssphp",
+        "version": "v0.8.4",
+        "version_normalized": "0.8.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/leafo/scssphp.git",
+            "reference": "b9cdea3e42c3bcb1a9faafd04ccce4e8ec860ad9"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/leafo/scssphp/zipball/b9cdea3e42c3bcb1a9faafd04ccce4e8ec860ad9",
+            "reference": "b9cdea3e42c3bcb1a9faafd04ccce4e8ec860ad9",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.4.0 || ^7"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.6",
+            "squizlabs/php_codesniffer": "~2.5",
+            "twbs/bootstrap": "~4.3",
+            "zurb/foundation": "~6.5"
+        },
+        "time": "2019-06-18T21:15:44+00:00",
+        "bin": [
+            "bin/pscss"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Leafo\\ScssPhp\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Leaf Corcoran",
+                "email": "leafot@gmail.com",
+                "homepage": "http://leafo.net"
+            }
+        ],
+        "description": "scssphp is a compiler for SCSS written in PHP.",
+        "homepage": "http://leafo.github.io/scssphp/",
+        "keywords": [
+            "css",
+            "less",
+            "sass",
+            "scss",
+            "stylesheet"
+        ],
+        "abandoned": "scssphp/scssphp"
     },
     {
         "name": "monolog/monolog",
@@ -1721,6 +1779,51 @@
             "proxy pattern",
             "service proxies"
         ]
+    },
+    {
+        "name": "patchwork/jsqueeze",
+        "version": "v1.0.7",
+        "version_normalized": "1.0.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/tchwork/jsqueeze.git",
+            "reference": "f90a933213534b93e4ff3c2c3026ff7458f7721b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/tchwork/jsqueeze/zipball/f90a933213534b93e4ff3c2c3026ff7458f7721b",
+            "reference": "f90a933213534b93e4ff3c2c3026ff7458f7721b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.1.4"
+        },
+        "time": "2015-03-25T10:11:08+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "JSqueeze": "class/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "(Apache-2.0 or GPL-2.0)"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            }
+        ],
+        "description": "Efficient JavaScript minification in PHP",
+        "homepage": "https://github.com/tchwork/jsqueeze",
+        "keywords": [
+            "compression",
+            "javascript",
+            "minification"
+        ],
+        "abandoned": true
     },
     {
         "name": "phpdocumentor/reflection-common",
@@ -3673,6 +3776,75 @@
         "homepage": "https://symfony.com"
     },
     {
+        "name": "symfony/google-mailer",
+        "version": "v5.0.11",
+        "version_normalized": "5.0.11.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/google-mailer.git",
+            "reference": "dd8a1d46944993fd548c790c5539a2f481b4b89e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/google-mailer/zipball/dd8a1d46944993fd548c790c5539a2f481b4b89e",
+            "reference": "dd8a1d46944993fd548c790c5539a2f481b4b89e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.2.5",
+            "symfony/mailer": "^4.4|^5.0"
+        },
+        "require-dev": {
+            "symfony/http-client": "^4.4|^5.0"
+        },
+        "time": "2020-05-20T17:38:26+00:00",
+        "type": "symfony-bridge",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Mailer\\Bridge\\Google\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Google Mailer Bridge",
+        "homepage": "https://symfony.com",
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
         "name": "symfony/http-client",
         "version": "v5.0.1",
         "version_normalized": "5.0.1.0",
@@ -4095,22 +4267,22 @@
     },
     {
         "name": "symfony/mailer",
-        "version": "v5.0.1",
-        "version_normalized": "5.0.1.0",
+        "version": "v5.0.11",
+        "version_normalized": "5.0.11.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/mailer.git",
-            "reference": "f7478f49f27d8c55582dcb482f1ca8a90e0dfa30"
+            "reference": "ae0579ff80c1f9b6db5a7a7053733b2568cb9001"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/mailer/zipball/f7478f49f27d8c55582dcb482f1ca8a90e0dfa30",
-            "reference": "f7478f49f27d8c55582dcb482f1ca8a90e0dfa30",
+            "url": "https://api.github.com/repos/symfony/mailer/zipball/ae0579ff80c1f9b6db5a7a7053733b2568cb9001",
+            "reference": "ae0579ff80c1f9b6db5a7a7053733b2568cb9001",
             "shasum": ""
         },
         "require": {
             "egulias/email-validator": "^2.1.10",
-            "php": "^7.2.5",
+            "php": ">=7.2.5",
             "psr/log": "~1.0",
             "symfony/event-dispatcher": "^4.4|^5.0",
             "symfony/mime": "^4.4|^5.0",
@@ -4129,7 +4301,7 @@
             "symfony/postmark-mailer": "^4.4|^5.0",
             "symfony/sendgrid-mailer": "^4.4|^5.0"
         },
-        "time": "2019-12-01T08:48:26+00:00",
+        "time": "2020-07-15T10:53:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -4160,7 +4332,21 @@
             }
         ],
         "description": "Symfony Mailer Component",
-        "homepage": "https://symfony.com"
+        "homepage": "https://symfony.com",
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
     },
     {
         "name": "symfony/maker-bundle",

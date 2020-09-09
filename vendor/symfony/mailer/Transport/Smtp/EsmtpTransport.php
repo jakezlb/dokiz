@@ -106,6 +106,9 @@ class EsmtpTransport extends SmtpTransport
 
         /** @var SocketStream $stream */
         $stream = $this->getStream();
+        // WARNING: !$stream->isTLS() is right, 100% sure :)
+        // if you think that the ! should be removed, read the code again
+        // if doing so "fixes" your issue then it probably means your SMTP server behaves incorrectly or is wrongly configured
         if (!$stream->isTLS() && \defined('OPENSSL_VERSION_NUMBER') && \array_key_exists('STARTTLS', $capabilities)) {
             $this->executeCommand("STARTTLS\r\n", [220]);
 
@@ -115,6 +118,7 @@ class EsmtpTransport extends SmtpTransport
 
             try {
                 $response = $this->executeCommand(sprintf("EHLO %s\r\n", $this->getLocalDomain()), [250]);
+                $capabilities = $this->getCapabilities($response);
             } catch (TransportExceptionInterface $e) {
                 parent::doHeloCommand();
 
