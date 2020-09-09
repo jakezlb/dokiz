@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ProxyManager\\' => array($vendorDir . '/ocramius/proxy-manager/src'),
+    'JSqueeze' => array($vendorDir . '/patchwork/jsqueeze/class'),
 );

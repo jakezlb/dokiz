@@ -51,7 +51,7 @@ class Transport
 
     public static function fromDsn(string $dsn, EventDispatcherInterface $dispatcher = null, HttpClientInterface $client = null, LoggerInterface $logger = null): TransportInterface
     {
-        $factory = new self(self::getDefaultFactories($dispatcher, $client, $logger));
+        $factory = new self(iterator_to_array(self::getDefaultFactories($dispatcher, $client, $logger)));
 
         return $factory->fromString($dsn);
     }
@@ -85,7 +85,7 @@ class Transport
     {
         list($transport, $offset) = $this->parseDsn($dsn);
         if ($offset !== \strlen($dsn)) {
-            throw new InvalidArgumentException(sprintf('The DSN has some garbage at the end: %s.', substr($dsn, $offset)));
+            throw new InvalidArgumentException(sprintf('The DSN has some garbage at the end: "%s".', substr($dsn, $offset)));
         }
 
         return $transport;

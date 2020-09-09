@@ -33,17 +33,16 @@ class RegisterController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTime());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
             $email = (new Email())
-                ->from('lebarsjakez@gmail.com')
+                ->from('dokiz.entreprise@gmail.com')
                 ->to($user->getEmail())
                 ->subject('Bienvenue chez Dokiz !')
                 ->text("Bienvenue chez Dokiz " . $user->getFirstName() ." ". $user->getLastName());
-
             $mailer->send($email);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
             return $this->redirect($this->generateUrl('app_login'));
         }

@@ -70,6 +70,7 @@ class ComposerStaticInit000534a1e41f131b2e02c5b8b3a81c18
             'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\Notifier\\' => 27,
             'Symfony\\Component\\Mime\\' => 23,
+            'Symfony\\Component\\Mailer\\Bridge\\Google\\' => 39,
             'Symfony\\Component\\Mailer\\' => 25,
             'Symfony\\Component\\Intl\\' => 23,
             'Symfony\\Component\\Inflector\\' => 28,
@@ -117,6 +118,10 @@ class ComposerStaticInit000534a1e41f131b2e02c5b8b3a81c18
         'M' => 
         array (
             'Monolog\\' => 8,
+        ),
+        'L' => 
+        array (
+            'Leafo\\ScssPhp\\' => 14,
         ),
         'E' => 
         array (
@@ -298,6 +303,10 @@ class ComposerStaticInit000534a1e41f131b2e02c5b8b3a81c18
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/google-mailer',
+        ),
         'Symfony\\Component\\Mailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/mailer',
@@ -462,6 +471,10 @@ class ComposerStaticInit000534a1e41f131b2e02c5b8b3a81c18
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
+        'Leafo\\ScssPhp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/leafo/scssphp/src',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
@@ -545,6 +558,13 @@ class ComposerStaticInit000534a1e41f131b2e02c5b8b3a81c18
             'ProxyManager\\' => 
             array (
                 0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src',
+            ),
+        ),
+        'J' => 
+        array (
+            'JSqueeze' => 
+            array (
+                0 => __DIR__ . '/..' . '/patchwork/jsqueeze/class',
             ),
         ),
     );
