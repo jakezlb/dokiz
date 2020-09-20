@@ -22,7 +22,7 @@ final class Version20200920134822 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE car ADD assurance VARCHAR(200) DEFAULT NULL, ADD technical_control VARCHAR(200) DEFAULT NULL, CHANGE society_id society_id INT DEFAULT NULL, CHANGE name name VARCHAR(20) DEFAULT NULL, CHANGE fuel fuel VARCHAR(200) DEFAULT NULL, CHANGE parked parked VARCHAR(200) DEFAULT NULL');
+        $this->addSql('ALTER TABLE car ADD assurance VARCHAR(200) DEFAULT NULL, ADD technical_control datetime DEFAULT NULL, CHANGE society_id society_id INT DEFAULT NULL, CHANGE name name VARCHAR(20) DEFAULT NULL, CHANGE fuel fuel VARCHAR(200) DEFAULT NULL, CHANGE parked parked VARCHAR(200) DEFAULT NULL');
         
     }
 
