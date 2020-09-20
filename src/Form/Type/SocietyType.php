@@ -35,6 +35,12 @@ class SocietyType extends AbstractType
                     'required'=>'required'
                 ],
             ])
+            ->add('city', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
             ->add('postal_code', IntegerType::class, [
                 'attr' => [
                     'class' => 'form-control',

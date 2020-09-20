@@ -187,12 +187,12 @@ class Car
 
         return $this;
     }
-    public function getTechnicalControl(): ?DateTimeInterface
+    public function getTechnicalControl(): ?\DateTimeInterface
     {
         return $this->technical_control;
     }
 
-    public function setTechnicalControl(?DateTimeInterface $technical_control): self
+    public function setTechnicalControl(\DateTimeInterface $technical_control): self
     {
         $this->technical_control = $technical_control;
 

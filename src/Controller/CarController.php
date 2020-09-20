@@ -59,7 +59,7 @@ class CarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $carUrl = $form->get('car_url')->getData();
+            $carUrl = $form->get('car_url')->getData();            
             if ($carUrl) {
            
                 $originalFilename = pathinfo($carUrl->getClientOriginalName(), PATHINFO_FILENAME);
@@ -82,6 +82,10 @@ class CarController extends AbstractController
 
             $car->setStartReservationDate(new \DateTime());
             $car->setEndReservationDate(new \DateTime());
+            
+            if(empty($form->get('technical_control')->getData())) {
+                $car->setTechnicalControl(new \DateTime());
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($car);
