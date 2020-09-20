@@ -32,17 +32,25 @@
     <div class="row">
         <div class="col-md-6 ">
             <div class="form-group">
+                {{ form_label(form.city, 'Ville *', {'label_attr': {'class': 'label_control'}}) }}
+                {{ form_widget(form.city, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div> 
+        <div class="col-md-6 ">
+            <div class="form-group">
                 {{ form_label(form.email_interlocutor, 'Email de l\'interlocuteur *', {'label_attr': {'class': 'label_control'}}) }}
                 {{ form_widget(form.email_interlocutor, {'attr': {'class': 'form-control'}}) }}
             </div>
-        </div>
+        </div>       
+    </div>
+    <div class="row">       
         <div class="col-md-6">
             <div class="form-group">
                 {{ form_label(form.tel_interlocutor, 'Téléphone de l\'interlocuteur *', {'label_attr': {'class': 'label_control'}}) }}
                 {{ form_widget(form.tel_interlocutor, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
-    </div>
+    </div>   
     <div class="row">
         <div class="col-md-9">
             <small class="obligatory-field">* Champ obligatoire</small>

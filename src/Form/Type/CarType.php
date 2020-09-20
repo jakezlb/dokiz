@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
@@ -25,7 +26,8 @@ class CarType extends AbstractType
             ->add('immatriculation', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'required'=>'required'
+                    'required'=>'required',
+                    'maxlength'=> 7
                 ],
             ])
             ->add('place_number', TextType::class, [
@@ -66,6 +68,32 @@ class CarType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'required'=>'required'
+                ],
+            ])
+            ->add('parked', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('assurance', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('technical_control', DateType::class, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+            ])
+            ->add('description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required',
+                    'placeholder' => 'Ex : Rayures, Accidents'
                 ],
             ])
             ->add('society', EntityType::class, [

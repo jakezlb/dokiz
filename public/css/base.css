@@ -939,3 +939,15 @@ html  {
     background-color: #343838;
     color: white;
 }
+footer {
+    background-color: white;
+    text-align: center;   
+    padding: 15px 0 10px 0; 
+}
+footer li {
+     display: inline-block;
+}
+footer li a{
+    padding: 15px 30px;
+    color: black;
+}

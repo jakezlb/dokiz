@@ -75,6 +75,14 @@ class CarRideType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Date d\'arrivée *'
             ])
+            ->add('meeting_place', DateTimeType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'required'=>'required'
+                ],
+                'widget' => 'single_text',
+                'label' => 'Point de rendez-vous *'
+            ])
         ;
     }
 

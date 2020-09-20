@@ -55,6 +55,34 @@
                {{ form_widget(form.date_commissioning, {'attr': {'class': 'form-control'}}) }}
             </div>
         </div>
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.parked, 'Stationnement *', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.parked, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+        <div class="row">        
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.assurance, 'Assurance *', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.assurance, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.technical_control, 'Date du dernier contrôle technique *', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.technical_control, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="col-md-6">
+             <div class="form-group">
+               {{ form_label(form.description, 'Etat des lieux de la voiture*', {'label_attr': {'class': 'label_control'}}) }}
+               {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-6 ">

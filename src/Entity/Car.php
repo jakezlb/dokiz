@@ -49,6 +49,26 @@ class Car
     private $fuel;
 
     /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $parked;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $assurance;
+
+    /**
+     * @ORM\Column(type="string", length=200, nullable=true)
+     */
+    private $technical_control;
+
+    /**
+     * @ORM\Column(type="text", length=1000)
+     */
+    private $description;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $date_commissioning;
@@ -141,6 +161,51 @@ class Car
     public function setFuel(?string $fuel): self
     {
         $this->fuel = $fuel;
+
+        return $this;
+    }
+
+    public function getParked(): ?string
+    {
+        return $this->parked;
+    }
+
+    public function setParked(?string $parked): self
+    {
+        $this->parked = $parked;
+
+        return $this;
+    }
+    public function getAssurance(): ?string
+    {
+        return $this->assurance;
+    }
+
+    public function setAssurance(?string $assurance): self
+    {
+        $this->assurance = $assurance;
+
+        return $this;
+    }
+    public function getTechnicalControl(): ?DateTimeInterface
+    {
+        return $this->technical_control;
+    }
+
+    public function setTechnicalControl(?DateTimeInterface $technical_control): self
+    {
+        $this->technical_control = $technical_control;
+
+        return $this;
+    }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

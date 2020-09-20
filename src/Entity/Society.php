@@ -32,6 +32,11 @@ class Society
      */
     private $head_office;
 
+      /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -104,6 +109,18 @@ class Society
     public function setHeadOffice(string $head_office): self
     {
         $this->head_office = $head_office;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }
