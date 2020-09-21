@@ -951,3 +951,7 @@ footer li a{
     padding: 15px 30px;
     color: black;
 }
+
+interfaceAdmin > footer {
+    display:none
+}
