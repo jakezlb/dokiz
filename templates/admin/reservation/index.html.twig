@@ -101,7 +101,7 @@
                             </table>
                         </td>
                         <td style="color: white; font-weight: bold">{{ reservation.car.placeNumber - 1 - countPassengers }}</td>
-                        <td>{{ reservation.user.lastName}} {{ reservation.user.firstName}}</td>
+                        <td><a target="_blank" href="{{ path('user_show', {id: app.user.id, idDriver:reservation.user.id}) }}" title="conducteur">{{ reservation.user.lastName}} {{ reservation.user.firstName}}</a></td>
                     </tr>            
             {% endfor %}
             {% else %}
