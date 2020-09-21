@@ -70,12 +70,6 @@ class CarRide
     private $end_address;
 
     /**
-     * @Assert\Blank
-     * @ORM\Column(type="string", length=255 ,  nullable=true)
-     */
-    private $meeting_place;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Reservation", inversedBy="carRides")
      */
     private $reservation;
@@ -238,22 +232,6 @@ class CarRide
     public function setEndAddress($end_address): void
     {
         $this->end_address = $end_address;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMeetingPlace()
-    {
-        return $this->meeting_place;
-    }
-
-    /**
-     * @param mixed $end_address
-     */
-    public function setMeetingPlace($meeting_place): void
-    {
-        $this->meeting_place = $meeting_place;
     }
 
     /**

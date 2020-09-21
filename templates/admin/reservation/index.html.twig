@@ -70,6 +70,7 @@
             <th>Date de réservation</th>
             <th>Trajets</th> 
             <th>Places disponibles</th>
+            <th>Conducteur</th>
         </tr>
         </thead>
         <tbody>
@@ -100,6 +101,7 @@
                             </table>
                         </td>
                         <td style="color: white; font-weight: bold">{{ reservation.car.placeNumber - 1 - countPassengers }}</td>
+                        <td>{{ reservation.user.lastName}} {{ reservation.user.firstName}}</td>
                     </tr>            
             {% endfor %}
             {% else %}
