@@ -83,6 +83,11 @@ class User implements UserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -320,4 +325,19 @@ class User implements UserInterface
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getResetToken()
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * @param mixed $resetToken
+     */
+    public function setResetToken($resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
 }

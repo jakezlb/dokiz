@@ -2,43 +2,87 @@
 
 namespace App\Controller;
 
-use App\Form\Type\UserType;
+use App\Entity\User;
+use App\Form\Type\ResetPassType;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\User;
 
 class ForgotPasswordController extends AbstractController
 {
     /**
      * @Route("/forgotPassword", name="forgotPassword", methods={"GET","POST"})
      */
-    public function forgotPassword(Request $request) :Response
+    public function forgotPassword(MailerInterface $mailer, Request $request, UserRepository $user, TokenGeneratorInterface $tokenGenerator) :Response
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-
+        $form = $this->createForm(ResetPassType::class);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $mailer = $this->get('mailer');
-            $message = $mailer->createMessage()
-                ->setFrom('dokiz.entreprise@gmail.com')
-                ->setTo($data->getEmail())
-                ->setSubject('Bienvenue chez Dokiz !');
 
-            $mailer->send($message);
-            
-            return $this->redirect($this->generateUrl('app_login'));
+            $user = $user->findOneByEmail($data['email']);
+
+            if ($user === null) {
+                return $this->redirectToRoute('app_login');
+            }
+
+            $token = $tokenGenerator->generateToken();
+            try {
+                $user->setResetToken($token);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+            } catch (\Exception $e) {
+                $this->addFlash('warning', $e->getMessage());
+                return $this->redirectToRoute('app_login');
+            }
+
+            $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $email = (new Email())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Mot de passe oublié')
+                ->text("Bonjour, Une demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant : " . $url,
+                    'text/html'
+                );
+            $mailer->send($email);
+
+            return $this->redirectToRoute('app_login');
+        }
+        return $this->render('forgotPassword/forgotPassword.html.twig', ['emailForm' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/resetPass/{token}", name="app_reset_password")
+     */
+    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['resetToken' => $token]);
+
+        if ($user === null) {
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('forgotPassword/forgotPassword.html.twig', [
-            'form' => $form->createView()
-        ]);
+        if ($request->isMethod('POST')) {
+            $user->setResetToken(null);
+            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('app_login');
+        } else {
+            return $this->render('forgotPassword/resetPassword.html.twig', ['token' => $token]);
+        }
     }
 }
