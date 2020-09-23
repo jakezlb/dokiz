@@ -39,8 +39,13 @@ class AdminController extends AbstractController
         $nbReservationAllConfirmed = count($reservationAllConfirmed);
         $nbReservationAllNotConfirmed = count($reservationAllNotConfirmed);
 
-        $ptReservationAllConfirmed = $nbReservationAllConfirmed / ($nbReservationAllConfirmed + $nbReservationAllNotConfirmed) * 100;
-        $ptReservationAllNotConfirmed = 100 - $ptReservationAllConfirmed;
+        $ptReservationAllConfirmed = 0;
+        $ptReservationAllNotConfirmed = 0;
+
+        if (!empty($nbReservationAllConfirmed) || !empty($nbReservationAllNotConfirmed)) {
+            $ptReservationAllConfirmed = $nbReservationAllConfirmed / ($nbReservationAllConfirmed + $nbReservationAllNotConfirmed) * 100;
+            $ptReservationAllNotConfirmed = 100 - $ptReservationAllConfirmed;
+        }
 
         $tabConfirmed = [];
         $tabNotConfirmed = [];
