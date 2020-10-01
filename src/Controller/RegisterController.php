@@ -37,7 +37,8 @@ class RegisterController extends AbstractController
                 ->from('dokiz.entreprise@gmail.com')
                 ->to($user->getEmail())
                 ->subject('Bienvenue chez Dokiz !')
-                ->text("Bienvenue chez Dokiz " . $user->getFirstName() ." ". $user->getLastName());
+                ->htmlTemplate('emails/registration.html.twig');
+                //->text("Bienvenue chez Dokiz " . $user->getFirstName() ." ". $user->getLastName());
             $mailer->send($email);
 
             $em = $this->getDoctrine()->getManager();
