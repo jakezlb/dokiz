@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class RegisterController extends AbstractController
 {
