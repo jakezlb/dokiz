@@ -34,7 +34,7 @@ class RegisterController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTime());
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
                 ->from('dokiz.entreprise@gmail.com')
                 ->to($user->getEmail())
                 ->subject('Bienvenue chez Dokiz !')
