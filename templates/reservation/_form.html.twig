@@ -7,7 +7,6 @@
 
 
     });
-
     function upRetour() {
         retour = document.getElementById('RETOUR');
         if (document.getElementById('customSwitches').checked) {
@@ -16,6 +15,37 @@
             retour.style.display = 'none';
         }
     }
+    function enableCreate() {
+        create = document.getElementById('createReservation');
+        CP0Start = $("input[name='reservation[carRides][0][start_postal_code]']").val();
+        CP0End = $("input[name='reservation[carRides][0][end_postal_code]']").val();
+        City0Start = $("input[name='reservation[carRides][0][start_city]']").val();
+        City0End = $("input[name='reservation[carRides][0][end_city]']").val();
+        Adress0Start = $("input[name='reservation[carRides][0][start_address]']").val();
+        Adress0End = $("input[name='reservation[carRides][0][end_address]']").val();
+
+        CP1Start = $("input[name='reservation[carRides][1][start_postal_code]']").val();
+        CP1End = $("input[name='reservation[carRides][1][end_postal_code]']").val();
+        City1Start = $("input[name='reservation[carRides][1][start_city]']").val();
+        City1End = $("input[name='reservation[carRides][1][end_city]']").val();
+        Adress1Start = $("input[name='reservation[carRides][1][start_address]']").val();
+        Adress1End = $("input[name='reservation[carRides][1][end_address]']").val();
+
+        if(CP0Start !== "" && CP0End !== "" && City0Start !== ""
+            && City0End !== "" && Adress0Start !== "" && Adress0End !== "") {
+            if (document.getElementById('customSwitches').checked) {
+                if(CP1Start !== "" && CP1End !== "" && City1Start !== ""
+                    && City1End !== "" && Adress1Start !== "" && Adress1End !== "") {
+                    console.log("success");
+                    create.disabled = false;
+                }
+            } else {
+                console.log("success");
+                create.disabled = false;
+            }
+        }
+    }
+
 </script>
 {% set dateStart, dateEnd = date(), date() %}
 {{ form_start(form, { attr: {novalidate:'novalidate'}}) }}
@@ -61,7 +91,7 @@
         {{ form_label(carRide.start_postal_code) }}
         {{ form_widget(carRide.start_postal_code) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" >
         {{ form_label(carRide.end_postal_code) }}
         {{ form_widget(carRide.end_postal_code) }}
     </div>
@@ -72,18 +102,18 @@
         {{ form_label(carRide.start_city) }}
         {{ form_widget(carRide.start_city) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" >
         {{ form_label(carRide.end_city) }}
         {{ form_widget(carRide.end_city) }}
     </div>
 </div>
 <br>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6" >
         {{ form_label(carRide.start_address) }}
         {{ form_widget(carRide.start_address, {attr: {required:'true'}}) }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" >
         {{ form_label(carRide.end_address) }}
         {{ form_widget(carRide.end_address) }}
     </div>
@@ -108,7 +138,8 @@
     <div class="row">
         <div class="col-md-12 ">
             <label for="cars">Liste des véhicules disponibles</label>
-            <select id="cars" name="cars" class="form-control">
+            <select id="cars" name="cars" class="form-control" onchange="enableCreate()">
+                <option value="none"selected disabled hidden>Selectionner une voiture</option>
                 {% for car in cars %}
                     <option id="car{{ car.id }}" value="car{{ car.id }}" data-id="{{ car.id|json_encode() }}" data-mark={{ car.mark|json_encode()|raw }} data-name={{ car.name|json_encode()|raw }} data-date-start={{ car.getStartReservationDate()|date('Y-m-d')|json_encode()|raw }} data-date-end={{ car.getEndReservationDate()|date('Y-m-d')|json_encode()|raw }}>{{ car.id ~' - '~ car.mark ~' '~ car.name }}</option>
                 {% endfor %}
@@ -118,7 +149,7 @@
 </div>
 <hr>
 <div>
-    <button class="btn btn-info w-100" >{{ button_label|default('Créer une nouvelle réservation') }}</button>
+    <button class="btn btn-info w-100" id="createReservation" disabled>{{ button_label|default('Créer une nouvelle réservation') }}</button>
 </div>
 
 {{ form_end(form) }}

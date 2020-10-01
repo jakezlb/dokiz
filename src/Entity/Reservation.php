@@ -73,11 +73,9 @@ class Reservation
         return $this->is_confirmed;
     }
 
-    public function setIsConfirmed(bool $is_confirmed): self
+    public function setIsConfirmed(bool $is_confirmed)
     {
         $this->is_confirmed = $is_confirmed;
-
-        return $this;
     }
 
     public function getCarRides(): Collection

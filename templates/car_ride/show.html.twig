@@ -120,7 +120,7 @@
                 <div class="col-md-6 cursorPointer">
                     <a class="btn btn-info text-white" onclick="window.history.back();">Retour</a>
                 </div>
-                {% if user == reservation.user and not reservation.getIsConfirmed() %}
+                {% if user == reservation.user and not carRide.passengers|length > 0 %}
                 <div class="col-md-6 ">
                     <form method="post" action="{{ path('car_ride_delete', {'id': carRide.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ce trajet ?');">
                         <input type="hidden" name="_method" value="DELETE">
@@ -153,6 +153,7 @@
         $(document).ready(function() {
             $('#inscriptionButton').click(function () {
                 var data = {id:{{ carRide.id }}, idUser: "{{ app.user.id}}"};
+                console.log("je suis la");
                 $.post({
                     url: '{{path('car_ride_inscription')}}',
                     data: data,
@@ -181,7 +182,6 @@
                     },
                 });
             });
-        });
     });
 </script>
 {% endblock %}

@@ -43,7 +43,7 @@ class CarRideRepository extends ServiceEntityRepository
         $id_resa= $stmt->fetchAll();
         $array_id =[];
         foreach ($id_resa as $row) {
-            array_push($array_id, $this->find($row["id"])) ;
+            array_push($array_id, $this->find($row["car_ride_id"])) ;
         }
         return $array_id;
     }
