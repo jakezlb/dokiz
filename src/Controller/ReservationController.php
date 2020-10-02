@@ -16,7 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 
 class ReservationController extends AbstractController
@@ -79,13 +81,14 @@ class ReservationController extends AbstractController
      * @return Response
      * @throws \Exception
      */
-    public function new(CarRepository $carRepository, SocietyRepository $societyRepository, UserInterface $userInterface, Request $request): Response
+    public function new(MailerInterface $mailer, CarRepository $carRepository, SocietyRepository $societyRepository, UserInterface $userInterface, Request $request): Response
     {
         $reservation = new Reservation();
         $carRide1 = new CarRide();
         $carRide2 = new CarRide();
         $reservation->getCarRides()->add($carRide1);
         $reservation->getCarRides()->add($carRide2);
+        $car = $reservation->getCar();
 
         $societyTempo = $userInterface->getSociety();
         $idSociety = $societyTempo->getId();
@@ -96,6 +99,53 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $firstName = $userInterface->getFirstName();
+            $lastName = $userInterface->getLastName();
+            $phone = $userInterface->getPhone();
+            $emailUser = $userInterface->getEmail();
+            $emailInterlocutor = $society->getEmailInterlocutor();
+            $start_reservation_date = $carRide1->getDateStart();
+            $end_reservation_date = $carRide2->getDateEnd();
+
+            $email = (new TemplatedEmail())
+            ->from('dokiz.entreprise@gmail.com')
+            ->to($emailInterlocutor)
+            ->subject('Nouvelle réservation')
+            ->htmlTemplate('emails/newReservation.html.twig')
+            ->context([
+                'firstName' => $firstName, 
+                'lastName' => $lastName,
+                'phone' => $phone,
+                'emailUser'=> $emailUser,
+                'start_reservation_date' => $start_reservation_date,
+                'end_reservation_date'=> $end_reservation_date,
+            ]);
+
+            $mailer->send($email);
+
+            $mark = $car->getMark();
+            $immatriculation = $car->getImmatriculation();
+            $fuel = $car->getFuel();
+            $parked = $car->getParked();           
+            $telInterlocutor = $society->getTelInterlocutor();
+
+            $email2 = (new TemplatedEmail())
+            ->from('dokiz.entreprise@gmail.com')
+            ->to($emailUser)
+            ->subject('Votre réservation')
+            ->htmlTemplate('emails/confirmationReservation.html.twig')
+            ->context([
+                'mark' => $mark, 
+                'immatriculation' => $immatriculation,
+                'fuel' => $fuel,
+                'parked'=> $parked,
+                'start_reservation_date' => $start_reservation_date,
+                'end_reservation_date'=> $end_reservation_date,
+                'phoneInterlocutor' => $telInterlocutor,
+            ]);
+
+            $mailer->send($email2);
+
             $switchButton = $request->request->get('customSwitches');
             $switchButton = boolval($switchButton);
 

@@ -82,6 +82,7 @@ class CarController extends AbstractController
 
             $car->setStartReservationDate(new \DateTime());
             $car->setEndReservationDate(new \DateTime());
+            $car->setSociety($society);
             
             if(empty($form->get('technical_control')->getData())) {
                 $car->setTechnicalControl(new \DateTime());

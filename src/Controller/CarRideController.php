@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 
+
 class CarRideController extends AbstractController
 {
     /**
@@ -70,7 +71,8 @@ class CarRideController extends AbstractController
     public function new(Request $request): Response
     {
         $carRide = new CarRide();
-        $user = $this->getUser();        
+        $user = $this->getUser();            
+          
         $form = $this->createForm(CarRideType::class, $carRide);
         $form->handleRequest($request);
 

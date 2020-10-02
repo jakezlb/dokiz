@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Repository\SocietyRepository;
 
 class RegisterController extends AbstractController
 {
@@ -53,7 +54,7 @@ class RegisterController extends AbstractController
             ->subject('Une nouvelle demande d\'inscription  !')
             ->htmlTemplate('emails/registrationNoAccepted.html.twig')
             ->context([
-                'email' => $emailInscription, 
+                'emailInscription' => $emailInscription, 
                 'firstname' => $lastNameInscription,
                 'lastname' => $firstNameInscription, 
                 'phone' => $phoneInscription,
@@ -73,13 +74,16 @@ class RegisterController extends AbstractController
         ]);
     }
     /**
-     * @Route("/register/society/{id}", name="register_society" , methods={"GET"})
+     * @Route("/register/society/{id}", name="register_society" , methods={"GET", "POST"})
      */
-    public function registerBySociety($id, MailerInterface $mailer, Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registerBySociety($id, MailerInterface $mailer, Request $request, UserPasswordEncoderInterface $passwordEncoder, SocietyRepository $SocietyRepository)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
+      
+        $society = $SocietyRepository->findOneById($id);
 
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
@@ -88,7 +92,7 @@ class RegisterController extends AbstractController
             $user->setPassword(
                 $passwordEncoder->encodePassword($user, $password)
             );
-            $user->setSocietyId($i);
+            $user->setSociety($society);
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt(new \DateTime());
 
