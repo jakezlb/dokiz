@@ -3,6 +3,17 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} flash">
+                <i class="fa fa-times close-flash" aria-hidden="true"></i>
+                <div class="alert-{{ label }} alert" role="alert">
+                {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
     <header class="masthead" id="dokiz">
         <div class="container d-flex h-100 align-items-center">
             <div class="mx-auto text-center ">

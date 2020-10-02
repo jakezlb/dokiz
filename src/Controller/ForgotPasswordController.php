@@ -14,6 +14,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class ForgotPasswordController extends AbstractController
 {
@@ -25,12 +26,15 @@ class ForgotPasswordController extends AbstractController
         $form = $this->createForm(ResetPassType::class);
         $form->handleRequest($request);
 
+        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
             $user = $user->findOneByEmail($data['email']);
-
+           
             if ($user === null) {
+                $this->addFlash('danger', 'L\'adresse email n\'existe pas');               
                 return $this->redirectToRoute('app_login');
             }
 
@@ -40,6 +44,7 @@ class ForgotPasswordController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
+                $this->addFlash('success', 'Un email vous a été envoyé afin de réinitialiser votre mot de passe');
             } catch (\Exception $e) {
                 $this->addFlash('warning', $e->getMessage());
                 return $this->redirectToRoute('app_login');
@@ -47,14 +52,16 @@ class ForgotPasswordController extends AbstractController
 
             $url = $this->generateUrl('app_reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
-            $email = (new Email())
+            $email = (new TemplatedEmail())
                 ->from('dokiz.entreprise@gmail.com')
                 ->to($user->getEmail())
                 ->subject('Mot de passe oublié')
-                ->text("Bonjour, Une demande de réinitialisation de mot de passe a été effectuée. Veuillez cliquer sur le lien suivant : " . $url,
-                    'text/html'
-                );
-            $mailer->send($email);
+                ->htmlTemplate("emails/forgetPassword.html.twig")
+                ->context([
+                    'url' => $url,
+                ]);
+
+            $mailer->send($email);         
 
             return $this->redirectToRoute('app_login');
         }

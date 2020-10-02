@@ -88,7 +88,7 @@ class ReservationController extends AbstractController
         $carRide2 = new CarRide();
         $reservation->getCarRides()->add($carRide1);
         $reservation->getCarRides()->add($carRide2);
-        $car = $reservation->getCar();
+        
 
         $societyTempo = $userInterface->getSociety();
         $idSociety = $societyTempo->getId();
@@ -98,14 +98,47 @@ class ReservationController extends AbstractController
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {        
+           
+
+            $switchButton = $request->request->get('customSwitches');
+            $switchButton = boolval($switchButton);
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $cars = $request->request->get('cars');
+            $cars = str_replace("car","",$cars);
+            $car = $carRepository->find($cars);
+            $car->setStartReservationDate($carRide1->getDateStart());
+
+            $reservation->setIsConfirmed(false);
+            $reservation->setDateReservation(new \DateTime());
+
+            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
+            $carRide1->setStatus($statusDefault);
+            $carRide1->setReservation($reservation);
+
+            $user = $this->getUser();
+
+            if ($switchButton != true) {
+                $car->setEndReservationDate($carRide1->getDateEnd());
+                $reservation->getCarRides()->remove($reservation->getCarRides()->count() -1 );
+            } else {
+                $car->setEndReservationDate($carRide2->getDateEnd());
+                $carRide2->setStatus($statusDefault);
+                $carRide2->setReservation($reservation);
+            }
+
+            $reservation->setUser($user);
+            $reservation->setCar($car);
+
             $firstName = $userInterface->getFirstName();
             $lastName = $userInterface->getLastName();
             $phone = $userInterface->getPhone();
             $emailUser = $userInterface->getEmail();
             $emailInterlocutor = $society->getEmailInterlocutor();
-            $start_reservation_date = $carRide1->getDateStart();
-            $end_reservation_date = $carRide2->getDateEnd();
+            $start_reservation_date = ($carRide1->getDateStart())->format('d-m-Y H:i:s');
+            $end_reservation_date = $carRide2->getDateEnd() != '' ? ($carRide2->getDateEnd())->format('d-m-Y H:i:s') : ($carRide1->getDateEnd())->format('d-m-Y H:i:s');
 
             $email = (new TemplatedEmail())
             ->from('dokiz.entreprise@gmail.com')
@@ -146,37 +179,6 @@ class ReservationController extends AbstractController
 
             $mailer->send($email2);
 
-            $switchButton = $request->request->get('customSwitches');
-            $switchButton = boolval($switchButton);
-
-            $entityManager = $this->getDoctrine()->getManager();
-
-            $cars = $request->request->get('cars');
-            $cars = str_replace("car","",$cars);
-            $car = $carRepository->find($cars);
-            $car->setStartReservationDate($carRide1->getDateStart());
-
-            $reservation->setIsConfirmed(false);
-            $reservation->setDateReservation(new \DateTime());
-
-            $statusDefault = $entityManager->getRepository(Status::class)->findOneById(1);
-            $carRide1->setStatus($statusDefault);
-            $carRide1->setReservation($reservation);
-
-            $user = $this->getUser();
-
-            if ($switchButton != true) {
-                $car->setEndReservationDate($carRide1->getDateEnd());
-                $reservation->getCarRides()->remove($reservation->getCarRides()->count() -1 );
-            } else {
-                $car->setEndReservationDate($carRide2->getDateEnd());
-                $carRide2->setStatus($statusDefault);
-                $carRide2->setReservation($reservation);
-            }
-
-            $reservation->setUser($user);
-            $reservation->setCar($car);
-
             $entityManager->persist($reservation);
             $entityManager->flush();
 
@@ -211,7 +213,31 @@ class ReservationController extends AbstractController
      * @return Response
      */
     public function delete(Request $request, Reservation $reservation): Response
-    {
+    {       
+            $carRides = $reservation->getCarRides();
+            
+           
+
+           foreach ($carRides as $carRide) {
+            $passengers = $carRide->getPassengers();
+            $start_reservation_date =  $carRide->getDateStart();
+            $end_reservation_date =  $carRide->getDateEnd();
+
+            foreach ($passengers as $passenger) {                
+                $passengerEmail = $passenger->getUser()->getEmail();
+                
+                $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($passengerEmail)
+                ->subject('Annulation de votre réservation')
+                ->htmlTemplate('emails/cancelReservation.html.twig')
+                ->context([                
+                    'start_reservation_date' => $start_reservation_date,
+                    'end_reservation_date'=> $end_reservation_date,                
+                ]);
+                $mailer->send($email);   
+            }
+           }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($reservation);
             $entityManager->flush();
