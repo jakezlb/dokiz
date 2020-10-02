@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+<div class="adminContainerWhite container">
+    <div class="row">       
+        <div class="offset-md-2 col-md-8">            
+            <div class="form-group">                
+                {{ form_label(form.email, 'Email *', {'label_attr': {'class': 'label_control'}}) }}
+                 <small class="text-greyLight">Pour envoyer à plusieurs utilisateurs merci de saisr ';' entre les adresses mails</small>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>           
+        </div> 
+    </div>
+<div> 
+<div class="row">
+    <div class="col-md-9">
+        <small class="obligatory-field">* Champ obligatoire</small>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-secondary pull-right">{{ button_label|default('Save') }}</button>
+    </div>
+</div>
+
+{{ form_end(form) }}

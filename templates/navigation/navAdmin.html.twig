@@ -28,7 +28,7 @@
                   <li><a class="dropdown-item" href="{{path('admin_key_car_index') }}">Liste des clés</a></li>
                  
               </ul>
-          </li>
+          </li>          
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Gestion des trajets et des réservations
@@ -49,6 +49,11 @@
                     <li><a class="dropdown-item" href="{{path('admin_society_index') }}">Liste des sociétés</a> </li>
                     <li> <a class="dropdown-item" href="{{path('admin_society_new') }}">Ajouter une société</a>  </li>
                 </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="{{path('admin_sent_inscription_mail') }}" role="button">
+                  Envoyer email d'inscription
+              </a>
             </li>
           {% endif %}
       </ul>

@@ -7,9 +7,14 @@ use App\Entity\CarRide;
 use App\Entity\Reservation;
 use App\Entity\User;
 use App\Entity\Society;
+use App\Entity\SentEmail;
 use App\Form\Type\RoleType;
+use App\Form\Type\SentEmailType;
 use App\Repository\UserRepository;
 use App\Repository\SocietyRepository;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -111,7 +116,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository,UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
      
@@ -126,9 +131,24 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $form->getData()->getPassword();
+            $identified = $form->getData()->getEmail();
+            $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Bienvenue chez Dokiz !')
+                ->htmlTemplate('emails/registrationByAdmin.html.twig')
+                ->context([
+                    'identified' => $identified, 
+                    'password' => $password,
+                ]);
+
+            $mailer->send($email);
+            
             $user->setPassword(
                 $passwordEncoder->encodePassword($user, $password)
             );
+           
+            $user->setCreatedAt(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -167,6 +187,44 @@ class AdminController extends AbstractController
         
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/sentInscriptionMail", name="sent_inscription_mail", methods={"GET","POST"})
+    */
+    public function sentInscriptionMail(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository): Response
+    {
+        $sentEmail = new SentEmail();
+     
+        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $society = new Society();
+            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
+            $idSociety = $society->getSocietyId();
+        }   
+
+        $form = $this->createForm(SentEmailType::class, $sentEmail);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+          
+            $emailUserInscritpion = $form->getData()->getEmail();
+
+            $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($emailUserInscritpion)
+                ->subject('Bienvenue chez Dokiz !')
+                ->htmlTemplate('emails/registrationBySociety.html.twig')
+                ->context([
+                    'id' => $idSociety, 
+                ]);
+
+            $mailer->send($email); 
+        }
+
+        return $this->render('admin/inscription_mail/new.html.twig', [
+            'sentEmail' => $sentEmail,
             'form' => $form->createView(),
         ]);
     }

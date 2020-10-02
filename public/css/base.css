@@ -606,6 +606,10 @@ html  {
     background-color: #f2f6fa;
 }
 
+#interfaceAdmin footer{ 
+    display:none;
+}
+
 #adminMain .adminContainer {
     padding:45px;
 }

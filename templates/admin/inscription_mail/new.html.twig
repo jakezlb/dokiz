@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Envoyer un mail d'inscription{% endblock %}
+
+{% block body %}
+    {{ include("admin/header.html.twig") }} 
+    {{ include("navigation/navAdmin.html.twig") }}
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Envoyer un mail d'inscription</h1>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-primary pull-right" href="{{ path('admin_dashbord') }}">Retour</a>
+        </div>
+    </div>
+
+    {{ include('admin/inscription_mail/_form.html.twig' ,{'button_label': 'Enregistrer'}) }}
+    {{ include("admin/footer.html.twig") }} 
+{% endblock %}
