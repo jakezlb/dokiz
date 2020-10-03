@@ -118,20 +118,21 @@ class AdminController extends AbstractController
      */
     public function new(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository,UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $user = new User();
-     
-        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
-            $society = new Society();
-            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
-            $user->setSociety($society); 
-        }   
+        $user = new User();       
 
         $form = $this->createForm(RoleType::class, $user);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                $society = new Society();
+                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
+                $user->setSociety($society); 
+            }  
             $password = $form->getData()->getPassword();
             $identified = $form->getData()->getEmail();
+
             $email = (new TemplatedEmail())
                 ->from('dokiz.entreprise@gmail.com')
                 ->to($user->getEmail())
@@ -148,13 +149,25 @@ class AdminController extends AbstractController
                 $passwordEncoder->encodePassword($user, $password)
             );
            
-            $user->setCreatedAt(new \DateTime());
-
+            $user->setCreatedAt(new \DateTime());            
+            
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            
+            try {
+                $entityManager->persist($user);
+                $entityManager->flush();
+                
+                $this->addFlash('success', 'L\'utilisateur a bien été crée'); 
+                return $this->redirectToRoute('admin_user_index');
 
-            return $this->redirectToRoute('admin_user_index');
+            }
+            catch(\Doctrine\DBAL\DBALException $e) 
+            {
+                $this->addFlash('danger', 'L\'adresse email est déjà utilisée');
+                
+            }
+
+            
         }
 
         return $this->render('admin/user/new.html.twig', [

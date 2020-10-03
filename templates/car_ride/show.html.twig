@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-8 text-center" style="padding-left: 0">
                             {% set driver = reservation.user %}
-                            <p class="carRideTextBlock">{{ driver.firstName ~ ' ' ~ driver.lastName }}</p>
+                            <p class="carRideTextBlock"><a href="{{ path('user_show', {id: app.user.id, idDriver:reservation.user.id}) }}" style="color:black">{{ driver.firstName ~ ' ' ~ driver.lastName }}</a></p>
                         </div>
                     </div>
                     <div class="row">

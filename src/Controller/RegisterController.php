@@ -60,13 +60,22 @@ class RegisterController extends AbstractController
                 'phone' => $phoneInscription,
             ]);
             
-        $mailer->send($email2);
-
+            $mailer->send($email2);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            
+            try {
+                $em->persist($user);
+                $em->flush();
+                
+                $this->addFlash('success', 'Votre demande d\'inscription a bien été prise en compte'); 
+                return $this->redirect($this->generateUrl('app_login'));
 
-            return $this->redirect($this->generateUrl('app_login'));
+            }
+            catch(\Doctrine\DBAL\DBALException $e) 
+            {
+                $this->addFlash('danger', 'L\'adresse email est déjà utilisée');
+                
+            }           
         }
 
         return $this->render('register/index.html.twig', [
@@ -105,8 +114,20 @@ class RegisterController extends AbstractController
             $mailer->send($email);
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            
+            try {
+                $em->persist($user);
+                $em->flush();
+                
+                $this->addFlash('success', 'Votre demande d\'inscription a bien été prise en compte'); 
+                return $this->redirect($this->generateUrl('app_login'));
+
+            }
+            catch(\Doctrine\DBAL\DBALException $e) 
+            {
+                $this->addFlash('danger', 'L\'adresse email est déjà utilisée');
+                
+            }
 
             return $this->redirect($this->generateUrl('app_login'));
         }
