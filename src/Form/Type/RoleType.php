@@ -68,6 +68,7 @@ class RoleType extends AbstractType
                 $builder->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'required' => true,
+                    'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
                     'first_options' => [
                         'attr' => [
                             'class' => 'form-control'
