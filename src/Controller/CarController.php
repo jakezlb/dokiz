@@ -47,18 +47,19 @@ class CarController extends AbstractController
      */
     public function new(Request $request, SluggerInterface $slugger, UserInterface $userConnect, SocietyRepository $SocietyRepository): Response
     {
-        $car = new Car();
-
-        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
-            $society = new Society();
-            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
-            $car->setSociety($society); 
-        }   
+        $car = new Car();          
 
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                $society = new Society();
+                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
+                $car->setSociety($society); 
+            } 
+
             $carUrl = $form->get('car_url')->getData();            
             if ($carUrl) {
            
@@ -81,8 +82,7 @@ class CarController extends AbstractController
             }
 
             $car->setStartReservationDate(new \DateTime());
-            $car->setEndReservationDate(new \DateTime());
-            $car->setSociety($society);
+            $car->setEndReservationDate(new \DateTime());        
             
             if(empty($form->get('technical_control')->getData())) {
                 $car->setTechnicalControl(new \DateTime());

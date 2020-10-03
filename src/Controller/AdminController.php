@@ -198,22 +198,27 @@ class AdminController extends AbstractController
     {
         $sentEmail = new SentEmail();
      
-        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
-            $society = new Society();
-            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
-            $idSociety = $society->getId();
-        }   
+
 
         $form = $this->createForm(SentEmailType::class, $sentEmail);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
-            $emailUserInscritpion = $form->getData()->getEmail();
+
+            if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                $society = new Society();
+                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]); 
+                $idSociety = $society->getId();
+                $sentEmail->setSociety($society); 
+            } else{
+                $idSociety =  ($form->getData()->getSociety())->getId();
+            }  
+           
+            $emailUserInscription = $form->getData()->getEmail();
 
             $email = (new TemplatedEmail())
                 ->from('dokiz.entreprise@gmail.com')
-                ->to($emailUserInscritpion)
+                ->to($emailUserInscription)
                 ->subject('Bienvenue chez Dokiz !')
                 ->htmlTemplate('emails/registrationBySociety.html.twig')
                 ->context([
@@ -221,7 +226,16 @@ class AdminController extends AbstractController
                 ]);
 
             $mailer->send($email); 
+
+            $this->addFlash('success', 'Votre email a bien été envoyé');
+
+                   
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($sentEmail);
+            $entityManager->flush();
         }
+
+       
 
         return $this->render('admin/inscription_mail/new.html.twig', [
             'sentEmail' => $sentEmail,

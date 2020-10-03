@@ -20,6 +20,11 @@ class SentEmail
      */
     private $email;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Society", inversedBy="sentEmails")
+     */
+    private $society;
+
     public function __toString() {
         return $this->email;
     }
@@ -36,6 +41,18 @@ class SentEmail
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getSociety() : ?Society
+    {
+        return $this->society;
+    }
+
+    public function setSociety(?Society $society): self
+    {
+        $this->society = $society;
 
         return $this;
     }

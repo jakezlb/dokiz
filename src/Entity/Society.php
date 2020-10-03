@@ -58,6 +58,11 @@ class Society
     private $cars;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SentEmail", mappedBy="society")
+     */
+    private $sentEmails;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="society")
      */
     private $users;
@@ -166,8 +171,14 @@ class Society
         return $this->cars;
     }
 
+    public function getSentEmails(): ArrayCollection
+    {
+        return $this->sentEmails;
+    }
+
     public function getUsers(): ArrayCollection
     {
         return $this->users;
     }
+    
 }

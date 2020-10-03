@@ -108,7 +108,9 @@
                                 <tbody>
                                     {% for keyCar in reservation.car.keys %}
                                         <tr>
-                                            <td>{{ keyCar.name  }}</td>
+                                             <td>{{ keyCar.name  }}</td>
+                                        </tr>   
+                                        <tr>
                                             <td>
                                                 {% if keyCar.isTaken|number_format == 0 %}
                                                     <a target="_blank" href="{{ path('admin_key_car_edit', {id: keyCar.id}) }}" title="conducteur"><span class="available">Disponible</span></a>
