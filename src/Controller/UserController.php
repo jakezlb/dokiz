@@ -46,7 +46,7 @@ class UserController extends AbstractController
     public function editUser(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user, [
-            'usePassword' => false
+            'showPassword' => false
         ]);
         $form->handleRequest($request);
 

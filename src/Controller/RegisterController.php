@@ -21,7 +21,9 @@ class RegisterController extends AbstractController
     public function register(MailerInterface $mailer, Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'showPassword' => true
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -88,7 +90,9 @@ class RegisterController extends AbstractController
     public function registerBySociety($id, MailerInterface $mailer, Request $request, UserPasswordEncoderInterface $passwordEncoder, SocietyRepository $SocietyRepository)
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'showPassword' => true
+        ]);
         $form->handleRequest($request);
 
       
