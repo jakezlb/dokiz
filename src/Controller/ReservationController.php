@@ -214,33 +214,10 @@ class ReservationController extends AbstractController
      */
     public function delete(Request $request, Reservation $reservation): Response
     {       
-            $carRides = $reservation->getCarRides();
-            
-           
-
-           foreach ($carRides as $carRide) {
-            $passengers = $carRide->getPassengers();
-            $start_reservation_date =  $carRide->getDateStart();
-            $end_reservation_date =  $carRide->getDateEnd();
-
-            foreach ($passengers as $passenger) {                
-                $passengerEmail = $passenger->getUser()->getEmail();
-                
-                $email = (new TemplatedEmail())
-                ->from('dokiz.entreprise@gmail.com')
-                ->to($passengerEmail)
-                ->subject('Annulation de votre réservation')
-                ->htmlTemplate('emails/cancelReservation.html.twig')
-                ->context([                
-                    'start_reservation_date' => $start_reservation_date,
-                    'end_reservation_date'=> $end_reservation_date,                
-                ]);
-                $mailer->send($email);   
-            }
-           }
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($reservation);
-            $entityManager->flush();
+  
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($reservation);
+        $entityManager->flush();
 
         return $this->redirectToRoute('car_list');
     }

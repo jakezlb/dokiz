@@ -20,6 +20,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 
 
@@ -124,12 +127,60 @@ class CarRideController extends AbstractController
     /**
      * @Route("car_ride/{id}", name="car_ride_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, CarRide $carRide): Response
+    public function delete(MailerInterface $mailer, Request $request, CarRide $carRide, UserInterface $userInterface): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
 
         $idResa = $carRide->getReservation();
+       
+        $start_reservation_date =  ($carRide->getDateStart())->format('d-m-Y H:i:s');
+        $end_reservation_date =  ($carRide->getDateEnd())->format('d-m-Y H:i:s');
+     
+        $passengers = $carRide->getPassengers();  
+        $emailUser = $userInterface->getEmail();       
 
+        if(!empty($passengers)) {       
+            foreach ($passengers as $passenger) {
+                $passengerEmail = $passenger->getUser()->getEmail();                                    
+                $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($passengerEmail)
+                ->subject('Annulation de votre réservation')
+                ->htmlTemplate('emails/cancelReservation.html.twig')
+                ->context([                
+                    'start_reservation_date' => $start_reservation_date,
+                    'end_reservation_date'=> $end_reservation_date,                
+                ]);
+                $mailer->send($email);
+                
+            }
+            $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($emailUser)
+                ->subject('Annulation de votre réservation')
+                ->htmlTemplate('emails/cancelReservationByDriver.html.twig')
+                ->context([                
+                    'start_reservation_date' => $start_reservation_date,
+                    'end_reservation_date'=> $end_reservation_date,                
+                ]);
+            $mailer->send($email);
+
+            $this->addFlash('success', 'Votre trajet a bien été annulé. Vous allez reçevoir un email de confirmation. L\'emsemble des passagers vont également être averti de votre annulation');
+
+        }else{            
+            $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($emailUser)
+                ->subject('Annulation de votre réservation')
+                ->htmlTemplate('emails/cancelReservationByDriver.html.twig')
+                ->context([                
+                    'start_reservation_date' => $start_reservation_date,
+                    'end_reservation_date'=> $end_reservation_date,                
+                ]);
+            $mailer->send($email);
+            $this->addFlash('success', 'Votre trajet a bien été annulé. Vous allez reçevoir un email de confirmation.');
+        }        
+       
         $entityManager->remove($carRide);
         $entityManager->flush();
 
@@ -141,7 +192,8 @@ class CarRideController extends AbstractController
             return $this->redirectToRoute('car_list');
         }
     }
-        /**
+
+    /**
      * @Route("car_ride/inscription", name="car_ride_inscription", methods={"POST"})
      */
     public function inscriptionCarRide(Request $request, CarRideRepository $carRideRepository, PassengerRepository $passengerRepository, UserRepository $userRepository)

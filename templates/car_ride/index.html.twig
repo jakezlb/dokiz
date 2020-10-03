@@ -49,6 +49,17 @@ function convertDate(inputFormat) {
 
 {% block body %}
     <!-- Header -->
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} flash">
+                <i class="fa fa-times close-flash" aria-hidden="true"></i>
+                <div class="alert-{{ label }} alert" role="alert">
+                {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
     <script></script>
     <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
         <div class="container hAuto align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
