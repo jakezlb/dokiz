@@ -109,6 +109,7 @@ class AdminController extends AbstractController
           
             return $this->render('admin/user/index.html.twig', [
                 'users' => $UserRepository->findBySociety($user->getSociety()),
+                'roleAdmin' => true
             ]);
         }
     }
