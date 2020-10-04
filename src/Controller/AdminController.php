@@ -104,6 +104,7 @@ class AdminController extends AbstractController
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/user/index.html.twig', [
                 'users' => $UserRepository->findAll(),
+                'roleAdmin' => false
             ]);
         }else {
           
