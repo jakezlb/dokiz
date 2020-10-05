@@ -33,34 +33,9 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        $reservationRepo = $this->getDoctrine()->getRepository(Reservation::class);
         $carRepo = $this->getDoctrine()->getRepository(Car::class);
 
         /* graphique 1 */
-        $reservationAllConfirmed = $reservationRepo->findAllConfirmed(true);
-        $reservationAllNotConfirmed = $reservationRepo->findAllConfirmed(false);
-
-        $nbReservationAllConfirmed = count($reservationAllConfirmed);
-        $nbReservationAllNotConfirmed = count($reservationAllNotConfirmed);
-
-        $ptReservationAllConfirmed = 0;
-        $ptReservationAllNotConfirmed = 0;
-
-        if (!empty($nbReservationAllConfirmed) || !empty($nbReservationAllNotConfirmed)) {
-            $ptReservationAllConfirmed = $nbReservationAllConfirmed / ($nbReservationAllConfirmed + $nbReservationAllNotConfirmed) * 100;
-            $ptReservationAllNotConfirmed = 100 - $ptReservationAllConfirmed;
-        }
-
-        $tabConfirmed = [];
-        $tabNotConfirmed = [];
-
-        $tabConfirmed['value'] = $nbReservationAllConfirmed;
-        $tabConfirmed['pt'] = $ptReservationAllConfirmed;
-        $tabNotConfirmed['value'] = $nbReservationAllNotConfirmed;
-        $tabNotConfirmed['pt'] = $ptReservationAllNotConfirmed;
-        /* fin graphique 1 */
-
-        /* graphique 2 */
         $typeFuel = $carRepo->getFuel();
         $i = 0;
 
@@ -90,8 +65,6 @@ class AdminController extends AbstractController
 
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
-            'tabConfirmed' => $tabConfirmed,
-            'tabNotConfirmed' => $tabNotConfirmed,
             'tabFuel' => $typeFuelTab
         ]);
     }

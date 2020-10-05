@@ -85,40 +85,6 @@
     ]
    }]
   });
-  Highcharts.chart('containerHighCharts2', {
-   chart: {
-    plotBackgroundColor: null,
-    plotBorderWidth: null,
-    plotShadow: false,
-    type: 'pie'
-   },
-   title: {
-    text: 'Réservations confirmées'
-   },
-   tooltip: {
-    pointFormat: '<b>{point.y}</b>'
-   },
-   plotOptions: {
-    pie: {
-     allowPointSelect: true,
-     cursor: 'pointer',
-     dataLabels: {
-      enabled: true,
-      format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-     }
-    }
-   },
-   series: [{
-    colorByPoint: true,
-    data: [{
-     name: 'Confirmées',
-     y: {{ tabConfirmed.value }}
-    }, {
-     name: 'Non confirmées',
-     y: {{ tabNotConfirmed.value }}
-    }]
-   }]
-  });
  </script>
 {% endblock %}
 
@@ -128,14 +94,9 @@
 
  <div class="container">
   <div class="row">
-   <div class="col-lg-6">
+   <div class="col-lg-12">
     <figure class="highcharts-figure">
      <div id="containerHighCharts1"></div>
-    </figure>
-   </div>
-   <div class="col-lg-6">
-    <figure class="highcharts-figure">
-     <div id="containerHighCharts2"></div>
     </figure>
    </div>
   </div>
