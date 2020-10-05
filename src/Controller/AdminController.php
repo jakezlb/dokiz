@@ -93,7 +93,13 @@ class AdminController extends AbstractController
      */
     public function new(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository,UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $user = new User();       
+        $user = new User();
+
+        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $society = new Society();
+            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);
+            $user->setSociety($society);
+        }
 
         $form = $this->createForm(RoleType::class, $user);
 
@@ -102,9 +108,9 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
                 $society = new Society();
-                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
-                $user->setSociety($society); 
-            }  
+                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);
+                $user->setSociety($society);
+            }
             $password = $form->getData()->getPassword();
             $identified = $form->getData()->getEmail();
 
@@ -132,7 +138,7 @@ class AdminController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 
-                $this->addFlash('success', 'L\'utilisateur a bien été crée'); 
+                $this->addFlash('success', 'L\'utilisateur a bien été créé');
                 return $this->redirectToRoute('admin_user_index');
 
             }
@@ -141,8 +147,6 @@ class AdminController extends AbstractController
                 $this->addFlash('danger', 'L\'adresse email est déjà utilisée');
                 
             }
-
-            
         }
 
         return $this->render('admin/user/new.html.twig', [
