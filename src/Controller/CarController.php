@@ -47,7 +47,13 @@ class CarController extends AbstractController
      */
     public function new(Request $request, SluggerInterface $slugger, UserInterface $userConnect, SocietyRepository $SocietyRepository): Response
     {
-        $car = new Car();          
+        $car = new Car();
+
+        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $society = new Society();
+            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);
+            $car->setSociety($society);
+        }
 
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);

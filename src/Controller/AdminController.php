@@ -189,8 +189,12 @@ class AdminController extends AbstractController
     public function sentInscriptionMail(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository): Response
     {
         $sentEmail = new SentEmail();
-     
 
+        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+            $society = new Society();
+            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);
+            $sentEmail->setSociety($society);
+        }
 
         $form = $this->createForm(SentEmailType::class, $sentEmail);
         $form->handleRequest($request);
@@ -199,9 +203,8 @@ class AdminController extends AbstractController
 
             if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
                 $society = new Society();
-                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]); 
-                $idSociety = $society->getId();
-                $sentEmail->setSociety($society); 
+                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);
+                $sentEmail->setSociety($society);
             } else{
                 $idSociety =  ($form->getData()->getSociety())->getId();
             }  
