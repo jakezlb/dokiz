@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-8 text-center" style="padding-left: 0">
                             {% set driver = reservation.user %}
-                            <p class="carRideTextBlock">{{ driver.firstName ~ ' ' ~ driver.lastName }}</p>
+                            <p class="carRideTextBlock"><a href="{{ path('user_show', {id: app.user.id, idDriver:reservation.user.id}) }}" style="color:black">{{ driver.firstName ~ ' ' ~ driver.lastName }}</a></p>
                         </div>
                     </div>
                     <div class="row">
@@ -120,7 +120,7 @@
                 <div class="col-md-6 cursorPointer">
                     <a class="btn btn-info text-white" onclick="window.history.back();">Retour</a>
                 </div>
-                {% if user == reservation.user and not carRide.passengers|length > 0 %}
+                {% if user == reservation.user %}
                 <div class="col-md-6 ">
                     <form method="post" action="{{ path('car_ride_delete', {'id': carRide.id}) }}" onsubmit="return confirm('Etes-vous sûr de supprimer ce trajet ?');">
                         <input type="hidden" name="_method" value="DELETE">

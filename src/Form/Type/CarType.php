@@ -73,7 +73,8 @@ class CarType extends AbstractType
             ->add('parked', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'required'=>'required'
+                    'required'=>'required',
+                    'placeholder' => 'Ex : Parking:1 Sous-sol:2 Place:51'
                 ],
             ])
             ->add('assurance', TextType::class, [

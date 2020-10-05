@@ -7,9 +7,14 @@ use App\Entity\CarRide;
 use App\Entity\Reservation;
 use App\Entity\User;
 use App\Entity\Society;
+use App\Entity\SentEmail;
 use App\Form\Type\RoleType;
+use App\Form\Type\SentEmailType;
 use App\Repository\UserRepository;
 use App\Repository\SocietyRepository;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,35 +33,9 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        $reservationRepo = $this->getDoctrine()->getRepository(Reservation::class);
         $carRepo = $this->getDoctrine()->getRepository(Car::class);
-        $carRideRepo = $this->getDoctrine()->getRepository(CarRide::class);
 
         /* graphique 1 */
-        $reservationAllConfirmed = $reservationRepo->findAllConfirmed(true);
-        $reservationAllNotConfirmed = $reservationRepo->findAllConfirmed(false);
-
-        $nbReservationAllConfirmed = count($reservationAllConfirmed);
-        $nbReservationAllNotConfirmed = count($reservationAllNotConfirmed);
-
-        $ptReservationAllConfirmed = 0;
-        $ptReservationAllNotConfirmed = 0;
-
-        if (!empty($nbReservationAllConfirmed) || !empty($nbReservationAllNotConfirmed)) {
-            $ptReservationAllConfirmed = $nbReservationAllConfirmed / ($nbReservationAllConfirmed + $nbReservationAllNotConfirmed) * 100;
-            $ptReservationAllNotConfirmed = 100 - $ptReservationAllConfirmed;
-        }
-
-        $tabConfirmed = [];
-        $tabNotConfirmed = [];
-
-        $tabConfirmed['value'] = $nbReservationAllConfirmed;
-        $tabConfirmed['pt'] = $ptReservationAllConfirmed;
-        $tabNotConfirmed['value'] = $nbReservationAllNotConfirmed;
-        $tabNotConfirmed['pt'] = $ptReservationAllNotConfirmed;
-        /* fin graphique 1 */
-
-        /* graphique 2 */
         $typeFuel = $carRepo->getFuel();
         $i = 0;
 
@@ -84,46 +63,10 @@ class AdminController extends AbstractController
         }
         /* fin graphique 2 */
 
-        /* graphique 3 */
-        $months = [];
-        for ($i = 0; $i < 9; $i++) {
-            $timestamp = mktime(0, 0, 0, date('n') - $i, 1);
-            $months[date('n', $timestamp)] = date('F Y', $timestamp);
-        }
-
-        foreach ($months as $key => $month) {
-            $months[$key] = $carRideRepo->findByMonth($key)["COUNT(cr.id)"];
-        }
-
-        /* fin graphique 3 */
-
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
-            'tabConfirmed' => $tabConfirmed,
-            'tabNotConfirmed' => $tabNotConfirmed,
-            'tabFuel' => $typeFuelTab,
-            'months' => $months
+            'tabFuel' => $typeFuelTab
         ]);
-
-//        $levelFuel = $carRepo->getLevelFuel();
-
-//        $tabLevelFuel['min'] = [];
-//        $tabLevelFuel['med'] = [];
-//        $tabLevelFuel['max'] = [];
-//
-//        foreach ($levelFuel as $level) {
-//            if ($level['level_fuel'] < 11) {
-//                array_push($tabLevelFuel['min'], $level['level_fuel']);
-//            } elseif ($level['level_fuel'] >= 11 && $level['level_fuel'] < 41) {
-//                array_push($tabLevelFuel['med'], $level['level_fuel']);
-//            } else {
-//                array_push($tabLevelFuel['max'], $level['level_fuel']);
-//            }
-//        }
-//
-//        $tabLevelFuel['min'] = count($tabLevelFuel['min']);
-//        $tabLevelFuel['med'] = count($tabLevelFuel['med']);
-//        $tabLevelFuel['max'] = count($tabLevelFuel['max']);
     }
 
     /**
@@ -134,11 +77,13 @@ class AdminController extends AbstractController
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             return $this->render('admin/user/index.html.twig', [
                 'users' => $UserRepository->findAll(),
+                'roleAdmin' => false
             ]);
         }else {
           
             return $this->render('admin/user/index.html.twig', [
                 'users' => $UserRepository->findBySociety($user->getSociety()),
+                'roleAdmin' => true
             ]);
         }
     }
@@ -146,7 +91,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository,UserPasswordEncoderInterface $passwordEncoder): Response
+    public function new(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
      
@@ -156,20 +101,56 @@ class AdminController extends AbstractController
             $user->setSociety($society); 
         }   
 
+        $user = new User();      
+
         $form = $this->createForm(RoleType::class, $user);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                $society = new Society();
+                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
+                $user->setSociety($society); 
+            }  
             $password = $form->getData()->getPassword();
+            $identified = $form->getData()->getEmail();
+
+            $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Bienvenue chez Dokiz !')
+                ->htmlTemplate('emails/registrationByAdmin.html.twig')
+                ->context([
+                    'identified' => $identified, 
+                    'password' => $password,
+                ]);
+
+            $mailer->send($email);
+            
             $user->setPassword(
                 $passwordEncoder->encodePassword($user, $password)
             );
-
+           
+            $user->setCreatedAt(new \DateTime());            
+            
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            
+            try {
+                $entityManager->persist($user);
+                $entityManager->flush();
+                
+                $this->addFlash('success', 'L\'utilisateur a bien été crée'); 
+                return $this->redirectToRoute('admin_user_index');
 
-            return $this->redirectToRoute('admin_user_index');
+            }
+            catch(\Doctrine\DBAL\DBALException $e) 
+            {
+                $this->addFlash('danger', 'L\'adresse email est déjà utilisée');
+                
+            }
+
+            
         }
 
         return $this->render('admin/user/new.html.twig', [
@@ -196,12 +177,64 @@ class AdminController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('message', 'Utilisateur modifié avec succès');
+            $this->addFlash('success', 'Utilisateur modifié avec succès');
             return $this->redirectToRoute('admin_user_index');
         }
         
         return $this->render('admin/user/edit.html.twig', [
             'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/sentInscriptionMail", name="sent_inscription_mail", methods={"GET","POST"})
+    */
+    public function sentInscriptionMail(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository): Response
+    {
+        $sentEmail = new SentEmail();
+     
+
+
+        $form = $this->createForm(SentEmailType::class, $sentEmail);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
+                $society = new Society();
+                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]); 
+                $idSociety = $society->getId();
+                $sentEmail->setSociety($society); 
+            } else{
+                $idSociety =  ($form->getData()->getSociety())->getId();
+            }  
+           
+            $emailUserInscription = $form->getData()->getEmail();
+
+            $email = (new TemplatedEmail())
+                ->from('dokiz.entreprise@gmail.com')
+                ->to($emailUserInscription)
+                ->subject('Bienvenue chez Dokiz !')
+                ->htmlTemplate('emails/registrationBySociety.html.twig')
+                ->context([
+                    'id' => $idSociety, 
+                ]);
+
+            $mailer->send($email); 
+
+            $this->addFlash('success', 'Votre email a bien été envoyé');
+
+                   
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($sentEmail);
+            $entityManager->flush();
+        }
+
+       
+
+        return $this->render('admin/inscription_mail/new.html.twig', [
+            'sentEmail' => $sentEmail,
             'form' => $form->createView(),
         ]);
     }

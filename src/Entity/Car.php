@@ -59,7 +59,7 @@ class Car
     private $assurance;
 
     /**
-     * @ORM\Column(type="string", length=200, nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $technical_control;
 

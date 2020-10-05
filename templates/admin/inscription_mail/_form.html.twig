@@ -1,0 +1,32 @@
+{{ form_start(form) }}
+<div class="adminContainerWhite container">
+    <div class="row">       
+        <div class="offset-md-2 col-md-8">            
+            <div class="form-group">                
+                {{ form_label(form.email, 'Email *', {'label_attr': {'class': 'label_control'}}) }}
+                 <small class="text-greyLight">Saisir seulement une adresse email</small>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>           
+        </div> 
+        <div class="offset-md-2 col-md-8">            
+            <div class="form-group">                
+                {{ form_label(form.society, 'Société *', {'label_attr': {'class': 'label_control'}}) }}  
+                 {% if is_granted('ROLE_SUPERADMIN') == false %}
+                    {{ form_widget(form.society, {'attr': {'class': 'form-control','disabled':'disabled'}}) }}
+                {% else %}
+                    {{ form_widget(form.society, {'attr': {'class': 'form-control'}}) }}
+                {% endif %}
+            </div>           
+        </div>
+    </div>
+<div> 
+<div class="row">
+    <div class="col-md-9">
+        <small class="obligatory-field">* Champ obligatoire</small>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-secondary pull-right">{{ button_label|default('Save') }}</button>
+    </div>
+</div>
+
+{{ form_end(form) }}

@@ -59,3 +59,4 @@ class Job
         return $this->users;
     }
 }
+

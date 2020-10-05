@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -44,24 +45,30 @@ class UserType extends AbstractType
                     'required'=> 'required'
                 ],
                 'label' => 'Téléphone *'
-            ])    
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'required' => true,
-                'first_options' => [
-                    'attr' => [
-                        'class' => 'form-control'
+            ]);
+            if($options["showPassword"]) {
+                $builder->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'required' => true,
+                    'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
+                    'first_options' => [
+                        'attr' => [
+                            'class' => 'form-control'
+                        ],
+                        'label' => 'Mot de passe *'
                     ],
-                    'label' => 'Mot de passe *'
-                ],
-                'second_options' => [
-                    'attr' => [
-                        'class' => 'form-control'
-                    ],
-                    'label' => 'Confirmer le mot de passe *'
-                ]
-            ])
-            ;
+                    'second_options' => [
+                        'attr' => [
+                            'class' => 'form-control'
+                        ],
+                        'label' => 'Confirmer le mot de passe *'
+                    ]
+                ])
+                ;
+            } else {
+                $builder->add('password', HiddenType::class);
+            }
+
                 
     }
 
@@ -69,7 +76,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'usePassword' => true
+            'showPassword' => true
         ]);
     }
 }

@@ -49,6 +49,17 @@ function convertDate(inputFormat) {
 
 {% block body %}
     <!-- Header -->
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} flash">
+                <i class="fa fa-times close-flash" aria-hidden="true"></i>
+                <div class="alert-{{ label }} alert" role="alert">
+                {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
     <script></script>
     <header class="masthead backWhite" id="dokiz" xmlns="http://www.w3.org/1999/html">
         <div class="container hAuto align-items-center boxShadow p-3 mb-5 bg-white rounded jumbotron">
@@ -101,12 +112,16 @@ function convertDate(inputFormat) {
                     </div>
                 </div>
                 <div class="col-sm-3"></div>
+
+            </div>
+
+            <hr>
             {% if carRides %}
                 {% for carRide in carRides %}
                     {% set nbPlacesRestantes, reservePart = "", "" %}
                     {% set reservation = carRide.reservation %}
                     {% set car = reservation.car %}
-                        {% if  car and (car.getPlaceNumber() - 1) - carRide.passengers|length > 0 %}
+                    {% if  car and (car.getPlaceNumber() - 1) - carRide.passengers|length > 0 %}
                         <div  class="cardSection parentCity" style="padding: 10px; margin: 15px">
                             <div onclick="location.href='{{ path('car_ride_show', {'id': carRide.id}) }}';" style="cursor:pointer;" >
                                 <div class="row">
@@ -122,13 +137,13 @@ function convertDate(inputFormat) {
                                         </div>
                                     </div>
                                     <div class="col-md-1 hrVerticalFine my-auto text-center">
-                                            {% if car %}
-                                                {{  (car.getPlaceNumber() - 1) - carRide.passengers|length }}
+                                        {% if car %}
+                                            {{  (car.getPlaceNumber() - 1) - carRide.passengers|length }}
 
-                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-2 hrVerticalFine my-auto text-center">
-                                            <a>Détails</a>
+                                        <a>Détails</a>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +153,6 @@ function convertDate(inputFormat) {
             {% else %}
                 <h3>Il n'y a pas de trajets en cours.</h3>
             {% endif %}
-            </div>
         </div>
     </header>
 

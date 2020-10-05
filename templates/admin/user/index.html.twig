@@ -6,25 +6,25 @@
     <script>
         $('#tableAdmin').DataTable({
             "language": {
-                "sEmptyTable":     "Aucun utilisateur disponible dans le tableau",
-                "sInfo":           "Affichage des utilisateurs _START_ à _END_ sur _TOTAL_ utilisateurs",
-                "sInfoEmpty":      "",
-                "sInfoFiltered":   "(filtré à partir de _MAX_ utilisateurs au total)",
-                "sInfoPostFix":    "",
-                "sInfoThousands":  ",",
-                "sLengthMenu":     "Afficher _MENU_ utilisateurs",
+                "sEmptyTable": "Aucun utilisateur disponible dans le tableau",
+                "sInfo": "Affichage des utilisateurs _START_ à _END_ sur _TOTAL_ utilisateurs",
+                "sInfoEmpty": "",
+                "sInfoFiltered": "(filtré à partir de _MAX_ utilisateurs au total)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ",",
+                "sLengthMenu": "Afficher _MENU_ utilisateurs",
                 "sLoadingRecords": "Chargement...",
-                "sProcessing":     "Traitement...",
-                "sSearch":         "Rechercher :",
-                "sZeroRecords":    "Aucun utilisateur correspondant trouvé",
+                "sProcessing": "Traitement...",
+                "sSearch": "Rechercher :",
+                "sZeroRecords": "Aucun utilisateur correspondant trouvé",
                 "oPaginate": {
-                    "sFirst":    "Premier",
-                    "sLast":     "Dernier",
-                    "sNext":     "Suivant",
+                    "sFirst": "Premier",
+                    "sLast": "Dernier",
+                    "sNext": "Suivant",
                     "sPrevious": "Précédent"
                 },
                 "oAria": {
-                    "sSortAscending":  ": activer pour trier la colonne par ordre croissant",
+                    "sSortAscending": ": activer pour trier la colonne par ordre croissant",
                     "sSortDescending": ": activer pour trier la colonne par ordre décroissant"
                 },
                 "select": {
@@ -40,60 +40,79 @@
 {% endblock %}
 
 {% block body %}
-    {{ include("admin/header.html.twig") }} 
+    {# read and display all flash messages #}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }} flash">
+                <i class="fa fa-times close-flash" aria-hidden="true"></i>
+                <div class="alert-{{ label }} alert" role="alert">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {{ include("admin/header.html.twig") }}
     {{ include("navigation/navAdmin.html.twig") }}
-     
-        <div class="row">
-            <div class="col-sm-6">
-                <h1>Liste des utilisateurs</h1>
-            </div>
-            <div class="col-sm-6">
-                <a class="btn btn-primary float-right" href="{{ path('admin_user_new') }}">Ajouter un utilisateur</a>
-            </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Liste des utilisateurs</h1>
         </div>
-        <table id="tableAdmin" class="display tableUserAdmin">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Email</th>
-                    <th>Rôles</th>
-                    <th>Poste de travail</th>
-                    <th>Société</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
-                <tr>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.firstname }}</td>
-                    <td>{{ user.lastname }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>                    
-                        {% for role in user.roles %}
-                            {% if role == "ROLE_SUPERADMIN" %}
-                                <span class="superAdmin">Super Admin</span>
-                            {% elseif role == "ROLE_ADMIN" %}
-                                <span class="admin">Administrateur</span>
-                            {% elseif role == "ROLE_USER" %}
-                                <span class="user">Utilisateur</span>
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                    <td>{{ user.job }}</td>
-                    <td>{{ user.society }}</td>
-                    <td>
-                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="8">Aucun utilisateur</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>   
-    {{ include("admin/footer.html.twig") }} 
+        <div class="col-sm-6">
+            <a class="btn btn-primary float-right" href="{{ path('admin_user_new') }}">Ajouter un utilisateur</a>
+        </div>
+    </div>
+    <table id="tableAdmin" class="display tableUserAdmin">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Rôles</th>
+            <th>Poste de travail</th>
+            <th>Société</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            {% set isSuperAdmin = false %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% for role in user.roles %}
+                        {% if role == "ROLE_SUPERADMIN" %}
+                            {% set isSuperAdmin = true %}
+                            <span class="superAdmin">Super Admin</span>
+                        {% elseif role == "ROLE_ADMIN" %}
+                            <span class="admin">Administrateur</span>
+                        {% elseif role == "ROLE_USER" %}
+                            <span class="user">Utilisateur</span>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ user.job }}</td>
+                <td>{{ user.society }}</td>
+                <td>
+
+                    {% if roleAdmin and isSuperAdmin %}
+
+                    {% else %}
+                        <a href="{{ path('admin_user_edit', {'id': user.id}) }}"><i class="fa fa-pencil"
+                                                                                    aria-hidden="true"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Aucun utilisateur</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {{ include("admin/footer.html.twig") }}
 {% endblock %}

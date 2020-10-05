@@ -28,7 +28,7 @@ class Passenger
     private $User;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CarRide", inversedBy="passengers")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CarRide", inversedBy="passengers" )
      * @ORM\JoinColumn(nullable=false)
      */
     private $CarRide;

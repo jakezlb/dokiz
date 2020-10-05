@@ -135,6 +135,7 @@ final class Versions
   'symfony/polyfill-php70' => '*@a9b11839a9d68e68f2a3496e376218e9417c7961',
   'symfony/polyfill-php56' => '*@a9b11839a9d68e68f2a3496e376218e9417c7961',
   '__root__' => 'dev-scouarnec@a9b11839a9d68e68f2a3496e376218e9417c7961',
+
 );
 
     private function __construct()
