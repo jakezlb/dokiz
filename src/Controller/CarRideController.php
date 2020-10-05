@@ -165,7 +165,7 @@ class CarRideController extends AbstractController
                 ]);
             $mailer->send($email);
 
-            $this->addFlash('success', 'Votre trajet a bien été annulé. Vous allez reçevoir un email de confirmation. L\'emsemble des passagers vont également être averti de votre annulation');
+            $this->addFlash('success', 'Votre trajet a bien été annulé. Vous allez reçevoir un email de confirmation. L\'ensemble des passagers vont également être averti de votre annulation');
 
         }else{            
             $email = (new TemplatedEmail())
