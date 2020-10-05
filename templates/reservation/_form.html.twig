@@ -139,7 +139,7 @@
         <div class="col-md-12 ">
             <label for="cars">Liste des véhicules disponibles</label>
             <select id="cars" name="cars" class="form-control" onchange="enableCreate()">
-                <option value="none"selected disabled hidden>Selectionner une voiture</option>
+                <option value="none" selected disabled hidden>Selectionner une voiture</option>
                 {% for car in cars %}
                     <option id="car{{ car.id }}" value="car{{ car.id }}" data-id="{{ car.id|json_encode() }}" data-mark={{ car.mark|json_encode()|raw }} data-name={{ car.name|json_encode()|raw }} data-date-start={{ car.getStartReservationDate()|date('Y-m-d')|json_encode()|raw }} data-date-end={{ car.getEndReservationDate()|date('Y-m-d')|json_encode()|raw }}>{{ car.id ~' - '~ car.mark ~' '~ car.name }}</option>
                 {% endfor %}

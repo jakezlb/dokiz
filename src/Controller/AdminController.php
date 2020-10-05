@@ -151,8 +151,8 @@ class AdminController extends AbstractController
         $user = new User();
      
         if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
-            $society = new Society();
-            $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);            
+            $societyTempo = $userConnect->getSociety();
+            $society = $SocietyRepository->FindOneBy(['id' => $societyTempo->getId()]);
             $user->setSociety($society); 
         }   
 
