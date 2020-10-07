@@ -94,7 +94,6 @@ class AdminController extends AbstractController
     public function new(MailerInterface $mailer, Request $request, UserInterface $userConnect, SocietyRepository $SocietyRepository,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = new User();
-
         if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
             $society = new Society();
             $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);
