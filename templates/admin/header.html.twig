@@ -6,7 +6,8 @@
         </div>
         <div class="col-sm-10 col-md-11">
             <div class="mx-auto text-right sub_nav">
-            <!--  <span class="sousNav">Bienvenue {{ app.user.firstname }}</span> --> 
+            <!--  <span class="sousNav">Bienvenue {{ app.user.firstname }}</span> -->
+                    <li onclick="window.open('http://dokiz.fr/image/DOKIZ_installation_administration.pdf', '_blank');" style="cursor: pointer;"><i class="fa fa-question" aria-hidden="true"></i></li>
                     <li onclick="location.href='{{ path('app_logout') }}';" style="cursor: pointer;"><i class="fa fa-sign-out" aria-hidden="true"></i></li>
                     <li onclick="location.href='{{ path('index') }}';" style="cursor: pointer;"><i class="fa fa-car" aria-hidden="true"></i></li>
             </div>  
