@@ -202,9 +202,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_SUPERADMIN')) {
-                $society = new Society();
-                $society = $SocietyRepository->FindOneBy(['id' => $userConnect->getSociety()]);
-                $sentEmail->setSociety($society);
+                $idSociety =  $society->getId();
             } else{
                 $idSociety =  ($form->getData()->getSociety())->getId();
             }  
